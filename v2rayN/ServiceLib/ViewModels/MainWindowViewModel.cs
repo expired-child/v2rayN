@@ -491,13 +491,12 @@ public partial class MainWindowViewModel : MyReactiveObject
         var stringData = clipboardData;
         if (clipboardData == null)
         {
-            var result = await ReadTextFromClipboardInteraction.HandleSafe(RxVoid.Default);
-            if (result.IsNullOrEmpty())
-            {
-                NoticeManager.Instance.Enqueue(ResUI.OperationFailed);
-                return;
-            }
-            stringData = result;
+            stringData = await ReadTextFromClipboardInteraction.HandleSafe(RxVoid.Default);
+        }
+        if (string.IsNullOrWhiteSpace(stringData))
+        {
+            NoticeManager.Instance.Enqueue(ResUI.ClipboardImportEmpty);
+            return;
         }
         var ret = await ConfigHandler.AddBatchServers(_config, stringData, _config.SubIndexId, false);
         if (ret > 0)
@@ -508,7 +507,7 @@ public partial class MainWindowViewModel : MyReactiveObject
         }
         else
         {
-            NoticeManager.Instance.Enqueue(ResUI.OperationFailed);
+            NoticeManager.Instance.Enqueue(ResUI.ClipboardImportInvalid);
         }
     }
 
@@ -567,7 +566,7 @@ public partial class MainWindowViewModel : MyReactiveObject
 
     #region Subscription
 
-    private async Task SubSettingAsync()
+    public async Task SubSettingAsync()
     {
         var subSettingViewModel = new SubSettingViewModel();
         if (await AppManager.Instance.WindowDialog.ShowDialogAsync(subSettingViewModel) == true)
@@ -585,7 +584,7 @@ public partial class MainWindowViewModel : MyReactiveObject
 
     #region Setting
 
-    private async Task OptionSettingAsync()
+    public async Task OptionSettingAsync()
     {
         var settingViewModel = new OptionSettingViewModel();
         var ret = await AppManager.Instance.WindowDialog.ShowDialogAsync(settingViewModel);
@@ -600,7 +599,7 @@ public partial class MainWindowViewModel : MyReactiveObject
         }
     }
 
-    private async Task RoutingSettingAsync()
+    public async Task RoutingSettingAsync()
     {
         var routingSettingViewModel = new RoutingSettingViewModel();
         var ret = await AppManager.Instance.WindowDialog.ShowDialogAsync(routingSettingViewModel);

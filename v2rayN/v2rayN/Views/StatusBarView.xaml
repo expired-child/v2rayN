@@ -13,222 +13,281 @@
     d:DesignWidth="800"
     x:TypeArguments="vms:StatusBarViewModel"
     Style="{StaticResource ViewGlobal}"
+    Background="Transparent"
+    Foreground="{DynamicResource WorkspaceText}"
     mc:Ignorable="d">
     <Grid>
-        <materialDesign:ColorZone
-            Height="auto"
-            Margin="{StaticResource Margin4}"
-            Mode="Standard">
-            <DockPanel>
-                <StackPanel
-                    Margin="{StaticResource MarginLeftRight8}"
-                    VerticalAlignment="Center"
-                    DockPanel.Dock="Right">
-                    <TextBlock
-                        x:Name="txtSpeedProxyDisplay"
-                        HorizontalAlignment="Right"
-                        Style="{StaticResource StatusbarItem}" />
-                    <Border Margin="1" />
-                    <TextBlock
-                        x:Name="txtSpeedDirectDisplay"
-                        HorizontalAlignment="Right"
-                        Style="{StaticResource StatusbarItem}" />
-                </StackPanel>
-
-                <StackPanel
-                    Width="Auto"
-                    Margin="{StaticResource MarginLeftRight8}"
-                    VerticalAlignment="Center"
-                    DockPanel.Dock="Left">
-                    <TextBlock x:Name="txtInboundDisplay" Style="{StaticResource StatusbarItem}" />
-                    <Border Margin="1" />
-                    <TextBlock x:Name="txtInboundLanDisplay" Style="{StaticResource StatusbarItem}" />
-                </StackPanel>
-
-                <StackPanel
-                    x:Name="spEnableTun"
-                    Width="Auto"
-                    Margin="{StaticResource MarginLeftRight8}"
-                    VerticalAlignment="Center"
-                    DockPanel.Dock="Left"
-                    Orientation="Horizontal">
-                    <TextBlock
-                        Margin="{StaticResource MarginLeftRight8}"
-                        VerticalAlignment="Center"
-                        Style="{StaticResource StatusbarItem}"
-                        Text="{x:Static resx:ResUI.TbEnableTunAs}" />
-                    <ToggleButton
-                        x:Name="togEnableTun"
-                        Margin="{StaticResource Margin4}"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        AutomationProperties.Name="{x:Static resx:ResUI.TbEnableTunAs}" />
-                </StackPanel>
-
-                <StackPanel
-                    Margin="{StaticResource MarginLeftRight8}"
-                    VerticalAlignment="Center"
-                    DockPanel.Dock="Left"
-                    Orientation="Horizontal">
-                    <ComboBox
-                        x:Name="cmbSystemProxy"
-                        Width="160"
-                        Margin="{StaticResource MarginLeftRight8}"
-                        materialDesign:HintAssist.Hint="{x:Static resx:ResUI.menuSystemproxy}"
-                        AutomationProperties.Name="{x:Static resx:ResUI.menuSystemproxy}"
-                        FontSize="{DynamicResource StdFontSize}"
-                        Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                        <ComboBoxItem Content="{x:Static resx:ResUI.menuSystemProxyClear}" />
-                        <ComboBoxItem Content="{x:Static resx:ResUI.menuSystemProxySet}" />
-                        <ComboBoxItem Content="{x:Static resx:ResUI.menuSystemProxyNothing}" />
-                        <ComboBoxItem Content="{x:Static resx:ResUI.menuSystemProxyPac}" />
-                    </ComboBox>
-
-                    <ComboBox
-                        x:Name="cmbRoutings2"
-                        Width="160"
-                        Margin="{StaticResource MarginLeftRight8}"
-                        materialDesign:HintAssist.Hint="{x:Static resx:ResUI.menuRouting}"
-                        AutomationProperties.Name="{x:Static resx:ResUI.menuRouting}"
-                        DisplayMemberPath="Remarks"
-                        FontSize="{DynamicResource StdFontSize}"
-                        Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
-                </StackPanel>
-
-                <StackPanel Margin="{StaticResource MarginLeftRight8}" VerticalAlignment="Center">
-                    <TextBlock x:Name="txtRunningServerDisplay" Style="{StaticResource StatusbarItem}" />
-                    <Border Margin="1" />
-                    <TextBlock x:Name="txtRunningInfoDisplay" Style="{StaticResource StatusbarItem}" />
-                </StackPanel>
-            </DockPanel>
-        </materialDesign:ColorZone>
-
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                        Width="1.1*" />
+                    <ColumnDefinition
+                        Width="16" />
+                    <ColumnDefinition
+                        Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Border
+                    Grid.Column="0"
+                    Style="{StaticResource WorkspaceCard}"
+                    Background="{DynamicResource WorkspaceAccentSoft}"
+                    BorderBrush="{DynamicResource WorkspaceAccentSoft}"
+                    MinHeight="216">
+                    <DockPanel>
+                        <StackPanel
+                            DockPanel.Dock="Top"
+                            Margin="0,0,0,18">
+                            <TextBlock
+                                Text="{x:Static resx:ResUI.TbCurrentConnection}"
+                                Foreground="{DynamicResource WorkspaceAccent}"
+                                FontWeight="Medium" />
+                        </StackPanel>
+                        <Button
+                            DockPanel.Dock="Bottom"
+                            Style="{StaticResource WorkspaceSecondaryButton}"
+                            HorizontalAlignment="Left"
+                            Margin="0,20,0,0"
+                            Click="TestConnection_Click"
+                            Content="{x:Static resx:ResUI.TbTestConnection}" />
+                        <StackPanel>
+                            <TextBlock
+                                x:Name="txtRunningServerDisplay"
+                                FontSize="20"
+                                Foreground="{DynamicResource WorkspaceText}"
+                                TextTrimming="CharacterEllipsis"
+                                FontWeight="SemiBold"
+                                TextWrapping="Wrap"
+                                Cursor="Hand"
+                                ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                            <TextBlock
+                                x:Name="txtRunningInfoDisplay"
+                                FontSize="13"
+                                Foreground="{DynamicResource WorkspaceText}"
+                                TextTrimming="CharacterEllipsis"
+                                Margin="0,10,0,0"
+                                Cursor="Hand"
+                                ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+                <Border
+                    Grid.Column="2"
+                    Style="{StaticResource WorkspaceCard}"
+                    MinHeight="216">
+                    <StackPanel>
+                        <TextBlock
+                            Text="{x:Static resx:ResUI.TbNetworkTraffic}"
+                            Style="{StaticResource WorkspaceCaption}" />
+                        <TextBlock
+                            x:Name="txtSpeedProxyDisplay"
+                            FontSize="17"
+                            Foreground="{DynamicResource WorkspaceText}"
+                            TextTrimming="CharacterEllipsis"
+                            Margin="0,18,0,0"
+                            FontWeight="SemiBold"
+                            ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                        <TextBlock
+                            x:Name="txtSpeedDirectDisplay"
+                            FontSize="13"
+                            Foreground="{DynamicResource WorkspaceText}"
+                            TextTrimming="CharacterEllipsis"
+                            Margin="0,6,0,0"
+                            ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                        <TextBlock
+                            Text="{x:Static resx:ResUI.TbWaitingForTraffic}"
+                            Margin="0,10,0,0"
+                            Foreground="{DynamicResource WorkspaceMuted}">
+                            <TextBlock.Style>
+                                <Style
+                                    TargetType="TextBlock">
+                                    <Setter
+                                        Property="Visibility"
+                                        Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding ElementName=txtSpeedProxyDisplay, Path=Text}"
+                                            Value="">
+                                            <Setter
+                                                Property="Visibility"
+                                                Value="Visible" />
+                                        </DataTrigger>
+                                        <DataTrigger
+                                            Binding="{Binding ElementName=txtSpeedProxyDisplay, Path=Text}"
+                                            Value="{x:Null}">
+                                            <Setter
+                                                Property="Visibility"
+                                                Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <Border
+                            Height="1"
+                            Background="{DynamicResource WorkspaceStroke}"
+                            Margin="0,20,0,14" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+                                    Width="1*" />
+                                <ColumnDefinition
+                                    Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel
+                                Grid.Column="0">
+                                <TextBlock
+                                    x:Name="txtInboundDisplay"
+                                    FontSize="12"
+                                    Foreground="{DynamicResource WorkspaceText}"
+                                    TextTrimming="CharacterEllipsis"
+                                    ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Column="1"
+                                Margin="12,0,0,0">
+                                <TextBlock
+                                    x:Name="txtInboundLanDisplay"
+                                    FontSize="12"
+                                    Foreground="{DynamicResource WorkspaceText}"
+                                    TextTrimming="CharacterEllipsis"
+                                    ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Grid>
+            <TextBlock
+                Text="{x:Static resx:ResUI.TbProxyControls}"
+                FontSize="16"
+                FontWeight="SemiBold"
+                Foreground="{DynamicResource WorkspaceText}"
+                Margin="2,26,0,14" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                        Width="1*" />
+                    <ColumnDefinition
+                        Width="16" />
+                    <ColumnDefinition
+                        Width="1*" />
+                    <ColumnDefinition
+                        Width="16" />
+                    <ColumnDefinition
+                        Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Border
+                    Grid.Column="0"
+                    Style="{StaticResource WorkspaceCard}"
+                    MinHeight="130">
+                    <StackPanel>
+                        <TextBlock
+                            Text="{x:Static resx:ResUI.menuSystemproxy}"
+                            Style="{StaticResource WorkspaceCaption}" />
+                        <ComboBox
+                            x:Name="cmbSystemProxy"
+                            Style="{StaticResource WorkspaceComboBox}"
+                            Margin="0,16,0,0"
+                            HorizontalAlignment="Stretch"
+                            ToolTip="{x:Static resx:ResUI.menuSystemproxy}"
+                            AutomationProperties.Name="{x:Static resx:ResUI.menuSystemproxy}">
+                            <ComboBoxItem
+                                Content="{x:Static resx:ResUI.menuSystemProxyClear}" />
+                            <ComboBoxItem
+                                Content="{x:Static resx:ResUI.menuSystemProxySet}" />
+                            <ComboBoxItem
+                                Content="{x:Static resx:ResUI.menuSystemProxyNothing}" />
+                            <ComboBoxItem
+                                Content="{x:Static resx:ResUI.menuSystemProxyPac}" />
+                        </ComboBox>
+                    </StackPanel>
+                </Border>
+                <Border
+                    Grid.Column="2"
+                    Style="{StaticResource WorkspaceCard}"
+                    MinHeight="130">
+                    <StackPanel
+                        x:Name="spEnableTun">
+                        <TextBlock
+                            Text="{x:Static resx:ResUI.TbEnableTunAs}"
+                            Style="{StaticResource WorkspaceCaption}" />
+                        <ToggleButton
+                            x:Name="togEnableTun"
+                            Style="{StaticResource WorkspaceToggle}"
+                            HorizontalAlignment="Left"
+                            Margin="0,16,0,0"
+                            AutomationProperties.Name="{x:Static resx:ResUI.TbEnableTunAs}" />
+                    </StackPanel>
+                </Border>
+                <Border
+                    Grid.Column="4"
+                    Style="{StaticResource WorkspaceCard}"
+                    MinHeight="130">
+                    <StackPanel>
+                        <TextBlock
+                            Text="{x:Static resx:ResUI.menuRouting}"
+                            Style="{StaticResource WorkspaceCaption}" />
+                        <ComboBox
+                            x:Name="cmbRoutings2"
+                            Style="{StaticResource WorkspaceComboBox}"
+                            DisplayMemberPath="Remarks"
+                            Margin="0,16,0,0"
+                            HorizontalAlignment="Stretch"
+                            ToolTip="{x:Static resx:ResUI.menuRouting}"
+                            AutomationProperties.Name="{x:Static resx:ResUI.menuRouting}" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
         <tb:TaskbarIcon
             x:Name="tbNotify"
             IconSource="/Resources/v2rayN.ico"
             NoLeftClickDelay="True"
             ToolTipText="v2rayN">
             <tb:TaskbarIcon.ContextMenu>
-                <ContextMenu Style="{StaticResource DefContextMenu}">
-                    <MenuItem
-                        x:Name="menuSystemProxyClear"
-                        Height="{StaticResource MenuItemHeight}"
-                        AutomationProperties.Name="{x:Static resx:ResUI.menuSystemProxyClear}">
-                        <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon
-                                    x:Name="menuSystemProxyClear2"
-                                    Margin="{StaticResource MarginRight8}"
-                                    VerticalAlignment="Center"
-                                    Kind="Check" />
-                                <TextBlock Text="{x:Static resx:ResUI.menuSystemProxyClear}" />
-                            </StackPanel>
-                        </MenuItem.Header>
-                    </MenuItem>
-                    <MenuItem
-                        x:Name="menuSystemProxySet"
-                        Height="{StaticResource MenuItemHeight}"
-                        AutomationProperties.Name="{x:Static resx:ResUI.menuSystemProxySet}">
-                        <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon
-                                    x:Name="menuSystemProxySet2"
-                                    Margin="{StaticResource MarginRight8}"
-                                    VerticalAlignment="Center"
-                                    Kind="Check" />
-                                <TextBlock Text="{x:Static resx:ResUI.menuSystemProxySet}" />
-                            </StackPanel>
-                        </MenuItem.Header>
-                    </MenuItem>
-                    <MenuItem
-                        x:Name="menuSystemProxyNothing"
-                        Height="{StaticResource MenuItemHeight}"
-                        AutomationProperties.Name="{x:Static resx:ResUI.menuSystemProxyNothing}">
-                        <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon
-                                    x:Name="menuSystemProxyNothing2"
-                                    Margin="{StaticResource MarginRight8}"
-                                    VerticalAlignment="Center"
-                                    Kind="Check" />
-                                <TextBlock Text="{x:Static resx:ResUI.menuSystemProxyNothing}" />
-                            </StackPanel>
-                        </MenuItem.Header>
-                    </MenuItem>
-                    <MenuItem
-                        x:Name="menuSystemProxyPac"
-                        Height="{StaticResource MenuItemHeight}"
-                        AutomationProperties.Name="{x:Static resx:ResUI.menuSystemProxyPac}">
-                        <MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon
-                                    x:Name="menuSystemProxyPac2"
-                                    Margin="{StaticResource MarginRight8}"
-                                    VerticalAlignment="Center"
-                                    Kind="Check" />
-                                <TextBlock Text="{x:Static resx:ResUI.menuSystemProxyPac}" />
-                            </StackPanel>
-                        </MenuItem.Header>
-                    </MenuItem>
+                <ContextMenu Style="{StaticResource WorkspaceTrayMenu}">
+                    <MenuItem x:Name="menuShowWindow" Header="{x:Static resx:ResUI.TbDisplayGUI}" FontWeight="SemiBold" />
+                    <Separator />
+                    <MenuItem x:Name="menuSystemProxyClear" Header="{x:Static resx:ResUI.menuSystemProxyClear}"
+                              IsCheckable="True" Click="ProxyMenuItem_Click" />
+                    <MenuItem x:Name="menuSystemProxySet" Header="{x:Static resx:ResUI.menuSystemProxySet}"
+                              IsCheckable="True" Click="ProxyMenuItem_Click" />
+                    <MenuItem x:Name="menuSystemProxyNothing" Header="{x:Static resx:ResUI.menuSystemProxyNothing}"
+                              IsCheckable="True" Click="ProxyMenuItem_Click" />
+                    <MenuItem x:Name="menuSystemProxyPac" Header="{x:Static resx:ResUI.menuSystemProxyPac}"
+                              IsCheckable="True" Click="ProxyMenuItem_Click" />
                     <Separator x:Name="sepRoutings" />
-                    <MenuItem
-                        x:Name="menuRoutings"
-                        Height="Auto"
-                        AutomationProperties.Name="{x:Static resx:ResUI.menuRouting}">
-                        <MenuItem.Header>
-                            <DockPanel>
-                                <ComboBox
-                                    x:Name="cmbRoutings"
-                                    MaxWidth="300"
-                                    materialDesign:HintAssist.Hint="{x:Static resx:ResUI.menuRouting}"
-                                    AutomationProperties.Name="{x:Static resx:ResUI.menuRouting}"
-                                    DisplayMemberPath="Remarks"
-                                    FontSize="{DynamicResource StdFontSize}"
-                                    Style="{StaticResource MaterialDesignFilledComboBox}" />
-                            </DockPanel>
-                        </MenuItem.Header>
+                    <MenuItem x:Name="menuRoutings" Header="{x:Static resx:ResUI.menuRouting}"
+                              IsEnabled="{Binding HasItems, RelativeSource={RelativeSource Self}}"
+                              SubmenuOpened="SelectionMenu_Opened">
+                        <MenuItem.ItemContainerStyle>
+                            <Style TargetType="MenuItem" BasedOn="{StaticResource WorkspaceTrayMenuItem}">
+                                <Setter Property="Header" Value="{Binding Remarks}" />
+                                <Setter Property="IsCheckable" Value="True" />
+                                <EventSetter Event="Click" Handler="RoutingMenuItem_Click" />
+                            </Style>
+                        </MenuItem.ItemContainerStyle>
                     </MenuItem>
-                    <MenuItem Height="Auto" AutomationProperties.Name="{x:Static resx:ResUI.menuServers}">
-                        <MenuItem.Header>
-                            <DockPanel>
-                                <ComboBox
-                                    x:Name="cmbServers"
-                                    MaxWidth="300"
-                                    materialDesign:HintAssist.Hint="{x:Static resx:ResUI.menuServers}"
-                                    AutomationProperties.Name="{x:Static resx:ResUI.menuServers}"
-                                    DisplayMemberPath="Text"
-                                    FontSize="{DynamicResource StdFontSize}"
-                                    Style="{StaticResource MaterialDesignFilledComboBox}" />
-                            </DockPanel>
-                        </MenuItem.Header>
+                    <MenuItem x:Name="menuServers" Header="{x:Static resx:ResUI.menuServers}"
+                              IsEnabled="{Binding HasItems, RelativeSource={RelativeSource Self}}"
+                              SubmenuOpened="SelectionMenu_Opened">
+                        <MenuItem.ItemContainerStyle>
+                            <Style TargetType="MenuItem" BasedOn="{StaticResource WorkspaceTrayMenuItem}">
+                                <Setter Property="Header" Value="{Binding Text}" />
+                                <Setter Property="IsCheckable" Value="True" />
+                                <EventSetter Event="Click" Handler="ServerMenuItem_Click" />
+                            </Style>
+                        </MenuItem.ItemContainerStyle>
                     </MenuItem>
                     <Separator />
-                    <MenuItem
-                        x:Name="menuAddServerViaClipboard2"
-                        Height="{StaticResource MenuItemHeight}"
-                        Header="{x:Static resx:ResUI.menuAddServerViaClipboard}" />
-                    <MenuItem
-                        x:Name="menuAddServerViaScan2"
-                        Height="{StaticResource MenuItemHeight}"
-                        Header="{x:Static resx:ResUI.menuAddServerViaScan}" />
-                    <MenuItem
-                        x:Name="menuSubUpdate2"
-                        Height="{StaticResource MenuItemHeight}"
-                        Header="{x:Static resx:ResUI.menuSubUpdate}" />
-                    <MenuItem
-                        x:Name="menuSubUpdateViaProxy2"
-                        Height="{StaticResource MenuItemHeight}"
-                        Header="{x:Static resx:ResUI.menuSubUpdateViaProxy}" />
+                    <MenuItem x:Name="menuAddServerViaClipboard2" Header="{x:Static resx:ResUI.menuAddServerViaClipboard}" />
+                    <MenuItem x:Name="menuAddServerViaScan2" Header="{x:Static resx:ResUI.menuAddServerViaScan}" />
+                    <MenuItem Header="{x:Static resx:ResUI.menuSubscription}">
+                        <MenuItem x:Name="menuSubUpdate2" Header="{x:Static resx:ResUI.menuSubUpdate}" />
+                        <MenuItem x:Name="menuSubUpdateViaProxy2" Header="{x:Static resx:ResUI.menuSubUpdateViaProxy}" />
+                    </MenuItem>
+                    <MenuItem x:Name="menuCopyProxyCmdToClipboard" Header="{x:Static resx:ResUI.menuCopyProxyCmdToClipboard}" />
                     <Separator />
-                    <MenuItem
-                        x:Name="menuCopyProxyCmdToClipboard"
-                        Height="{StaticResource MenuItemHeight}"
-                        Header="{x:Static resx:ResUI.menuCopyProxyCmdToClipboard}" />
-                    <Separator />
-                    <MenuItem
-                        x:Name="menuExit"
-                        Height="{StaticResource MenuItemHeight}"
-                        Header="{x:Static resx:ResUI.menuExit}" />
+                    <MenuItem x:Name="menuExit" Header="{x:Static resx:ResUI.menuExit}" />
                 </ContextMenu>
             </tb:TaskbarIcon.ContextMenu>
         </tb:TaskbarIcon>

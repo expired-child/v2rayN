@@ -6,6 +6,7 @@ public partial class FullConfigTemplateWindow
 
     public FullConfigTemplateWindow()
     {
+        Title = ResUI.menuFullConfigTemplate;
         InitializeComponent();
 
         _config = AppManager.Instance.Config;
@@ -25,7 +26,7 @@ public partial class FullConfigTemplateWindow
 
             this.BindCommand(ViewModel, vm => vm.SaveCmd, v => v.btnSave).DisposeWith(disposables);
         });
-        WindowsUtils.SetDarkBorder(this, AppManager.Instance.Config.UiItem.CurrentTheme);
+
     }
 
     private void linkFullConfigTemplateDoc_Click(object sender, RoutedEventArgs e)

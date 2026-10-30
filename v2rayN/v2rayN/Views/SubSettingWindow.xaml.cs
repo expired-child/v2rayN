@@ -6,6 +6,7 @@ public partial class SubSettingWindow
 {
     public SubSettingWindow()
     {
+        Title = ResUI.menuSubSetting;
         InitializeComponent();
 
         Closing += SubSettingWindow_Closing;
@@ -47,7 +48,7 @@ public partial class SubSettingWindow
                 interaction.SetOutput(RxVoid.Default);
             }).DisposeWith(disposables);
         });
-        WindowsUtils.SetDarkBorder(this, AppManager.Instance.Config.UiItem.CurrentTheme);
+
     }
 
     private async Task ShareSub(string url)

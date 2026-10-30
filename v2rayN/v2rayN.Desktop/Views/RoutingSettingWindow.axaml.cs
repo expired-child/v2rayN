@@ -3,7 +3,7 @@ using v2rayN.Desktop.Common;
 
 namespace v2rayN.Desktop.Views;
 
-public partial class RoutingSettingWindow : WindowBase<RoutingSettingViewModel>
+public partial class RoutingSettingWindow : PageBase<RoutingSettingViewModel>
 {
     public RoutingSettingWindow()
     {
@@ -45,7 +45,7 @@ public partial class RoutingSettingWindow : WindowBase<RoutingSettingViewModel>
 
     private bool _closed = false;
 
-    private void RoutingSettingWindow_Closing(object? sender, WindowClosingEventArgs e)
+    private void RoutingSettingWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
     {
         if (_closed)
         {

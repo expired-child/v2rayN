@@ -4,7 +4,7 @@ using v2rayN.Desktop.Common;
 
 namespace v2rayN.Desktop.Views;
 
-public partial class SubSettingWindow : WindowBase<SubSettingViewModel>
+public partial class SubSettingWindow : PageBase<SubSettingViewModel>
 {
     private bool _manualClose = false;
 
@@ -84,7 +84,7 @@ public partial class SubSettingWindow : WindowBase<SubSettingViewModel>
         Close(ViewModel?.IsModified);
     }
 
-    private void SubSettingWindow_Closing(object? sender, WindowClosingEventArgs e)
+    private void SubSettingWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
     {
         if (ViewModel?.IsModified == true)
         {

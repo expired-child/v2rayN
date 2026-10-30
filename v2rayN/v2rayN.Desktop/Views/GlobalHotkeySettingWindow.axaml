@@ -1,6 +1,7 @@
-<Window
+<base:PageBase
     x:Class="v2rayN.Desktop.Views.GlobalHotkeySettingWindow"
     xmlns="https://github.com/avaloniaui"
+    xmlns:base="clr-namespace:v2rayN.Desktop.Base"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dd="clr-namespace:v2rayN.Desktop.DesignData"
@@ -8,35 +9,32 @@
     xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
     xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
     Title="{x:Static resx:ResUI.menuGlobalHotkeySetting}"
-    Width="700"
-    Height="500"
     x:DataType="vms:GlobalHotkeySettingViewModel"
+    x:TypeArguments="vms:GlobalHotkeySettingViewModel"
     Design.DataContext="{x:Static dd:DesignData.GlobalHotkeySetting}"
-    ShowInTaskbar="False"
-    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <DockPanel Margin="{StaticResource Margin8}">
         <StackPanel
             Margin="{StaticResource Margin4}"
-            HorizontalAlignment="Center"
+            HorizontalAlignment="Right"
             DockPanel.Dock="Bottom"
             Orientation="Horizontal">
             <Button
                 x:Name="btnReset"
                 MinWidth="100"
                 Margin="{StaticResource MarginLr8}"
-                Content="{x:Static resx:ResUI.TbReset}" />
+                Content="{x:Static resx:ResUI.TbReset}"  Classes="workspaceSecondary" />
             <Button
                 x:Name="btnSave"
                 MinWidth="100"
                 Content="{x:Static resx:ResUI.TbConfirm}"
-                IsDefault="True" />
+                IsDefault="True"  Classes="workspacePrimary" />
             <Button
                 x:Name="btnCancel"
                 MinWidth="100"
                 Margin="{StaticResource MarginLr8}"
                 Content="{x:Static resx:ResUI.TbCancel}"
-                IsCancel="True" />
+                IsCancel="True"  Classes="workspaceSecondary" />
         </StackPanel>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <Grid RowDefinitions="Auto,Auto,Auto">
@@ -130,4 +128,4 @@
             </Grid>
         </ScrollViewer>
     </DockPanel>
-</Window>
+</base:PageBase>

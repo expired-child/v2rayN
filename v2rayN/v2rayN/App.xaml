@@ -13,6 +13,7 @@
                     PrimaryColor="Blue"
                     SecondaryColor="Lime" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml" />
+                <ResourceDictionary Source="Resources/WorkspaceStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <system:Double x:Key="MenuItemHeight">32</system:Double>
             <system:Double x:Key="StdFontSize">12</system:Double>
@@ -116,8 +117,8 @@
             </Style>
             <Style
                 x:Key="DefButton"
-                BasedOn="{StaticResource MaterialDesignRaisedButton}"
-                TargetType="{x:Type ButtonBase}">
+                BasedOn="{StaticResource WorkspaceSecondaryButton}"
+                TargetType="{x:Type Button}">
                 <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
             </Style>
             <Style
@@ -126,6 +127,9 @@
                 TargetType="{x:Type ContextMenu}">
                 <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
                 <Setter Property="FontFamily" Value="{x:Static conv:MaterialDesignFonts.MyFont}" />
+                <Setter Property="Background" Value="{DynamicResource WorkspaceSurface}" />
+                <Setter Property="Foreground" Value="{DynamicResource WorkspaceText}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource WorkspaceStroke}" />
             </Style>
 
             <Style
@@ -138,26 +142,27 @@
 
             <Style
                 x:Key="DefComboBox"
-                BasedOn="{StaticResource MaterialDesignComboBox}"
+                BasedOn="{StaticResource WorkspaceComboBox}"
                 TargetType="{x:Type ComboBox}">
                 <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
                 <Setter Property="HorizontalAlignment" Value="Left" />
             </Style>
+            <Style TargetType="ScrollBar" BasedOn="{StaticResource WorkspaceScrollBar}" />
             <Style
                 x:Key="DefDataGrid"
-                BasedOn="{StaticResource MaterialDesignDataGrid}"
+                BasedOn="{StaticResource WorkspaceDataGrid}"
                 TargetType="{x:Type DataGrid}">
                 <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
             </Style>
             <Style
                 x:Key="DefTextBox"
-                BasedOn="{StaticResource MaterialDesignTextBox}"
+                BasedOn="{StaticResource WorkspaceTextBox}"
                 TargetType="{x:Type TextBox}">
                 <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
             </Style>
             <Style
                 x:Key="MyOutlinedTextBox"
-                BasedOn="{StaticResource MaterialDesignOutlinedTextBox}"
+                BasedOn="{StaticResource WorkspaceTextBox}"
                 TargetType="{x:Type TextBox}">
                 <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
                 <Setter Property="Padding" Value="{StaticResource OutlinedTextBoxDefaultPadding}" />
@@ -172,11 +177,11 @@
                 x:Key="MyChipListBoxItem"
                 BasedOn="{StaticResource MaterialDesignChoiceChipPrimaryOutlineListBoxItem}"
                 TargetType="{x:Type ListBoxItem}">
-                <Setter Property="Margin" Value="-2,0" />
+                <Setter Property="Margin" Value="3,0" />
             </Style>
             <Style
                 x:Key="MyOutlinedTextComboBox"
-                BasedOn="{StaticResource MaterialDesignOutlinedComboBox}"
+                BasedOn="{StaticResource WorkspaceComboBox}"
                 TargetType="{x:Type ComboBox}">
                 <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
                 <Setter Property="Padding" Value="{StaticResource OutlinedTextBoxDefaultPadding}" />
@@ -210,8 +215,8 @@
                 <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
                 <Setter Property="TextOptions.TextRenderingMode" Value="ClearType" />
                 <Setter Property="TextOptions.TextHintingMode" Value="Fixed" />
-                <Setter Property="TextElement.Foreground" Value="{DynamicResource MaterialDesignBody}" />
-                <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}" />
+                <Setter Property="TextElement.Foreground" Value="{DynamicResource WorkspaceText}" />
+                <Setter Property="Background" Value="{DynamicResource WorkspaceCanvas}" />
                 <Setter Property="TextElement.FontFamily" Value="{x:Static conv:MaterialDesignFonts.MyFont}" />
                 <Setter Property="FontFamily" Value="{x:Static conv:MaterialDesignFonts.MyFont}" />
                 <Setter Property="ResizeMode" Value="CanResize" />
@@ -223,8 +228,8 @@
                 <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
                 <Setter Property="TextOptions.TextRenderingMode" Value="ClearType" />
                 <Setter Property="TextOptions.TextHintingMode" Value="Fixed" />
-                <Setter Property="TextElement.Foreground" Value="{DynamicResource MaterialDesignBody}" />
-                <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}" />
+                <Setter Property="TextElement.Foreground" Value="{DynamicResource WorkspaceText}" />
+                <Setter Property="Background" Value="{DynamicResource WorkspaceSurface}" />
                 <Setter Property="TextElement.FontFamily" Value="{x:Static conv:MaterialDesignFonts.MyFont}" />
                 <Setter Property="FontFamily" Value="{x:Static conv:MaterialDesignFonts.MyFont}" />
             </Style>

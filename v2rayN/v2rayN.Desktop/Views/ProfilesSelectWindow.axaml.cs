@@ -3,7 +3,7 @@ using v2rayN.Desktop.Base;
 
 namespace v2rayN.Desktop.Views;
 
-public partial class ProfilesSelectWindow : WindowBase<ProfilesSelectViewModel>
+public partial class ProfilesSelectWindow : PageBase<ProfilesSelectViewModel>
 {
     public ProfilesSelectWindow()
     {

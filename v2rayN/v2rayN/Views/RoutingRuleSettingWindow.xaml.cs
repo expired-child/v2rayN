@@ -4,6 +4,7 @@ public partial class RoutingRuleSettingWindow
 {
     public RoutingRuleSettingWindow()
     {
+        Title = ResUI.menuRoutingRuleSetting;
         InitializeComponent();
 
         Loaded += Window_Loaded;
@@ -76,7 +77,7 @@ public partial class RoutingRuleSettingWindow
                 interaction.SetOutput(fileName);
             }).DisposeWith(disposables);
         });
-        WindowsUtils.SetDarkBorder(this, AppManager.Instance.Config.UiItem.CurrentTheme);
+
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)

@@ -1905,4 +1905,59 @@ The "Get Certificate" action may fail if a self-signed certificate is used or if
   <data name="menuAddMasqueServer" xml:space="preserve">
     <value>Add [MASQUE]</value>
   </data>
+  <data name="TbOverview" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="TbCurrentConnection" xml:space="preserve">
+    <value>Current connection</value>
+  </data>
+  <data name="TbNetworkTraffic" xml:space="preserve">
+    <value>Network traffic</value>
+  </data>
+  <data name="TbWorkspace" xml:space="preserve">
+    <value>Workspace</value>
+  </data>
+  <data name="TbOverviewDescription" xml:space="preserve">
+    <value>Your connections, at a glance.</value>
+  </data>
+  <data name="TbWorkspaceDescription" xml:space="preserve">
+    <value>Profiles, subscriptions and live activity.</value>
+  </data>
+  <data name="TbAllFunctions" xml:space="preserve">
+    <value>All functions</value>
+  </data>
+  <data name="TbImport" xml:space="preserve">
+    <value>Paste to import</value>
+  </data>
+  <data name="TbWaitingForTraffic" xml:space="preserve">
+    <value>Waiting for traffic data</value>
+  </data>
+  <data name="TbQuickAccess" xml:space="preserve">
+    <value>Quick access</value>
+  </data>
+  <data name="TbManageProfiles" xml:space="preserve">
+    <value>Manage profiles</value>
+  </data>
+  <data name="TbManageSubscriptions" xml:space="preserve">
+    <value>Manage subscriptions</value>
+  </data>
+  <data name="TbAppearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="TbTestConnection" xml:space="preserve">
+    <value>Check connection</value>
+  </data>
+  <data name="TbProxyControls" xml:space="preserve">
+    <value>Proxy controls</value>
+  </data>
+  <data name="TbBack" xml:space="preserve"><value>Back</value></data>
+  <data name="WorkspaceCardView" xml:space="preserve"><value>Card view</value></data>
+  <data name="WorkspaceTableView" xml:space="preserve"><value>Table view</value></data>
+  <data name="WorkspaceActiveNode" xml:space="preserve"><value>Active</value></data>
+  <data name="WorkspaceAddConfiguration" xml:space="preserve"><value>Add configuration</value></data>
+  <data name="WorkspaceManualConfiguration" xml:space="preserve"><value>Manual configuration</value></data>
+  <data name="WorkspaceSubscriptionUpdates" xml:space="preserve"><value>Subscription updates</value></data>
+  <data name="WorkspaceAdvancedTools" xml:space="preserve"><value>Advanced &amp; maintenance</value></data>
+  <data name="ClipboardImportEmpty" xml:space="preserve"><value>The clipboard has no configuration text. Copy a share link or configuration, then try again.</value></data>
+  <data name="ClipboardImportInvalid" xml:space="preserve"><value>No supported configuration was found. Check the copied content and try again.</value></data>
 </root>

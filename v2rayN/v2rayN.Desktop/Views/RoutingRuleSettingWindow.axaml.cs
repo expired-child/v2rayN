@@ -3,7 +3,7 @@ using v2rayN.Desktop.Common;
 
 namespace v2rayN.Desktop.Views;
 
-public partial class RoutingRuleSettingWindow : WindowBase<RoutingRuleSettingViewModel>
+public partial class RoutingRuleSettingWindow : PageBase<RoutingRuleSettingViewModel>
 {
     public RoutingRuleSettingWindow()
     {

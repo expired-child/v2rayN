@@ -8,6 +8,7 @@ public partial class ProfilesSelectWindow
 {
     public ProfilesSelectWindow()
     {
+        Title = ResUI.TbSelectProfile;
         InitializeComponent();
         lstGroup.MaxHeight = Math.Floor(SystemParameters.WorkArea.Height * 0.20 / 40) * 40;
 
@@ -39,7 +40,6 @@ public partial class ProfilesSelectWindow
             }).DisposeWith(disposables);
         });
 
-        WindowsUtils.SetDarkBorder(this, AppManager.Instance.Config.UiItem.CurrentTheme);
     }
 
     private void AllowMultiSelect(bool allow)

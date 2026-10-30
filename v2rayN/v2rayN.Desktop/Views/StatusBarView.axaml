@@ -11,72 +11,203 @@
     Design.DataContext="{x:Static dd:DesignData.StatusBar}"
     mc:Ignorable="d">
     <Grid>
-        <DockPanel Margin="{StaticResource Margin8}">
-            <StackPanel
-                Margin="{StaticResource MarginLr8}"
-                VerticalAlignment="Center"
-                DockPanel.Dock="Right">
-                <TextBlock x:Name="txtSpeedProxyDisplay" HorizontalAlignment="Right" />
-                <Border Margin="1" />
-                <TextBlock x:Name="txtSpeedDirectDisplay" HorizontalAlignment="Right" />
-            </StackPanel>
-
-            <StackPanel
-                Margin="{StaticResource MarginLr8}"
-                VerticalAlignment="Center"
-                DockPanel.Dock="Left">
-                <TextBlock x:Name="txtInboundDisplay" />
-                <Border Margin="1" />
-                <TextBlock x:Name="txtInboundLanDisplay" />
-            </StackPanel>
-
-            <StackPanel
-                x:Name="spEnableTun"
-                Margin="{StaticResource MarginLr8}"
-                VerticalAlignment="Center"
-                DockPanel.Dock="Left"
-                Orientation="Horizontal">
-                <TextBlock
-                    Margin="{StaticResource MarginLr8}"
-                    VerticalAlignment="Center"
-                    Text="{x:Static resx:ResUI.TbEnableTunAs}" />
-                <ToggleSwitch
-                    x:Name="togEnableTun"
-                    Margin="{StaticResource Margin4}"
-                    HorizontalAlignment="Center"
-                    Theme="{DynamicResource SimpleToggleSwitch}" />
-            </StackPanel>
-
-            <StackPanel
-                Margin="{StaticResource MarginLr8}"
-                VerticalAlignment="Center"
-                DockPanel.Dock="Left"
-                Orientation="Horizontal">
-                <ComboBox
-                    x:Name="cmbSystemProxy"
-                    Width="160"
-                    Margin="{StaticResource MarginLr8}"
-                    ToolTip.Tip="{x:Static resx:ResUI.menuSystemproxy}">
-                    <ComboBoxItem Content="{x:Static resx:ResUI.menuSystemProxyClear}" />
-                    <ComboBoxItem Content="{x:Static resx:ResUI.menuSystemProxySet}" />
-                    <ComboBoxItem Content="{x:Static resx:ResUI.menuSystemProxyNothing}" />
-                    <ComboBoxItem Content="{x:Static resx:ResUI.menuSystemProxyPac}" />
-                </ComboBox>
-
-                <ComboBox
-                    x:Name="cmbRoutings2"
-                    Width="160"
-                    Margin="{StaticResource MarginLr8}"
-                    DisplayMemberBinding="{Binding Remarks}"
-                    ItemsSource="{Binding RoutingItems}"
-                    ToolTip.Tip="{x:Static resx:ResUI.menuRouting}" />
-            </StackPanel>
-
-            <StackPanel Margin="{StaticResource MarginLr8}" VerticalAlignment="Center">
-                <TextBlock x:Name="txtRunningServerDisplay" />
-                <Border Margin="1" />
-                <TextBlock x:Name="txtRunningInfoDisplay" />
-            </StackPanel>
-        </DockPanel>
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                        Width="1.1*" />
+                    <ColumnDefinition
+                        Width="16" />
+                    <ColumnDefinition
+                        Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Border
+                    Grid.Column="0"
+                    Classes="workspaceCard"
+                    Background="{DynamicResource WorkspaceAccentSoft}"
+                    BorderBrush="{DynamicResource WorkspaceAccentSoft}"
+                    MinHeight="216">
+                    <DockPanel>
+                        <StackPanel
+                            DockPanel.Dock="Top"
+                            Margin="0,0,0,18">
+                            <TextBlock
+                                Text="{x:Static resx:ResUI.TbCurrentConnection}"
+                                Foreground="{DynamicResource WorkspaceAccent}"
+                                FontWeight="Medium" />
+                        </StackPanel>
+                        <Button
+                            DockPanel.Dock="Bottom"
+                            Classes="workspaceSecondary"
+                            HorizontalAlignment="Left"
+                            Margin="0,20,0,0"
+                            Click="TestConnection_Click"
+                            Content="{x:Static resx:ResUI.TbTestConnection}" />
+                        <StackPanel>
+                            <TextBlock
+                                x:Name="txtRunningServerDisplay"
+                                FontSize="20"
+                                Foreground="{DynamicResource WorkspaceText}"
+                                TextTrimming="CharacterEllipsis"
+                                FontWeight="SemiBold"
+                                TextWrapping="Wrap"
+                                Cursor="Hand"
+                                ToolTip.Tip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                            <TextBlock
+                                x:Name="txtRunningInfoDisplay"
+                                FontSize="13"
+                                Foreground="{DynamicResource WorkspaceText}"
+                                TextTrimming="CharacterEllipsis"
+                                Margin="0,10,0,0"
+                                Cursor="Hand"
+                                ToolTip.Tip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+                <Border
+                    Grid.Column="2"
+                    Classes="workspaceCard"
+                    MinHeight="216">
+                    <StackPanel>
+                        <TextBlock
+                            Text="{x:Static resx:ResUI.TbNetworkTraffic}"
+                            Classes="workspaceCaption" />
+                        <TextBlock
+                            x:Name="txtSpeedProxyDisplay"
+                            FontSize="17"
+                            Foreground="{DynamicResource WorkspaceText}"
+                            TextTrimming="CharacterEllipsis"
+                            Margin="0,18,0,0"
+                            FontWeight="SemiBold"
+                            ToolTip.Tip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                        <TextBlock
+                            x:Name="txtSpeedDirectDisplay"
+                            FontSize="13"
+                            Foreground="{DynamicResource WorkspaceText}"
+                            TextTrimming="CharacterEllipsis"
+                            Margin="0,6,0,0"
+                            ToolTip.Tip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                        <TextBlock
+                            Text="{x:Static resx:ResUI.TbWaitingForTraffic}"
+                            Margin="0,10,0,0"
+                            Foreground="{DynamicResource WorkspaceMuted}"
+                            IsVisible="{Binding #txtSpeedProxyDisplay.Text, Converter={x:Static StringConverters.IsNullOrEmpty}}" />
+                        <Border
+                            Height="1"
+                            Background="{DynamicResource WorkspaceStroke}"
+                            Margin="0,20,0,14" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+                                    Width="1*" />
+                                <ColumnDefinition
+                                    Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel
+                                Grid.Column="0">
+                                <TextBlock
+                                    x:Name="txtInboundDisplay"
+                                    FontSize="12"
+                                    Foreground="{DynamicResource WorkspaceText}"
+                                    TextTrimming="CharacterEllipsis"
+                                    ToolTip.Tip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Column="1"
+                                Margin="12,0,0,0">
+                                <TextBlock
+                                    x:Name="txtInboundLanDisplay"
+                                    FontSize="12"
+                                    Foreground="{DynamicResource WorkspaceText}"
+                                    TextTrimming="CharacterEllipsis"
+                                    ToolTip.Tip="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Grid>
+            <TextBlock
+                Text="{x:Static resx:ResUI.TbProxyControls}"
+                FontSize="16"
+                FontWeight="SemiBold"
+                Foreground="{DynamicResource WorkspaceText}"
+                Margin="2,26,0,14" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                        Width="1*" />
+                    <ColumnDefinition
+                        Width="16" />
+                    <ColumnDefinition
+                        Width="1*" />
+                    <ColumnDefinition
+                        Width="16" />
+                    <ColumnDefinition
+                        Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Border
+                    Grid.Column="0"
+                    Classes="workspaceCard"
+                    MinHeight="130">
+                    <StackPanel>
+                        <TextBlock
+                            Text="{x:Static resx:ResUI.menuSystemproxy}"
+                            Classes="workspaceCaption" />
+                        <ComboBox
+                            x:Name="cmbSystemProxy"
+                            Classes="workspaceCombo"
+                            Margin="0,16,0,0"
+                            HorizontalAlignment="Stretch"
+                            ToolTip.Tip="{x:Static resx:ResUI.menuSystemproxy}"
+                            AutomationProperties.Name="{x:Static resx:ResUI.menuSystemproxy}">
+                            <ComboBoxItem
+                                Content="{x:Static resx:ResUI.menuSystemProxyClear}" />
+                            <ComboBoxItem
+                                Content="{x:Static resx:ResUI.menuSystemProxySet}" />
+                            <ComboBoxItem
+                                Content="{x:Static resx:ResUI.menuSystemProxyNothing}" />
+                            <ComboBoxItem
+                                Content="{x:Static resx:ResUI.menuSystemProxyPac}" />
+                        </ComboBox>
+                    </StackPanel>
+                </Border>
+                <Border
+                    Grid.Column="2"
+                    Classes="workspaceCard"
+                    MinHeight="130">
+                    <StackPanel
+                        x:Name="spEnableTun">
+                        <TextBlock
+                            Text="{x:Static resx:ResUI.TbEnableTunAs}"
+                            Classes="workspaceCaption" />
+                        <ToggleSwitch
+                            x:Name="togEnableTun"
+                            Theme="{DynamicResource SimpleToggleSwitch}"
+                            HorizontalAlignment="Left"
+                            Margin="0,16,0,0"
+                            AutomationProperties.Name="{x:Static resx:ResUI.TbEnableTunAs}" />
+                    </StackPanel>
+                </Border>
+                <Border
+                    Grid.Column="4"
+                    Classes="workspaceCard"
+                    MinHeight="130">
+                    <StackPanel>
+                        <TextBlock
+                            Text="{x:Static resx:ResUI.menuRouting}"
+                            Classes="workspaceCaption" />
+                        <ComboBox
+                            x:Name="cmbRoutings2"
+                            Classes="workspaceCombo"
+                            DisplayMemberBinding="{Binding Remarks}"
+                            ItemsSource="{Binding RoutingItems}"
+                            Margin="0,16,0,0"
+                            HorizontalAlignment="Stretch"
+                            ToolTip.Tip="{x:Static resx:ResUI.menuRouting}"
+                            AutomationProperties.Name="{x:Static resx:ResUI.menuRouting}" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
     </Grid>
 </UserControl>

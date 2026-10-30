@@ -4,6 +4,7 @@ public partial class AddServer2Window
 {
     public AddServer2Window()
     {
+        Title = ResUI.menuAddCustomServer;
         InitializeComponent();
 
         Loaded += Window_Loaded;
@@ -38,7 +39,7 @@ public partial class AddServer2Window
                 interaction.SetOutput(fileName);
             }).DisposeWith(disposables);
         });
-        WindowsUtils.SetDarkBorder(this, AppManager.Instance.Config.UiItem.CurrentTheme);
+
     }
 
     private void InitializeData(ProfileItem profileItem)

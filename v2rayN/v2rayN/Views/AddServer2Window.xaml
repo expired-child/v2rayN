@@ -1,4 +1,4 @@
-<base:WindowBase
+<base:PageBase
     x:Class="v2rayN.Views.AddServer2Window"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -9,13 +9,9 @@
     xmlns:reactiveui="http://reactiveui.net"
     xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
     xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
-    Title="{x:Static resx:ResUI.menuAddCustomServer}"
-    Width="700"
-    Height="500"
     x:TypeArguments="vms:AddServer2ViewModel"
-    ShowInTaskbar="False"
-    Style="{StaticResource WindowGlobal}"
-    WindowStartupLocation="CenterScreen"
+    Style="{StaticResource ViewGlobal}"
+    Background="{DynamicResource WorkspaceSurface}"
     mc:Ignorable="d">
     <DockPanel Margin="{StaticResource Margin8}">
         <StackPanel
@@ -28,13 +24,12 @@
                 MinWidth="100"
                 Content="{x:Static resx:ResUI.TbConfirm}"
                 IsDefault="True"
-                Style="{StaticResource DefButton}" />
+                Style="{StaticResource WorkspacePrimaryButton}" />
             <Button
                 x:Name="btnCancel"
                 MinWidth="100"
                 Margin="{StaticResource MarginLeftRight8}"
                 Content="{x:Static resx:ResUI.TbCancel}"
-                IsCancel="true"
                 Style="{StaticResource DefButton}" />
         </StackPanel>
         <ScrollViewer
@@ -170,7 +165,7 @@
                         Grid.Column="1"
                         Margin="{StaticResource Margin4}"
                         Orientation="Horizontal">
-                        <ToggleButton x:Name="togDisplayLog" HorizontalAlignment="Left" />
+                        <ToggleButton x:Name="togDisplayLog" HorizontalAlignment="Left"  Style="{StaticResource WorkspaceToggle}" />
                         <TextBlock
                             Margin="{StaticResource MarginLeftRight8}"
                             VerticalAlignment="Center"
@@ -243,7 +238,7 @@
                         Grid.Row="0"
                         Grid.Column="1"
                         Margin="{StaticResource Margin4}"
-                        HorizontalAlignment="Left" />
+                        HorizontalAlignment="Left"  Style="{StaticResource WorkspaceToggle}" />
 
                     <TextBlock
                         Grid.Row="1"
@@ -258,4 +253,4 @@
             </Grid>
         </ScrollViewer>
     </DockPanel>
-</base:WindowBase>
+</base:PageBase>

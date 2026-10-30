@@ -6,6 +6,7 @@ public partial class AddServerWindow
 {
     public AddServerWindow()
     {
+        Title = ResUI.menuServers;
         InitializeComponent();
 
         Loaded += Window_Loaded;
@@ -201,7 +202,6 @@ public partial class AddServerWindow
             this.BindCommand(ViewModel, vm => vm.SaveCmd, v => v.btnSave).DisposeWith(disposables);
         });
 
-        WindowsUtils.SetDarkBorder(this, AppManager.Instance.Config.UiItem.CurrentTheme);
     }
 
     private void InitializeData(ProfileItem profileItem)

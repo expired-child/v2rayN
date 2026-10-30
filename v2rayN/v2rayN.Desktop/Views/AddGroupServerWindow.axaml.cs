@@ -2,7 +2,7 @@ using v2rayN.Desktop.Base;
 
 namespace v2rayN.Desktop.Views;
 
-public partial class AddGroupServerWindow : WindowBase<AddGroupServerViewModel>
+public partial class AddGroupServerWindow : PageBase<AddGroupServerViewModel>
 {
     public AddGroupServerWindow()
     {

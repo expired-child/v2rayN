@@ -123,8 +123,18 @@ public partial class ThemeSettingViewModel : MyReactiveObject
 
         var theme = _paletteHelper.GetTheme();
         theme.SetBaseTheme(baseTheme);
+        var isDark = theme.GetBaseTheme() == BaseTheme.Dark;
+        if (_config.UiItem.ColorPrimaryName.IsNullOrEmpty())
+        {
+            var color = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(isDark ? "#78A5FF" : "#3268E8");
+            theme.PrimaryLight = new ColorPair(color.Lighten());
+            theme.PrimaryMid = new ColorPair(color);
+            theme.PrimaryDark = new ColorPair(color.Darken());
+        }
         _paletteHelper.SetTheme(theme);
 
+        WorkspaceTheme.Apply(isDark,
+            _config.UiItem.ColorPrimaryName.IsNullOrEmpty() ? null : theme.PrimaryMid.Color);
         WindowsUtils.SetDarkBorder(Application.Current.MainWindow, CurrentTheme);
     }
 
@@ -150,6 +160,7 @@ public partial class ThemeSettingViewModel : MyReactiveObject
         theme.PrimaryDark = new ColorPair(color.Darken());
 
         _paletteHelper.SetTheme(theme);
+        WorkspaceTheme.Apply(theme.GetBaseTheme() == BaseTheme.Dark, color);
     }
 
     public static void RegisterSystemColorSet(Config config, Action updateFunc)

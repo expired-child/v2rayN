@@ -12,8 +12,10 @@
     d:DesignWidth="800"
     x:TypeArguments="vms:MsgViewModel"
     Style="{StaticResource ViewGlobal}"
+    Background="{DynamicResource WorkspaceSurface}"
+    Foreground="{DynamicResource WorkspaceText}"
     mc:Ignorable="d">
-    <DockPanel Margin="{StaticResource Margin4}">
+    <DockPanel Margin="8">
         <WrapPanel
             Margin="{StaticResource Margin8}"
             VerticalAlignment="Center"
@@ -28,25 +30,25 @@
                 materialDesign:TextFieldAssist.HasClearButton="True"
                 AutomationProperties.Name="{x:Static resx:ResUI.MsgFilterTitle}"
                 IsEditable="True"
-                Style="{StaticResource DefComboBox}"
+                Style="{StaticResource WorkspaceComboBox}"
                 ToolTip="{x:Static resx:ResUI.MsgFilterTitle}" />
             <Button
                 x:Name="btnCopy"
-                Width="24"
-                Height="24"
+                Width="32"
+                Height="32"
                 Margin="{StaticResource MarginLeftRight8}"
                 AutomationProperties.Name="{x:Static resx:ResUI.menuMsgViewCopyAll}"
-                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                Style="{StaticResource WorkspaceIconButton}"
                 ToolTip="{x:Static resx:ResUI.menuMsgViewCopyAll}">
                 <materialDesign:PackIcon VerticalAlignment="Center" Kind="ContentCopy" />
             </Button>
             <Button
                 x:Name="btnClear"
-                Width="24"
-                Height="24"
+                Width="32"
+                Height="32"
                 Margin="{StaticResource MarginLeftRight8}"
                 AutomationProperties.Name="{x:Static resx:ResUI.menuMsgViewClear}"
-                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                Style="{StaticResource WorkspaceIconButton}"
                 ToolTip="{x:Static resx:ResUI.menuMsgViewClear}">
                 <materialDesign:PackIcon VerticalAlignment="Center" Kind="Delete" />
             </Button>
@@ -56,7 +58,7 @@
                 Style="{StaticResource ToolbarTextBlock}"
                 Text="{x:Static resx:ResUI.TbAutoRefresh}" />
             <ToggleButton
-                x:Name="togAutoRefresh"
+                x:Name="togAutoRefresh" Style="{StaticResource WorkspaceToggle}"
                 Margin="{StaticResource MarginLeftRight8}"
                 HorizontalAlignment="Left"
                 AutomationProperties.Name="{x:Static resx:ResUI.TbAutoRefresh}"
@@ -67,7 +69,7 @@
                 Style="{StaticResource ToolbarTextBlock}"
                 Text="{x:Static resx:ResUI.TbAutoScrollToEnd}" />
             <ToggleButton
-                x:Name="togScrollToEnd"
+                x:Name="togScrollToEnd" Style="{StaticResource WorkspaceToggle}"
                 Margin="{StaticResource MarginLeftRight8}"
                 HorizontalAlignment="Left"
                 AutomationProperties.Name="{x:Static resx:ResUI.TbAutoScrollToEnd}"

@@ -3,7 +3,7 @@ using v2rayN.Desktop.Common;
 
 namespace v2rayN.Desktop.Views;
 
-public partial class OptionSettingWindow : WindowBase<OptionSettingViewModel>
+public partial class OptionSettingWindow : PageBase<OptionSettingViewModel>
 {
     private static Config _config;
 

@@ -4,30 +4,32 @@ namespace v2rayN.Manager;
 
 public class WindowDialog : IWindowDialog
 {
-    public Task<bool> ShowDialogAsync<TViewModel>(TViewModel vm)
+    public async Task<bool> ShowDialogAsync<TViewModel>(TViewModel vm)
         where TViewModel : class
     {
-        var owner = Application.Current.MainWindow;
-
         var viewFor = SimpleViewLocator.Instance.ResolveView(vm);
-        //var viewFor = SimpleViewLocator.Instance.ResolveView<TViewModel>();
-
-        if (viewFor is not WindowBase<TViewModel> window)
+        if (viewFor is not PageBase<TViewModel> page || Application.Current.MainWindow is not Views.MainWindow main)
         {
-            return Task.FromResult(false);
+            return false;
         }
-
-        window.Owner = owner;
-        window.ViewModel = vm;
-
-        if (vm is ServiceLib.Base.ICloseable closeable)
+        page.ViewModel = vm;
+        var closeable = vm as ICloseable;
+        EventHandler onSaved = (_, _) => Dispatch(() => page.Close(true));
+        if (closeable != null)
         {
-            closeable.RequestClose += (_, _) => Dispatch(() => window.DialogResult = true);
+            closeable.RequestClose += onSaved;
         }
-
-        var result = window.ShowDialog();
-
-        return Task.FromResult(result ?? false);
+        try
+        {
+            return await main.ShowWorkspacePageAsync(page);
+        }
+        finally
+        {
+            if (closeable != null)
+            {
+                closeable.RequestClose -= onSaved;
+            }
+        }
     }
 
     private static void Dispatch(Action action)

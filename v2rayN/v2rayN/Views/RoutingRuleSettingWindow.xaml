@@ -1,4 +1,4 @@
-<base:WindowBase
+<base:PageBase
     x:Class="v2rayN.Views.RoutingRuleSettingWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -9,22 +9,19 @@
     xmlns:reactiveui="http://reactiveui.net"
     xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
     xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
-    Title="{x:Static resx:ResUI.menuRoutingRuleSetting}"
-    Width="1000"
-    Height="700"
     x:TypeArguments="vms:RoutingRuleSettingViewModel"
-    ResizeMode="CanResize"
-    ShowInTaskbar="False"
-    Style="{StaticResource WindowGlobal}"
-    WindowStartupLocation="CenterScreen"
+    Style="{StaticResource ViewGlobal}"
+    Background="{DynamicResource WorkspaceSurface}"
     mc:Ignorable="d">
     <DockPanel>
-        <ToolBarTray DockPanel.Dock="Top">
-            <ToolBar
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                ClipToBounds="True"
-                Style="{StaticResource MaterialDesignToolBar}">
+        <Border DockPanel.Dock="Top" Background="{DynamicResource WorkspaceSurfaceAlt}" CornerRadius="12" Padding="6" Margin="0,0,0,14">
+                <Border.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource WorkspaceSecondaryButton}">
+                        <Setter Property="Margin" Value="4" />
+                        <Setter Property="Padding" Value="12,9" />
+                    </Style>
+                </Border.Resources>
+                <WrapPanel>
                 <Button x:Name="menuRuleAdd">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon
@@ -34,7 +31,6 @@
                         <TextBlock Style="{StaticResource ToolbarTextBlock}" Text="{x:Static resx:ResUI.menuRuleAdd}" />
                     </StackPanel>
                 </Button>
-                <Separator />
                 <Button x:Name="menuImportRulesFromFile">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon
@@ -44,7 +40,6 @@
                         <TextBlock Style="{StaticResource ToolbarTextBlock}" Text="{x:Static resx:ResUI.menuImportRulesFromFile}" />
                     </StackPanel>
                 </Button>
-                <Separator />
                 <Button x:Name="menuImportRulesFromClipboard">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon
@@ -54,7 +49,6 @@
                         <TextBlock Style="{StaticResource ToolbarTextBlock}" Text="{x:Static resx:ResUI.menuImportRulesFromClipboard}" />
                     </StackPanel>
                 </Button>
-                <Separator />
                 <Button x:Name="menuImportRulesFromUrl">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon
@@ -64,8 +58,8 @@
                         <TextBlock Style="{StaticResource ToolbarTextBlock}" Text="{x:Static resx:ResUI.menuImportRulesFromUrl}" />
                     </StackPanel>
                 </Button>
-            </ToolBar>
-        </ToolBarTray>
+            </WrapPanel>
+            </Border>
 
         <StackPanel
             Margin="{StaticResource Margin8}"
@@ -77,13 +71,12 @@
                 MinWidth="100"
                 Content="{x:Static resx:ResUI.TbConfirm}"
                 IsDefault="True"
-                Style="{StaticResource DefButton}" />
+                Style="{StaticResource WorkspacePrimaryButton}" />
             <Button
                 x:Name="btnCancel"
                 MinWidth="100"
                 Margin="{StaticResource MarginLeftRight8}"
                 Content="{x:Static resx:ResUI.TbCancel}"
-                IsCancel="true"
                 Style="{StaticResource DefButton}" />
         </StackPanel>
 
@@ -240,7 +233,7 @@
                 Style="{StaticResource DefButton}" />
         </Grid>
 
-        <TabControl x:Name="tabAdvanced">
+        <TabControl x:Name="tabAdvanced" ItemContainerStyle="{StaticResource WorkspaceTabItem}">
             <TabItem HorizontalAlignment="Left" Header="{x:Static resx:ResUI.menuRuleList}">
                 <DataGrid
                     x:Name="lstRules"
@@ -339,4 +332,4 @@
             </TabItem>
         </TabControl>
     </DockPanel>
-</base:WindowBase>
+</base:PageBase>

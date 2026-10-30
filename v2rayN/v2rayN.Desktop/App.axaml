@@ -13,6 +13,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="Assets/GlobalResources.axaml" />
+                <ResourceInclude Source="Assets/WorkspaceResources.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
@@ -42,8 +43,7 @@
                     <NativeMenu>
                         <NativeMenuItem
                             Command="{Binding ShowWindowCmd}"
-                            Header="{x:Static resx:ResUI.TbDisplayGUI}"
-                            IsVisible="{Binding BlIsNonWindows}" />
+                            Header="{x:Static resx:ResUI.TbDisplayGUI}" />
                         <NativeMenuItem
                             Command="{Binding NotifyLeftClickCmd}"
                             Header="{x:Static resx:ResUI.menuShowOrHideMainWindow}"

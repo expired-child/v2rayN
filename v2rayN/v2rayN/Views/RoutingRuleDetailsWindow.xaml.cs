@@ -4,6 +4,7 @@ public partial class RoutingRuleDetailsWindow
 {
     public RoutingRuleDetailsWindow()
     {
+        Title = ResUI.menuRoutingRuleDetailsSetting;
         InitializeComponent();
 
         Loaded += Window_Loaded;
@@ -37,7 +38,7 @@ public partial class RoutingRuleDetailsWindow
             this.BindCommand(ViewModel, vm => vm.SelectProfileCmd, v => v.btnSelectProfile).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.SaveCmd, v => v.btnSave).DisposeWith(disposables);
         });
-        WindowsUtils.SetDarkBorder(this, AppManager.Instance.Config.UiItem.CurrentTheme);
+
     }
 
     private void InitializeData(RulesItem rulesItem)

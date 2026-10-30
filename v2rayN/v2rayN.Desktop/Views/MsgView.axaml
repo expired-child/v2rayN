@@ -11,7 +11,7 @@
     d:DesignWidth="800"
     Design.DataContext="{x:Static dd:DesignData.Msg}"
     mc:Ignorable="d">
-    <DockPanel Margin="2">
+    <DockPanel Margin="8">
         <WrapPanel
             Margin="{StaticResource Margin4}"
             VerticalAlignment="Center"
@@ -29,7 +29,7 @@
             <Button
                 x:Name="btnCopy"
                 Margin="{StaticResource MarginLr8}"
-                Classes="IconButton Success"
+                Classes="IconButton"
                 Click="menuMsgViewCopyAll_Click"
                 ToolTip.Tip="{x:Static resx:ResUI.menuMsgViewCopyAll}">
                 <Button.Content>
@@ -39,7 +39,7 @@
             <Button
                 x:Name="btnClear"
                 Margin="{StaticResource MarginLr8}"
-                Classes="IconButton Success"
+                Classes="IconButton"
                 Click="menuMsgViewClear_Click"
                 ToolTip.Tip="{x:Static resx:ResUI.menuMsgViewClear}">
                 <Button.Content>

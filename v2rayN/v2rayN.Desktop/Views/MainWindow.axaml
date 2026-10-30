@@ -9,9 +9,12 @@
     xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
     xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
     Title="v2rayN"
-    Width="1200"
-    Height="800"
-    MinWidth="600"
+    Width="1240"
+    Height="820"
+    MinWidth="820"
+    MinHeight="580"
+    Classes="workspace"
+    Foreground="{DynamicResource WorkspaceText}"
     x:DataType="vms:MainWindowViewModel"
     Design.DataContext="{x:Static dd:DesignData.MainWindow}"
     Icon="/Assets/NotifyIcon1.ico"
@@ -19,152 +22,536 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Styles>
-        <!-- Keep the log selected; hide only the strip when it has no other tabs. -->
-        <Style Selector="TabControl.logPane /template/ ItemsPresenter#PART_ItemsPresenter">
-            <Setter Property="IsVisible" Value="{Binding ShowClashUI}" />
+        <Style
+            Selector="TabControl.logPane /template/ ItemsPresenter#PART_ItemsPresenter">
+            <Setter
+                Property="IsVisible"
+                Value="{Binding ShowClashUI}" />
         </Style>
-        <Style Selector="TabControl.logPane /template/ Border#PART_BorderSeparator">
-            <Setter Property="IsVisible" Value="{Binding ShowClashUI}" />
+        <Style
+            Selector="TabControl.logPane /template/ Border#PART_BorderSeparator">
+            <Setter
+                Property="IsVisible"
+                Value="{Binding ShowClashUI}" />
         </Style>
     </Window.Styles>
-    <dialogHost:DialogHost CloseOnClickAway="True" DisableOpeningAnimation="True">
-        <DockPanel>
-            <DockPanel Margin="{StaticResource Margin8}" DockPanel.Dock="Top">
-                <ContentControl x:Name="conTheme" DockPanel.Dock="Right" />
-                <Menu Margin="{StaticResource Margin4}">
-                    <MenuItem Header="{x:Static resx:ResUI.menuServers}">
-                        <MenuItem
-                            x:Name="menuAddServerViaClipboard"
-                            Header="{x:Static resx:ResUI.menuAddServerViaClipboard}"
-                            InputGesture="Ctrl+V" />
-                        <MenuItem
-                            x:Name="menuAddServerViaScan"
-                            Header="{x:Static resx:ResUI.menuAddServerViaScan}"
-                            InputGesture="Ctrl+S" />
-                        <MenuItem x:Name="menuAddServerViaImage" Header="{x:Static resx:ResUI.menuAddServerViaImage}" />
-                        <Separator />
-                        <MenuItem x:Name="menuAddCustomServer" Header="{x:Static resx:ResUI.menuAddCustomServer}" />
-                        <MenuItem x:Name="menuAddPolicyGroupServer" Header="{x:Static resx:ResUI.menuAddPolicyGroupServer}" />
-                        <MenuItem x:Name="menuAddProxyChainServer" Header="{x:Static resx:ResUI.menuAddProxyChainServer}" />
-                        <MenuItem x:Name="menuAddCustomOutboundServer" Header="{x:Static resx:ResUI.menuAddCustomOutboundServer}" />
-                        <Separator />
-                        <MenuItem x:Name="menuAddVmessServer" Header="{x:Static resx:ResUI.menuAddVmessServer}" />
-                        <MenuItem x:Name="menuAddVlessServer" Header="{x:Static resx:ResUI.menuAddVlessServer}" />
-                        <MenuItem x:Name="menuAddShadowsocksServer" Header="{x:Static resx:ResUI.menuAddShadowsocksServer}" />
-                        <MenuItem x:Name="menuAddTrojanServer" Header="{x:Static resx:ResUI.menuAddTrojanServer}" />
-                        <MenuItem x:Name="menuAddHysteria2Server" Header="{x:Static resx:ResUI.menuAddHysteria2Server}" />
-                        <MenuItem x:Name="menuAddWireguardServer" Header="{x:Static resx:ResUI.menuAddWireguardServer}" />
-                        <MenuItem x:Name="menuAddMasqueServer" Header="{x:Static resx:ResUI.menuAddMasqueServer}" />
-                        <MenuItem x:Name="menuAddSocksServer" Header="{x:Static resx:ResUI.menuAddSocksServer}" />
-                        <MenuItem x:Name="menuAddHttpServer" Header="{x:Static resx:ResUI.menuAddHttpServer}" />
-                        <Separator />
-                        <MenuItem x:Name="menuAddTuicServer" Header="{x:Static resx:ResUI.menuAddTuicServer}" />
-                        <MenuItem x:Name="menuAddAnytlsServer" Header="{x:Static resx:ResUI.menuAddAnytlsServer}" />
-                        <MenuItem x:Name="menuAddNaiveServer" Header="{x:Static resx:ResUI.menuAddNaiveServer}" />
-                    </MenuItem>
+    <dialogHost:DialogHost
+        CloseOnClickAway="True"
+        DisableOpeningAnimation="True">
+        <Grid
+            Background="{DynamicResource WorkspaceCanvas}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    Width="212" />
+                <ColumnDefinition
+                    Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border
+                Grid.Column="0"
+                Background="{DynamicResource WorkspaceSidebar}"
+                BorderBrush="{DynamicResource WorkspaceStroke}"
+                BorderThickness="0,0,1,0">
+                <DockPanel
+                    Margin="16,26,16,18">
+                    <StackPanel
+                        DockPanel.Dock="Top"
+                        Margin="12,0,0,34">
+                        <StackPanel
+                            Orientation="Horizontal">
+                            <Border
+                                Width="36"
+                                Height="36"
+                                CornerRadius="12"
+                                Background="{DynamicResource WorkspaceAccent}">
+                                <TextBlock
+                                    Text="V"
+                                    Foreground="{DynamicResource WorkspaceAccentForeground}"
+                                    FontSize="23"
+                                    FontWeight="Bold"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" />
+                            </Border>
+                            <TextBlock
+                                Text="v2rayN"
+                                FontSize="21"
+                                FontWeight="SemiBold"
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel
+                        DockPanel.Dock="Bottom">
+                        <Border
+                            Height="1"
+                            Background="{DynamicResource WorkspaceStroke}"
+                            Margin="12,12,12,16" />
+                        <Button
+                            x:Name="btnQuickSettings"
+                            Classes="workspaceNavAction">
+                            <StackPanel
+                                Orientation="Horizontal">
+                                <Path
+                                    Width="20"
+                                    Height="20"
+                                    Stretch="Uniform"
+                                    Stroke="{DynamicResource WorkspaceText}"
+                                    StrokeThickness="1.6"
+                                    Data="M4,6 L20,6 M4,12 L20,12 M4,18 L20,18 M8,3 L8,9 M16,9 L16,15 M9,15 L9,21" />
+                                <TextBlock
+                                    Text="{x:Static resx:ResUI.menuSetting}"
+                                    Margin="12,0,0,0"
+                                    VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <StackPanel
+                            Orientation="Horizontal"
+                            Margin="16,12,0,0">
+                            <ContentControl
+                                x:Name="conTheme"
+                                ToolTip.Tip="{x:Static resx:ResUI.TbAppearance}" />
+                        </StackPanel>
+                    </StackPanel>
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top">
+                            <TextBlock
+                                Text="{x:Static resx:ResUI.TbWorkspace}"
+                                Classes="workspaceCaption"
+                                Margin="15,0,0,10"
+                                FontSize="11" />
+                            <RadioButton
+                                x:Name="navOverview"
+                                GroupName="workspace"
+                                Tag="overview"
+                                Classes="workspaceNav"
+                                IsCheckedChanged="WorkspaceNavigation_Changed"
+                                Click="WorkspaceNavigation_Changed">
+                                <StackPanel
+                                    Orientation="Horizontal">
+                                    <Path
+                                        Width="20"
+                                        Height="20"
+                                        Stretch="Uniform"
+                                        Stroke="{DynamicResource WorkspaceText}"
+                                        StrokeThickness="1.6"
+                                        Data="M3,3 L10,3 L10,10 L3,10 Z M14,3 L21,3 L21,10 L14,10 Z M3,14 L10,14 L10,21 L3,21 Z M14,14 L21,14 L21,21 L14,21 Z" />
+                                    <TextBlock
+                                        Text="{x:Static resx:ResUI.TbOverview}"
+                                        Margin="12,0,0,0"
+                                        VerticalAlignment="Center" />
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton
+                                x:Name="navProfiles"
+                                GroupName="workspace"
+                                Tag="profiles"
+                                Classes="workspaceNav"
+                                IsCheckedChanged="WorkspaceNavigation_Changed"
+                                Click="WorkspaceNavigation_Changed">
+                                <StackPanel
+                                    Orientation="Horizontal">
+                                    <Path
+                                        Width="20"
+                                        Height="20"
+                                        Stretch="Uniform"
+                                        Stroke="{DynamicResource WorkspaceText}"
+                                        StrokeThickness="1.6"
+                                        Data="M3,3 L21,3 L21,9 L3,9 Z M3,15 L21,15 L21,21 L3,21 Z M6,6 L8,6 M6,18 L8,18" />
+                                    <TextBlock
+                                        Text="{x:Static resx:ResUI.menuServers}"
+                                        Margin="12,0,0,0"
+                                        VerticalAlignment="Center" />
+                                </StackPanel>
+                            </RadioButton>
+                            <Button
+                                x:Name="btnNavSubscriptions"
+                                Classes="workspaceNavAction">
+                                <StackPanel
+                                    Orientation="Horizontal">
+                                    <Path
+                                        Width="20"
+                                        Height="20"
+                                        Stretch="Uniform"
+                                        Stroke="{DynamicResource WorkspaceText}"
+                                        StrokeThickness="1.6"
+                                        Data="M5,3 L19,3 L19,21 L5,21 Z M9,3 L9,21" />
+                                    <TextBlock
+                                        Text="{x:Static resx:ResUI.menuSubscription}"
+                                        Margin="12,0,0,0"
+                                        VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                            <Button
+                                x:Name="btnNavRouting"
+                                Classes="workspaceNavAction">
+                                <StackPanel
+                                    Orientation="Horizontal">
+                                    <Path
+                                        Width="20"
+                                        Height="20"
+                                        Stretch="Uniform"
+                                        Stroke="{DynamicResource WorkspaceText}"
+                                        StrokeThickness="1.6"
+                                        Data="M4,5 L10,5 L10,19 L20,19 M4,19 L7,19 M14,5 L20,5 M17,2 L20,5 L17,8 M17,16 L20,19 L17,22" />
+                                    <TextBlock
+                                        Text="{x:Static resx:ResUI.menuRouting}"
+                                        Margin="12,0,0,0"
+                                        VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
 
-                    <MenuItem Header="{x:Static resx:ResUI.menuSubscription}">
-                        <MenuItem x:Name="menuSubSetting" Header="{x:Static resx:ResUI.menuSubSetting}" />
-                        <Separator />
-                        <MenuItem x:Name="menuSubUpdate" Header="{x:Static resx:ResUI.menuSubUpdate}" />
-                        <MenuItem x:Name="menuSubUpdateViaProxy" Header="{x:Static resx:ResUI.menuSubUpdateViaProxy}" />
-                        <MenuItem x:Name="menuSubGroupUpdate" Header="{x:Static resx:ResUI.menuSubGroupUpdate}" />
-                        <MenuItem x:Name="menuSubGroupUpdateViaProxy" Header="{x:Static resx:ResUI.menuSubGroupUpdateViaProxy}" />
-                    </MenuItem>
-
-                    <MenuItem Header="{x:Static resx:ResUI.menuSetting}">
-                        <MenuItem x:Name="menuOptionSetting" Header="{x:Static resx:ResUI.menuOptionSetting}" />
-                        <MenuItem x:Name="menuRoutingSetting" Header="{x:Static resx:ResUI.menuRoutingSetting}" />
-                        <MenuItem x:Name="menuDNSSetting" Header="{x:Static resx:ResUI.menuDNSSetting}" />
-                        <MenuItem x:Name="menuFullConfigTemplate" Header="{x:Static resx:ResUI.menuFullConfigTemplate}" />
-                        <MenuItem
-                            x:Name="menuGlobalHotkeySetting"
-                            Header="{x:Static resx:ResUI.menuGlobalHotkeySetting}"
-                            IsVisible="{Binding BlIsWindows}" />
-                        <Separator />
-                        <MenuItem
-                            x:Name="menuRebootAsAdmin"
-                            Header="{x:Static resx:ResUI.menuRebootAsAdmin}"
-                            IsVisible="{Binding BlIsWindows}" />
-                        <MenuItem
-                            x:Name="menuSettingsSetUWP"
-                            Header="{x:Static resx:ResUI.TbSettingsSetUWP}"
-                            IsVisible="{Binding BlIsWindows}" />
-                        <MenuItem x:Name="menuClearServerStatistics" Header="{x:Static resx:ResUI.menuClearServerStatistics}" />
-                        <Separator />
-                        <MenuItem Header="{x:Static resx:ResUI.menuRegionalPresets}">
-                            <MenuItem x:Name="menuRegionalPresetsDefault" Header="{x:Static resx:ResUI.menuRegionalPresetsDefault}" />
-                            <MenuItem x:Name="menuRegionalPresetsRussia" Header="{x:Static resx:ResUI.menuRegionalPresetsRussia}" />
-                            <MenuItem x:Name="menuRegionalPresetsIran" Header="{x:Static resx:ResUI.menuRegionalPresetsIran}" />
-                        </MenuItem>
-                        <MenuItem x:Name="menuBackupAndRestore" Header="{x:Static resx:ResUI.menuBackupAndRestore}" />
-                        <MenuItem x:Name="menuOpenTheFileLocation" Header="{x:Static resx:ResUI.menuOpenTheFileLocation}" />
-                    </MenuItem>
-
-                    <MenuItem x:Name="menuHelp" Header="{x:Static resx:ResUI.menuHelp}">
-                        <MenuItem x:Name="menuCheckUpdate" Header="{x:Static resx:ResUI.menuCheckUpdate}" />
-                        <Separator />
-                    </MenuItem>
-
-                    <MenuItem x:Name="menuReload" Header="{x:Static resx:ResUI.menuReload}" />
-
-                    <MenuItem x:Name="menuPromotion" Header="{x:Static resx:ResUI.menuPromotion}" />
-
-                    <MenuItem x:Name="menuClose" Header="{x:Static resx:ResUI.menuExit}" />
-                </Menu>
-
-                <Button
-                    x:Name="btnNewUpdate"
-                    Margin="{StaticResource MarginLr8}"
-                    HorizontalAlignment="Left"
-                    Content="{x:Static resx:ResUI.menuNewUpdate}"
-                    IsVisible="False" />
+                        </StackPanel>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                            <StackPanel>
+                                <Border Height="1" Background="{DynamicResource WorkspaceStroke}" Margin="12,14,12,8" />
+                                <Expander x:Name="navAddConfiguration" Classes="workspaceSidebarGroup"
+                                    Header="{x:Static resx:ResUI.WorkspaceAddConfiguration}"
+                                    AutomationProperties.Name="{x:Static resx:ResUI.WorkspaceAddConfiguration}"
+                                    IsExpanded="False">
+                                    <StackPanel Margin="8,2,0,6">
+                                        <Button x:Name="menuAddServerViaClipboard" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddServerViaClipboard}" TextWrapping="Wrap" /></Button>
+                                        <Button x:Name="menuAddServerViaScan" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddServerViaScan}" TextWrapping="Wrap" /></Button>
+                                        <Button x:Name="menuAddServerViaImage" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddServerViaImage}" TextWrapping="Wrap" /></Button>
+                                        <Expander x:Name="navManualConfiguration" Classes="workspaceSidebarGroup" Margin="8,2,0,2"
+                                            Header="{x:Static resx:ResUI.WorkspaceManualConfiguration}"
+                                            AutomationProperties.Name="{x:Static resx:ResUI.WorkspaceManualConfiguration}"
+                                            IsExpanded="False">
+                                            <StackPanel Margin="8,2,0,6">
+                                                <Button x:Name="menuAddCustomServer" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddCustomServer}" TextWrapping="Wrap" /></Button>
+                                                <Button x:Name="menuAddPolicyGroupServer" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddPolicyGroupServer}" TextWrapping="Wrap" /></Button>
+                                                <Button x:Name="menuAddProxyChainServer" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddProxyChainServer}" TextWrapping="Wrap" /></Button>
+                                                <Button x:Name="menuAddCustomOutboundServer" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddCustomOutboundServer}" TextWrapping="Wrap" /></Button>
+                                                <Button x:Name="menuAddVmessServer" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddVmessServer}" TextWrapping="Wrap" /></Button>
+                                                <Button x:Name="menuAddVlessServer" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddVlessServer}" TextWrapping="Wrap" /></Button>
+                                                <Button x:Name="menuAddShadowsocksServer" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddShadowsocksServer}" TextWrapping="Wrap" /></Button>
+                                                <Button x:Name="menuAddTrojanServer" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddTrojanServer}" TextWrapping="Wrap" /></Button>
+                                                <Button x:Name="menuAddHysteria2Server" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddHysteria2Server}" TextWrapping="Wrap" /></Button>
+                                                <Button x:Name="menuAddWireguardServer" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddWireguardServer}" TextWrapping="Wrap" /></Button>
+                                                <Button x:Name="menuAddMasqueServer" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddMasqueServer}" TextWrapping="Wrap" /></Button>
+                                                <Button x:Name="menuAddSocksServer" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddSocksServer}" TextWrapping="Wrap" /></Button>
+                                                <Button x:Name="menuAddHttpServer" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddHttpServer}" TextWrapping="Wrap" /></Button>
+                                                <Button x:Name="menuAddTuicServer" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddTuicServer}" TextWrapping="Wrap" /></Button>
+                                                <Button x:Name="menuAddAnytlsServer" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddAnytlsServer}" TextWrapping="Wrap" /></Button>
+                                                <Button x:Name="menuAddNaiveServer" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddNaiveServer}" TextWrapping="Wrap" /></Button>
+                                            </StackPanel>
+                                        </Expander>
+                                    </StackPanel>
+                                </Expander>
+                                <Expander x:Name="navSubscriptionUpdates" Classes="workspaceSidebarGroup"
+                                    Header="{x:Static resx:ResUI.WorkspaceSubscriptionUpdates}"
+                                    AutomationProperties.Name="{x:Static resx:ResUI.WorkspaceSubscriptionUpdates}"
+                                    IsExpanded="False">
+                                    <StackPanel Margin="8,2,0,6">
+                                        <Button x:Name="menuSubUpdate" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuSubUpdate}" TextWrapping="Wrap" /></Button>
+                                        <Button x:Name="menuSubUpdateViaProxy" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuSubUpdateViaProxy}" TextWrapping="Wrap" /></Button>
+                                        <Button x:Name="menuSubGroupUpdate" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuSubGroupUpdate}" TextWrapping="Wrap" /></Button>
+                                        <Button x:Name="menuSubGroupUpdateViaProxy" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuSubGroupUpdateViaProxy}" TextWrapping="Wrap" /></Button>
+                                    </StackPanel>
+                                </Expander>
+                                <Expander x:Name="navAdvancedTools" Classes="workspaceSidebarGroup"
+                                    Header="{x:Static resx:ResUI.WorkspaceAdvancedTools}"
+                                    AutomationProperties.Name="{x:Static resx:ResUI.WorkspaceAdvancedTools}"
+                                    IsExpanded="False">
+                                    <StackPanel Margin="8,2,0,6">
+                                        <Button x:Name="menuDNSSetting" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuDNSSetting}" TextWrapping="Wrap" /></Button>
+                                        <Button x:Name="menuFullConfigTemplate" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuFullConfigTemplate}" TextWrapping="Wrap" /></Button>
+                                        <Button x:Name="menuGlobalHotkeySetting" Classes="workspaceSidebarAction" IsVisible="{Binding BlIsWindows}"><TextBlock Text="{x:Static resx:ResUI.menuGlobalHotkeySetting}" TextWrapping="Wrap" /></Button>
+                                        <Expander x:Name="navRegionalPresets" Classes="workspaceSidebarGroup" Margin="8,2,0,2"
+                                            Header="{x:Static resx:ResUI.menuRegionalPresets}"
+                                            AutomationProperties.Name="{x:Static resx:ResUI.menuRegionalPresets}"
+                                            IsExpanded="False">
+                                            <StackPanel Margin="8,2,0,6">
+                                                <Button x:Name="menuRegionalPresetsDefault" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuRegionalPresetsDefault}" TextWrapping="Wrap" /></Button>
+                                                <Button x:Name="menuRegionalPresetsRussia" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuRegionalPresetsRussia}" TextWrapping="Wrap" /></Button>
+                                                <Button x:Name="menuRegionalPresetsIran" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuRegionalPresetsIran}" TextWrapping="Wrap" /></Button>
+                                            </StackPanel>
+                                        </Expander>
+                                        <Border Height="1" Background="{DynamicResource WorkspaceStroke}" Margin="12,8" />
+                                        <Button x:Name="menuCheckUpdate" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuCheckUpdate}" TextWrapping="Wrap" /></Button>
+                                        <Button x:Name="menuBackupAndRestore" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuBackupAndRestore}" TextWrapping="Wrap" /></Button>
+                                        <Button x:Name="menuOpenTheFileLocation" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuOpenTheFileLocation}" TextWrapping="Wrap" /></Button>
+                                        <Button x:Name="menuReload" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuReload}" TextWrapping="Wrap" /></Button>
+                                        <Button x:Name="menuRebootAsAdmin" Classes="workspaceSidebarAction" IsVisible="{Binding BlIsWindows}"><TextBlock Text="{x:Static resx:ResUI.menuRebootAsAdmin}" TextWrapping="Wrap" /></Button>
+                                        <Button x:Name="menuSettingsSetUWP" Classes="workspaceSidebarAction" IsVisible="{Binding BlIsWindows}"><TextBlock Text="{x:Static resx:ResUI.TbSettingsSetUWP}" TextWrapping="Wrap" /></Button>
+                                        <Button x:Name="menuClearServerStatistics" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuClearServerStatistics}" TextWrapping="Wrap" /></Button>
+                                    </StackPanel>
+                                </Expander>
+                                <Expander x:Name="navHelp" Classes="workspaceSidebarGroup"
+                                    Header="{x:Static resx:ResUI.menuHelp}"
+                                    AutomationProperties.Name="{x:Static resx:ResUI.menuHelp}"
+                                    IsExpanded="False">
+                                    <StackPanel Margin="8,2,0,6">
+                                        <StackPanel x:Name="menuHelp" />
+                                    </StackPanel>
+                                </Expander>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </DockPanel>
+                </DockPanel>
+            </Border>
+            <DockPanel
+                Grid.Column="1"
+                Margin="28,26,28,20">
+                <DockPanel
+                    DockPanel.Dock="Top"
+                    Margin="0,0,0,26">
+                    <StackPanel
+                        DockPanel.Dock="Right"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center">
+<Button
+                            x:Name="btnQuickImport"
+                            Classes="workspacePrimary"
+                            Margin="8,0,0,0"
+                            ToolTip.Tip="{x:Static resx:ResUI.menuAddServerViaClipboard}"
+                            AutomationProperties.Name="{x:Static resx:ResUI.TbImport}">
+                            <StackPanel
+                                Orientation="Horizontal">
+                                <Path
+                                    Width="20"
+                                    Height="20"
+                                    Stretch="Uniform"
+                                    Stroke="{DynamicResource WorkspaceText}"
+                                    StrokeThickness="1.6"
+                                    Data="M12,4 L12,20 M4,12 L20,12" />
+                                <TextBlock
+                                    Text="{x:Static resx:ResUI.TbImport}"
+                                    Margin="12,0,0,0"
+                                    VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    <Button
+                        x:Name="btnPageBack"
+                        DockPanel.Dock="Left"
+                        Classes="workspaceSecondary"
+                        Click="PageBack_Click"
+                        IsVisible="False"
+                        Margin="0,0,16,0"
+                        Content="←"
+                        AutomationProperties.Name="{x:Static resx:ResUI.TbBack}" />
+                    <StackPanel>
+                        <TextBlock
+                            x:Name="txtWorkspaceTitle"
+                            Text="{x:Static resx:ResUI.TbOverview}"
+                            FontSize="28"
+                            FontWeight="SemiBold" />
+                        <TextBlock
+                            x:Name="txtWorkspaceDescription"
+                            Text="{x:Static resx:ResUI.TbOverviewDescription}"
+                            Classes="workspaceCaption"
+                            Margin="0,7,0,0" />
+                    </StackPanel>
+                </DockPanel>
+                <DockPanel
+                    DockPanel.Dock="Bottom"
+                    Margin="2,16,2,0">
+                    <TextBlock
+                        DockPanel.Dock="Right"
+                        Text="v2rayN"
+                        Classes="workspaceCaption"
+                        FontSize="11" />
+                    <TextBlock
+                        x:Name="txtShellStatus"
+                        Classes="workspaceCaption"
+                        FontSize="11" />
+                </DockPanel>
+                <Grid>
+                    <ScrollViewer
+                        x:Name="dashboardPanel"
+                        VerticalScrollBarVisibility="Auto"
+                        HorizontalScrollBarVisibility="Disabled">
+                        <StackPanel>
+                            <ContentControl
+                                x:Name="contentStatusBarView" />
+                            <TextBlock
+                                Text="{x:Static resx:ResUI.TbQuickAccess}"
+                                FontSize="16"
+                                FontWeight="SemiBold"
+                                Margin="2,26,0,14" />
+                            <UniformGrid
+                                Columns="3">
+                                <Button
+                                    Classes="workspaceSecondary"
+                                    Click="ProfilesNavigation_Click"
+                                    Padding="18"
+                                    Margin="0,0,12,0">
+                                    <StackPanel
+                                        Orientation="Horizontal">
+                                        <Path
+                                            Width="20"
+                                            Height="20"
+                                            Stretch="Uniform"
+                                            Stroke="{DynamicResource WorkspaceText}"
+                                            StrokeThickness="1.6"
+                                            Data="M3,3 L21,3 L21,9 L3,9 Z M3,15 L21,15 L21,21 L3,21 Z M6,6 L8,6 M6,18 L8,18" />
+                                        <TextBlock
+                                            Text="{x:Static resx:ResUI.TbManageProfiles}"
+                                            Margin="12,0,0,0"
+                                            VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button
+                                    x:Name="btnManageSubscriptions"
+                                    Classes="workspaceSecondary"
+                                    HorizontalContentAlignment="Stretch"
+                                    Margin="0,0,12,0"
+                                    Padding="18">
+                                    <StackPanel
+                                        Orientation="Horizontal">
+                                        <Path
+                                            Width="20"
+                                            Height="20"
+                                            Stretch="Uniform"
+                                            Stroke="{DynamicResource WorkspaceText}"
+                                            StrokeThickness="1.6"
+                                            Data="M5,3 L19,3 L19,21 L5,21 Z M9,3 L9,21" />
+                                        <TextBlock
+                                            Text="{x:Static resx:ResUI.TbManageSubscriptions}"
+                                            Margin="12,0,0,0"
+                                            VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button
+                                    x:Name="btnManageRouting"
+                                    Classes="workspaceSecondary"
+                                    HorizontalContentAlignment="Stretch"
+                                    Margin="0,0,12,0"
+                                    Padding="18">
+                                    <StackPanel
+                                        Orientation="Horizontal">
+                                        <Path
+                                            Width="20"
+                                            Height="20"
+                                            Stretch="Uniform"
+                                            Stroke="{DynamicResource WorkspaceText}"
+                                            StrokeThickness="1.6"
+                                            Data="M4,5 L10,5 L10,19 L20,19 M4,19 L7,19 M14,5 L20,5 M17,2 L20,5 L17,8 M17,16 L20,19 L17,22" />
+                                        <TextBlock
+                                            Text="{x:Static resx:ResUI.menuRouting}"
+                                            Margin="12,0,0,0"
+                                            VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                            </UniformGrid>
+                            <Button
+                                x:Name="btnQuickUpdate"
+                                Classes="workspaceSecondary"
+                                HorizontalAlignment="Left"
+                                Margin="0,18,0,0">
+                                <StackPanel
+                                    Orientation="Horizontal">
+                                    <Path
+                                        Width="20"
+                                        Height="20"
+                                        Stretch="Uniform"
+                                        Stroke="{DynamicResource WorkspaceText}"
+                                        StrokeThickness="1.6"
+                                        Data="M20,10 A8,8 0 1 0 20,16 M20,3 L20,10 L13,10" />
+                                    <TextBlock
+                                        Text="{x:Static resx:ResUI.menuSubUpdate}"
+                                        Margin="12,0,0,0"
+                                        VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                            <Button
+                                x:Name="btnNewUpdate"
+                                Classes="workspacePrimary"
+                                IsVisible="False"
+                                HorizontalAlignment="Left"
+                                Margin="0,12,0,0"
+                                Content="{x:Static resx:ResUI.menuNewUpdate}" />
+                        </StackPanel>
+                    </ScrollViewer>
+                    <Border
+                        x:Name="workspacePanel"
+                        IsVisible="False"
+                        Classes="workspaceCard"
+                        Padding="18">
+                        <Grid>
+                            <Grid
+                                x:Name="gridMain"
+                                ColumnDefinitions="3*,10,1*"
+                                IsVisible="False">
+                                <ContentControl
+                                    x:Name="tabProfiles"
+                                    Grid.Column="0" />
+                                <GridSplitter
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Stretch" />
+                                <TabControl
+                                    x:Name="tabMain"
+                                    Grid.Column="2"
+                                    Classes="logPane"
+                                    HorizontalContentAlignment="Left">
+                                    <TabItem
+                                        x:Name="tabMsgView"
+                                        Header="{x:Static resx:ResUI.MsgInformationTitle}" />
+                                    <TabItem
+                                        x:Name="tabClashProxies"
+                                        Header="{x:Static resx:ResUI.TbProxies}" />
+                                    <TabItem
+                                        x:Name="tabClashConnections"
+                                        Header="{x:Static resx:ResUI.TbConnections}" />
+                                </TabControl>
+                            </Grid>
+                            <Grid
+                                x:Name="gridMain1"
+                                IsVisible="False"
+                                RowDefinitions="3*,10,1*">
+                                <ContentControl
+                                    x:Name="tabProfiles1"
+                                    Grid.Row="0" />
+                                <GridSplitter
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Stretch" />
+                                <TabControl
+                                    x:Name="tabMain1"
+                                    Grid.Row="2"
+                                    Classes="logPane"
+                                    TabStripPlacement="Top">
+                                    <TabItem
+                                        x:Name="tabMsgView1"
+                                        Header="{x:Static resx:ResUI.MsgInformationTitle}" />
+                                    <TabItem
+                                        x:Name="tabClashProxies1"
+                                        Header="{x:Static resx:ResUI.TbProxies}" />
+                                    <TabItem
+                                        x:Name="tabClashConnections1"
+                                        Header="{x:Static resx:ResUI.TbConnections}" />
+                                </TabControl>
+                            </Grid>
+                            <Grid
+                                x:Name="gridMain2"
+                                IsVisible="False">
+                                <TabControl
+                                    x:Name="tabMain2"
+                                    TabStripPlacement="Top">
+                                    <TabItem
+                                        x:Name="tabProfiles2"
+                                        Header="{x:Static resx:ResUI.menuServers}" />
+                                    <TabItem
+                                        x:Name="tabMsgView2"
+                                        Header="{x:Static resx:ResUI.MsgInformationTitle}" />
+                                    <TabItem
+                                        x:Name="tabClashProxies2"
+                                        Header="{x:Static resx:ResUI.TbProxies}" />
+                                    <TabItem
+                                        x:Name="tabClashConnections2"
+                                        Header="{x:Static resx:ResUI.TbConnections}" />
+                                </TabControl>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                    <Border
+                        x:Name="pagePanel"
+                        IsVisible="False"
+                        Classes="workspaceCard"
+                        Padding="18">
+                        <ContentControl
+                            x:Name="pageHost" />
+                    </Border>
+                </Grid>
             </DockPanel>
-
-            <ContentControl x:Name="contentStatusBarView" DockPanel.Dock="Bottom" />
-
-            <Grid>
-                <Grid
-                    x:Name="gridMain"
-                    ColumnDefinitions="1*,10,1*"
-                    IsVisible="False">
-                    <ContentControl x:Name="tabProfiles" Grid.Column="0" />
-                    <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" />
-                    <TabControl
-                        x:Name="tabMain"
-                        Grid.Column="2"
-                        Classes="logPane"
-                        HorizontalContentAlignment="Left">
-                        <TabItem x:Name="tabMsgView" Header="{x:Static resx:ResUI.MsgInformationTitle}" />
-                        <TabItem x:Name="tabClashProxies" Header="{x:Static resx:ResUI.TbProxies}" />
-                        <TabItem x:Name="tabClashConnections" Header="{x:Static resx:ResUI.TbConnections}" />
-                    </TabControl>
-                </Grid>
-                <Grid
-                    x:Name="gridMain1"
-                    IsVisible="False"
-                    RowDefinitions="1*,10,1*">
-                    <ContentControl x:Name="tabProfiles1" Grid.Row="0" />
-                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" />
-                    <TabControl
-                        x:Name="tabMain1"
-                        Grid.Row="2"
-                        Classes="logPane"
-                        TabStripPlacement="Left">
-                        <TabItem x:Name="tabMsgView1" Header="{x:Static resx:ResUI.MsgInformationTitle}" />
-                        <TabItem x:Name="tabClashProxies1" Header="{x:Static resx:ResUI.TbProxies}" />
-                        <TabItem x:Name="tabClashConnections1" Header="{x:Static resx:ResUI.TbConnections}" />
-                    </TabControl>
-                </Grid>
-                <Grid x:Name="gridMain2" IsVisible="False">
-                    <TabControl x:Name="tabMain2" TabStripPlacement="Left">
-                        <TabItem x:Name="tabProfiles2" Header="{x:Static resx:ResUI.menuServers}" />
-                        <TabItem x:Name="tabMsgView2" Header="{x:Static resx:ResUI.MsgInformationTitle}" />
-                        <TabItem x:Name="tabClashProxies2" Header="{x:Static resx:ResUI.TbProxies}" />
-                        <TabItem x:Name="tabClashConnections2" Header="{x:Static resx:ResUI.TbConnections}" />
-                    </TabControl>
-                </Grid>
-            </Grid>
-        </DockPanel>
+        </Grid>
     </dialogHost:DialogHost>
 </Window>

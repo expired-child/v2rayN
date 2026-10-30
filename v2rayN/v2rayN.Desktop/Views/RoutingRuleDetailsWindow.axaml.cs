@@ -2,7 +2,7 @@ using v2rayN.Desktop.Base;
 
 namespace v2rayN.Desktop.Views;
 
-public partial class RoutingRuleDetailsWindow : WindowBase<RoutingRuleDetailsViewModel>
+public partial class RoutingRuleDetailsWindow : PageBase<RoutingRuleDetailsViewModel>
 {
     public RoutingRuleDetailsWindow()
     {

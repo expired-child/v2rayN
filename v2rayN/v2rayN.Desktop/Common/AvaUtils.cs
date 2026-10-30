@@ -4,7 +4,7 @@ namespace v2rayN.Desktop.Common;
 
 internal class AvaUtils
 {
-    public static async Task<string?> GetClipboardData(Window owner)
+    public static async Task<string?> GetClipboardData(Visual owner)
     {
         try
         {

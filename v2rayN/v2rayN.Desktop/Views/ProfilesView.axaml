@@ -18,8 +18,8 @@
         <conv:DelayColorConverter x:Key="DelayColorConverter" />
     </UserControl.Resources>
     <Grid>
-        <DockPanel>
-            <WrapPanel Margin="2" DockPanel.Dock="Top">
+        <DockPanel Margin="4">
+            <WrapPanel Margin="0,0,0,12" DockPanel.Dock="Top">
                 <ListBox
                     x:Name="lstGroup"
                     Margin="{StaticResource MarginLr4}"
@@ -45,7 +45,7 @@
                     <Button
                         x:Name="btnEditSub"
                         Margin="{StaticResource MarginLr4}"
-                        Classes="IconButton Success"
+                        Classes="IconButton"
                         ToolTip.Tip="{x:Static resx:ResUI.menuSubEdit}">
                         <Button.Content>
                             <PathIcon Data="{StaticResource SemiIconEdit}" />
@@ -54,7 +54,7 @@
                     <Button
                         x:Name="btnAddSub"
                         Margin="{StaticResource MarginLr4}"
-                        Classes="IconButton Success"
+                        Classes="IconButton"
                         ToolTip.Tip="{x:Static resx:ResUI.menuSubAdd}">
                         <Button.Content>
                             <PathIcon Data="{StaticResource SemiIconPlus}" />
@@ -69,10 +69,12 @@
                         PlaceholderText="{x:Static resx:ResUI.MsgServerTitle}"
                         ToolTip.Tip="{x:Static resx:ResUI.MsgServerTitle}" />
 
+                    <Button x:Name="btnCardView" Content="{x:Static resx:ResUI.WorkspaceCardView}" Classes="workspacePrimary" Margin="4,0" Click="CardView_Click" />
+                    <Button x:Name="btnTableView" Content="{x:Static resx:ResUI.WorkspaceTableView}" Classes="workspaceSecondary" Margin="4,0" Click="TableView_Click" />
                     <Button
                         x:Name="btnAutofitColumnWidth"
                         Margin="{StaticResource MarginLr4}"
-                        Classes="IconButton Success"
+                        Classes="IconButton"
                         ToolTip.Tip="{x:Static resx:ResUI.menuProfileAutofitColumnWidth}">
                         <Button.Content>
                             <PathIcon Data="{StaticResource SemiIconExpand}" />
@@ -82,7 +84,7 @@
                     <Button
                         x:Name="btnFastRealPing"
                         Margin="{StaticResource MarginLr4}"
-                        Classes="IconButton Success"
+                        Classes="IconButton"
                         ToolTip.Tip="{x:Static resx:ResUI.menuFastRealPing}">
                         <Button.Content>
                             <PathIcon Data="{StaticResource SemiIconBolt}" />
@@ -91,7 +93,7 @@
                     <Button
                         x:Name="menuMixedTestServer"
                         Margin="{StaticResource MarginLr4}"
-                        Classes="IconButton Success"
+                        Classes="IconButton"
                         ToolTip.Tip="{x:Static resx:ResUI.menuMixedTestServer}">
                         <Button.Content>
                             <PathIcon Data="{StaticResource building_ping}" />
@@ -100,14 +102,34 @@
                 </StackPanel>
 
             </WrapPanel>
+            <Grid>
+            <ListBox x:Name="lstProfileCards" Classes="workspaceNodes" SelectionMode="Multiple" ItemsSource="{Binding ProfileItems}" SelectionChanged="ProfileCards_SelectionChanged" KeyDown="LstProfiles_KeyDown">
+                <ListBox.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ListBox.ItemsPanel>
+                <ListBox.ItemTemplate><DataTemplate>
+                    <Border Classes="nodeCard" Classes.active="{Binding IsActive}">
+                        <StackPanel>
+                            <DockPanel LastChildFill="True">
+                                <TextBlock DockPanel.Dock="Right" Text="{x:Static resx:ResUI.WorkspaceActiveNode}" Foreground="{DynamicResource WorkspaceAccent}" FontSize="11" Margin="8,0,0,0" IsVisible="{Binding IsActive}" />
+                                <TextBlock Text="{Binding Remarks}" FontSize="14" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Remarks}" />
+                            </DockPanel>
+                            <TextBlock Text="{Binding ConfigType}" Foreground="{DynamicResource WorkspaceMuted}" Margin="0,10,0,0" />
+                            <DockPanel Margin="0,12,0,0">
+                                <TextBlock Text="{x:Static resx:ResUI.LvTestDelay}" Foreground="{DynamicResource WorkspaceMuted}" />
+                                <TextBlock HorizontalAlignment="Right" Text="{Binding DelayVal}" Foreground="{Binding Delay, Converter={StaticResource DelayColorConverter}}" />
+                            </DockPanel>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate></ListBox.ItemTemplate>
+            </ListBox>
             <DataGrid
+                IsVisible="False"
                 x:Name="lstProfiles"
                 AutoGenerateColumns="False"
-                BorderThickness="1"
+                BorderThickness="0"
                 CanUserReorderColumns="True"
                 CanUserResizeColumns="True"
                 Classes.InsetContent="True"
-                GridLinesVisibility="All"
+                GridLinesVisibility="Horizontal"
                 HeadersVisibility="All"
                 IsReadOnly="True"
                 ItemsSource="{Binding ProfileItems}">
@@ -318,6 +340,7 @@
                         Tag="TotalDown" />
                 </DataGrid.Columns>
             </DataGrid>
+            </Grid>
         </DockPanel>
     </Grid>
 </UserControl>

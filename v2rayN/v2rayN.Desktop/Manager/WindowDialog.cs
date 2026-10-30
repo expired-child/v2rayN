@@ -8,24 +8,30 @@ public class WindowDialog : IWindowDialog
     public async Task<bool> ShowDialogAsync<TViewModel>(TViewModel vm)
         where TViewModel : class
     {
-        var owner = TryGetOwnerWindow();
-
         var view = SimpleViewLocator.Instance.Build(vm);
-
-        if (view is not WindowBase<TViewModel> window)
+        if (view is not PageBase<TViewModel> page || (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow is not Views.MainWindow main)
         {
             return false;
         }
 
-        window.ViewModel = vm;
-
-        if (vm is ServiceLib.Base.ICloseable closeable)
+        page.ViewModel = vm;
+        var closeable = vm as ServiceLib.Base.ICloseable;
+        EventHandler onSaved = (_, _) => Dispatch(() => page.Close(true));
+        if (closeable != null)
         {
-            closeable.RequestClose += (_, _) => Dispatch(() => window.Close(true));
+            closeable.RequestClose += onSaved;
         }
-
-        var result = await window.ShowDialog<bool>(owner);
-        return result;
+        try
+        {
+            return await main.ShowWorkspacePageAsync(page);
+        }
+        finally
+        {
+            if (closeable != null)
+            {
+                closeable.RequestClose -= onSaved;
+            }
+        }
     }
 
     public static Window TryGetOwnerWindow()

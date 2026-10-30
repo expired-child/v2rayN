@@ -2,7 +2,7 @@ using v2rayN.Desktop.Base;
 
 namespace v2rayN.Desktop.Views;
 
-public partial class DNSSettingWindow : WindowBase<DNSSettingViewModel>
+public partial class DNSSettingWindow : PageBase<DNSSettingViewModel>
 {
     private static Config _config;
 

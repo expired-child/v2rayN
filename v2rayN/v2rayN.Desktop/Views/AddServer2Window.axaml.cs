@@ -3,7 +3,7 @@ using v2rayN.Desktop.Common;
 
 namespace v2rayN.Desktop.Views;
 
-public partial class AddServer2Window : WindowBase<AddServer2ViewModel>
+public partial class AddServer2Window : PageBase<AddServer2ViewModel>
 {
     public AddServer2Window()
     {

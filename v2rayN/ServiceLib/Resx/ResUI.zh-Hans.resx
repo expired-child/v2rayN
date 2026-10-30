@@ -1897,4 +1897,59 @@
   <data name="menuAddMasqueServer" xml:space="preserve">
     <value>添加 [MASQUE]</value>
   </data>
+  <data name="TbOverview" xml:space="preserve">
+    <value>概览</value>
+  </data>
+  <data name="TbCurrentConnection" xml:space="preserve">
+    <value>当前连接</value>
+  </data>
+  <data name="TbNetworkTraffic" xml:space="preserve">
+    <value>网络流量</value>
+  </data>
+  <data name="TbWorkspace" xml:space="preserve">
+    <value>工作区</value>
+  </data>
+  <data name="TbOverviewDescription" xml:space="preserve">
+    <value>连接状态，一目了然。</value>
+  </data>
+  <data name="TbWorkspaceDescription" xml:space="preserve">
+    <value>管理配置、订阅与实时活动。</value>
+  </data>
+  <data name="TbAllFunctions" xml:space="preserve">
+    <value>全部功能</value>
+  </data>
+  <data name="TbImport" xml:space="preserve">
+    <value>粘贴导入</value>
+  </data>
+  <data name="TbWaitingForTraffic" xml:space="preserve">
+    <value>等待流量数据</value>
+  </data>
+  <data name="TbQuickAccess" xml:space="preserve">
+    <value>快捷操作</value>
+  </data>
+  <data name="TbManageProfiles" xml:space="preserve">
+    <value>管理配置</value>
+  </data>
+  <data name="TbManageSubscriptions" xml:space="preserve">
+    <value>管理订阅</value>
+  </data>
+  <data name="TbAppearance" xml:space="preserve">
+    <value>外观</value>
+  </data>
+  <data name="TbTestConnection" xml:space="preserve">
+    <value>检测连接</value>
+  </data>
+  <data name="TbProxyControls" xml:space="preserve">
+    <value>代理控制</value>
+  </data>
+  <data name="TbBack" xml:space="preserve"><value>返回</value></data>
+  <data name="WorkspaceCardView" xml:space="preserve"><value>卡片视图</value></data>
+  <data name="WorkspaceTableView" xml:space="preserve"><value>表格视图</value></data>
+  <data name="WorkspaceActiveNode" xml:space="preserve"><value>当前使用</value></data>
+  <data name="WorkspaceAddConfiguration" xml:space="preserve"><value>添加配置</value></data>
+  <data name="WorkspaceManualConfiguration" xml:space="preserve"><value>手动添加</value></data>
+  <data name="WorkspaceSubscriptionUpdates" xml:space="preserve"><value>订阅更新</value></data>
+  <data name="WorkspaceAdvancedTools" xml:space="preserve"><value>高级与维护</value></data>
+  <data name="ClipboardImportEmpty" xml:space="preserve"><value>剪贴板中没有配置文本，请先复制分享链接或配置内容，再重试。</value></data>
+  <data name="ClipboardImportInvalid" xml:space="preserve"><value>未识别到支持的配置，请检查复制的内容后重试。</value></data>
 </root>

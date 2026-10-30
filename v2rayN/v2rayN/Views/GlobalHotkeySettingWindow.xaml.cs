@@ -9,6 +9,7 @@ public partial class GlobalHotkeySettingWindow
 
     public GlobalHotkeySettingWindow()
     {
+        Title = ResUI.menuGlobalHotkeySetting;
         InitializeComponent();
 
         btnReset.Click += btnReset_Click;
@@ -21,7 +22,7 @@ public partial class GlobalHotkeySettingWindow
             this.BindCommand(ViewModel, vm => vm.SaveCmd, v => v.btnSave).DisposeWith(disposables);
             BindingData();
         });
-        WindowsUtils.SetDarkBorder(this, AppManager.Instance.Config.UiItem.CurrentTheme);
+
 
         Init();
     }

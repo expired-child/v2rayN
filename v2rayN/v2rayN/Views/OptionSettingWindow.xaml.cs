@@ -8,6 +8,7 @@ public partial class OptionSettingWindow
 
     public OptionSettingWindow()
     {
+        Title = ResUI.menuSetting;
         InitializeComponent();
 
         _config = AppManager.Instance.Config;
@@ -146,7 +147,7 @@ public partial class OptionSettingWindow
 
             this.BindCommand(ViewModel, vm => vm.SaveCmd, v => v.btnSave).DisposeWith(disposables);
         });
-        WindowsUtils.SetDarkBorder(this, AppManager.Instance.Config.UiItem.CurrentTheme);
+
     }
 
     private async Task InitSettingFont()

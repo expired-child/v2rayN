@@ -6,6 +6,7 @@ public partial class DNSSettingWindow
 
     public DNSSettingWindow()
     {
+        Title = ResUI.menuDNSSetting;
         InitializeComponent();
 
         _config = AppManager.Instance.Config;
@@ -74,7 +75,7 @@ public partial class DNSSettingWindow
             this.Bind(ViewModel, vm => vm.IsSimpleDNSEnabled, v => v.gridBasicDNSSettings.IsEnabled).DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.IsSimpleDNSEnabled, v => v.gridAdvancedDNSSettings.IsEnabled).DisposeWith(disposables);
         });
-        WindowsUtils.SetDarkBorder(this, AppManager.Instance.Config.UiItem.CurrentTheme);
+
     }
 
     private void linkDnsObjectDoc_Click(object sender, RoutedEventArgs e)

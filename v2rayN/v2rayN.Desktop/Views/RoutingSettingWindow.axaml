@@ -1,6 +1,7 @@
-<Window
+<base:PageBase
     x:Class="v2rayN.Desktop.Views.RoutingSettingWindow"
     xmlns="https://github.com/avaloniaui"
+    xmlns:base="clr-namespace:v2rayN.Desktop.Base"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dd="clr-namespace:v2rayN.Desktop.DesignData"
@@ -8,12 +9,9 @@
     xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
     xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
     Title="{x:Static resx:ResUI.menuRoutingSetting}"
-    Width="900"
-    Height="600"
     x:DataType="vms:RoutingSettingViewModel"
+    x:TypeArguments="vms:RoutingSettingViewModel"
     Design.DataContext="{x:Static dd:DesignData.RoutingSetting}"
-    ShowInTaskbar="False"
-    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
     <DockPanel>
@@ -123,4 +121,4 @@
             </TabItem>
         </TabControl>
     </DockPanel>
-</Window>
+</base:PageBase>

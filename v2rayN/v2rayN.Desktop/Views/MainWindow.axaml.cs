@@ -11,29 +11,42 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
     private static Config _config;
     private readonly SingleReplaceableDisposable _layoutBindingsDisposable = new();
     private readonly WindowNotificationManager? _manager;
-    private CheckUpdateView? _checkUpdateView;
-    private BackupAndRestoreView? _backupAndRestoreView;
+    private readonly WorkspaceNavigation _workspaceNavigation = new();
+    private bool _updatingNavigation;
+    private bool _rootOverview = true;
     private bool _blCloseByUser = false;
 
     public MainWindow()
     {
         InitializeComponent();
+        _workspaceNavigation.Changed += RenderWorkspacePage;
+        navOverview.IsChecked = true;
+        btnNavSubscriptions.Click += SubscriptionsNavigation_Click;
+        btnManageSubscriptions.Click += SubscriptionsNavigation_Click;
+        btnNavRouting.Click += RoutingNavigation_Click;
+        btnManageRouting.Click += RoutingNavigation_Click;
+        btnQuickSettings.Click += SettingsNavigation_Click;
+
 
         _config = AppManager.Instance.Config;
         _manager = new WindowNotificationManager(TopLevel.GetTopLevel(this)) { MaxItems = 3, Position = NotificationPosition.TopRight };
 
         KeyDown += MainWindow_KeyDown;
         menuSettingsSetUWP.Click += MenuSettingsSetUWP_Click;
-        menuPromotion.Click += MenuPromotion_Click;
         menuCheckUpdate.Click += MenuCheckUpdate_Click;
         btnNewUpdate.Click += MenuCheckUpdate_Click;
         menuBackupAndRestore.Click += MenuBackupAndRestore_Click;
-        menuClose.Click += MenuClose_Click;
 
         conTheme.Content ??= new ThemeSettingView();
 
         this.WhenActivated(disposables =>
         {
+            this.BindCommand(ViewModel, vm => vm.AddServerViaClipboardCmd, v => v.btnQuickImport).DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.SubUpdateCmd, v => v.btnQuickUpdate).DisposeWith(disposables);
+
+
+            this.OneWayBind(ViewModel, vm => vm.StatusBarViewModel.InboundDisplay, v => v.txtShellStatus.Text).DisposeWith(disposables);
+
             //servers
             this.BindCommand(ViewModel, vm => vm.AddVmessServerCmd, v => v.menuAddVmessServer).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.AddVlessServerCmd, v => v.menuAddVlessServer).DisposeWith(disposables);
@@ -56,15 +69,12 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
             this.BindCommand(ViewModel, vm => vm.AddServerViaImageCmd, v => v.menuAddServerViaImage).DisposeWith(disposables);
 
             //sub
-            this.BindCommand(ViewModel, vm => vm.SubSettingCmd, v => v.menuSubSetting).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.SubUpdateCmd, v => v.menuSubUpdate).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.SubUpdateViaProxyCmd, v => v.menuSubUpdateViaProxy).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.SubGroupUpdateCmd, v => v.menuSubGroupUpdate).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.SubGroupUpdateViaProxyCmd, v => v.menuSubGroupUpdateViaProxy).DisposeWith(disposables);
 
             //setting
-            this.BindCommand(ViewModel, vm => vm.OptionSettingCmd, v => v.menuOptionSetting).DisposeWith(disposables);
-            this.BindCommand(ViewModel, vm => vm.RoutingSettingCmd, v => v.menuRoutingSetting).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.DNSSettingCmd, v => v.menuDNSSetting).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.FullConfigTemplateCmd, v => v.menuFullConfigTemplate).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.GlobalHotkeySettingCmd, v => v.menuGlobalHotkeySetting).DisposeWith(disposables);
@@ -160,6 +170,96 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
 
     #region Event
 
+    private void WorkspaceNavigation_Changed(object? sender, RoutedEventArgs e)
+    {
+        if (_updatingNavigation || dashboardPanel == null || workspacePanel == null)
+        {
+            return;
+        }
+        _rootOverview = navOverview.IsChecked == true;
+        if (!_workspaceNavigation.CloseAll())
+        {
+            return;
+        }
+        RenderWorkspacePage();
+    }
+
+    public Task<bool> ShowWorkspacePageAsync(IWorkspacePage page)
+    {
+        if (page is SubSettingWindow or RoutingSettingWindow or OptionSettingWindow
+            && _workspaceNavigation.ReturnTo(page.GetType()) is { } existing)
+        {
+            return existing;
+        }
+        return _workspaceNavigation.OpenAsync(page);
+    }
+
+
+    private async void SubscriptionsNavigation_Click(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel != null) await NavigateRootAsync(typeof(SubSettingWindow), ViewModel.SubSettingAsync);
+    }
+
+    private async void RoutingNavigation_Click(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel != null) await NavigateRootAsync(typeof(RoutingSettingWindow), ViewModel.RoutingSettingAsync);
+    }
+
+    private async void SettingsNavigation_Click(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel != null) await NavigateRootAsync(typeof(OptionSettingWindow), ViewModel.OptionSettingAsync);
+    }
+
+    private async Task NavigateRootAsync(Type pageType, Func<Task> open)
+    {
+        if (_workspaceNavigation.ReturnTo(pageType) != null) return;
+        if (_workspaceNavigation.CloseAll()) await open();
+    }
+
+    private void PageBack_Click(object? sender, RoutedEventArgs e) => _workspaceNavigation.Back();
+
+    private void RenderWorkspacePage()
+    {
+        var page = _workspaceNavigation.Current;
+        if (!ReferenceEquals(pageHost.Content, page)) pageHost.Content = page;
+        var family = _workspaceNavigation.Root?.GetType().Name;
+        var subscriptions = family is nameof(SubSettingWindow) or nameof(SubEditWindow);
+        var routing = family is nameof(RoutingSettingWindow) or nameof(RoutingRuleSettingWindow) or nameof(RoutingRuleDetailsWindow);
+        var profiles = family is nameof(AddServerWindow) or nameof(AddServer2Window) or nameof(AddGroupServerWindow) or nameof(ProfilesSelectWindow);
+        var settings = page != null && !subscriptions && !routing && !profiles;
+        _updatingNavigation = true;
+        try
+        {
+            navOverview.IsChecked = page == null && _rootOverview;
+            navProfiles.IsChecked = (page == null && !_rootOverview) || profiles;
+        }
+        finally { _updatingNavigation = false; }
+        btnNavSubscriptions.Classes.Set("active", subscriptions);
+        btnNavRouting.Classes.Set("active", routing);
+        btnQuickSettings.Classes.Set("active", settings);
+        pagePanel.IsVisible = page != null;
+        btnPageBack.IsVisible = page != null;
+        if (page != null)
+        {
+            dashboardPanel.IsVisible = false;
+            workspacePanel.IsVisible = false;
+            txtWorkspaceTitle.Text = page.Title;
+            txtWorkspaceDescription.Text = ResUI.TbWorkspaceDescription;
+            return;
+        }
+        var overview = _rootOverview;
+        dashboardPanel.IsVisible = overview;
+        workspacePanel.IsVisible = !overview;
+        txtWorkspaceTitle.Text = overview ? ResUI.TbOverview : ResUI.menuServers;
+        txtWorkspaceDescription.Text = overview ? ResUI.TbOverviewDescription : ResUI.TbWorkspaceDescription;
+    }
+
+    private void ProfilesNavigation_Click(object? sender, RoutedEventArgs e)
+    {
+        navProfiles.IsChecked = true;
+        WorkspaceNavigation_Changed(sender, e);
+    }
+
     private void OnProgramStarted(object state, bool timeout)
     {
         Dispatcher.UIThread.Post(() =>
@@ -251,9 +351,9 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
     public async Task AddServerViaClipboardAsync()
     {
         var clipboardData = await AvaUtils.GetClipboardData(this);
-        if (clipboardData.IsNotEmpty() && ViewModel != null)
+        if (ViewModel != null)
         {
-            await ViewModel.AddServerViaClipboardAsync(clipboardData);
+            await ViewModel.AddServerViaClipboardAsync(clipboardData ?? string.Empty);
         }
     }
 
@@ -274,18 +374,16 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
 
     private void MenuCheckUpdate_Click(object? sender, RoutedEventArgs e)
     {
-        _checkUpdateView ??= new CheckUpdateView();
-        _checkUpdateView.ViewModel = ViewModel?.CheckUpdateViewModel;
-        DialogHost.Show(_checkUpdateView);
+        var content = new CheckUpdateView { ViewModel = ViewModel?.CheckUpdateViewModel };
+        _ = ShowWorkspacePageAsync(new PageBase<object> { Title = ResUI.menuCheckUpdate, Content = content });
 
         AppEvents.HasUpdateNotified.Publish(false);
     }
 
     private void MenuBackupAndRestore_Click(object? sender, RoutedEventArgs e)
     {
-        _backupAndRestoreView ??= new BackupAndRestoreView();
-        _backupAndRestoreView.ViewModel = ViewModel?.BackupAndRestoreViewModel;
-        DialogHost.Show(_backupAndRestoreView);
+        var content = new BackupAndRestoreView { ViewModel = ViewModel?.BackupAndRestoreViewModel };
+        _ = ShowWorkspacePageAsync(new PageBase<object> { Title = ResUI.menuBackupAndRestore, Content = content });
     }
 
     private async void MenuClose_Click(object? sender, RoutedEventArgs e)
@@ -474,19 +572,20 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
             .Where(t => t.CoreType is not ECoreType.v2fly
                         and not ECoreType.hysteria))
         {
-            var item = new MenuItem()
+            var item = new Button()
             {
                 Tag = it.Url?.Replace(@"/releases", ""),
-                Header = string.Format(ResUI.menuWebsiteItem, it.CoreType.ToString().Replace("_", " ")).UpperFirstChar()
+                Content = string.Format(ResUI.menuWebsiteItem, it.CoreType.ToString().Replace("_", " ")).UpperFirstChar()
             };
+            item.Classes.Add("workspaceSidebarAction");
             item.Click += MenuItem_Click;
-            menuHelp.Items.Add(item);
+            menuHelp.Children.Add(item);
         }
     }
 
     private void MenuItem_Click(object? sender, RoutedEventArgs e)
     {
-        if (sender is MenuItem item)
+        if (sender is Button item)
         {
             ProcUtils.ProcessStart(item.Tag?.ToString());
         }

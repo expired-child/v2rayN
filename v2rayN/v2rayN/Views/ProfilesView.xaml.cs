@@ -1,6 +1,7 @@
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using MaterialDesignThemes.Wpf;
 using v2rayN.Base;
 using Point = System.Windows.Point;
@@ -11,6 +12,9 @@ public partial class ProfilesView
 {
     private static Config _config;
     private static readonly string _tag = "ProfilesView";
+    private bool _syncingSelection;
+    private bool _showCards = true;
+    private Point _cardPressPosition;
 
     public ProfilesView()
     {
@@ -38,6 +42,7 @@ public partial class ProfilesView
         this.WhenActivated(disposables =>
         {
             this.OneWayBind(ViewModel, vm => vm.ProfileItems, v => v.lstProfiles.ItemsSource).DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.ProfileItems, v => v.lstProfileCards.ItemsSource).DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.SelectedProfile, v => v.lstProfiles.SelectedItem).DisposeWith(disposables);
 
             this.OneWayBind(ViewModel, vm => vm.SubItems, v => v.lstGroup.ItemsSource).DisposeWith(disposables);
@@ -116,7 +121,7 @@ public partial class ProfilesView
 
             ViewModel.ProfilesFocusInteraction.RegisterHandler(interaction =>
             {
-                lstProfiles.Focus();
+                if (_showCards) lstProfileCards.Focus(); else lstProfiles.Focus();
                 interaction.SetOutput(RxVoid.Default);
             }).DisposeWith(disposables);
 
@@ -152,6 +157,7 @@ public partial class ProfilesView
         });
 
         RestoreUI();
+        SetCardView(true);
     }
 
     #region Event
@@ -170,7 +176,11 @@ public partial class ProfilesView
 
     public void RefreshServersBiz()
     {
-        if (lstProfiles.SelectedIndex > 0)
+        if (_showCards && lstProfileCards.SelectedIndex >= 0)
+        {
+            lstProfileCards.ScrollIntoView(lstProfileCards.SelectedItem);
+        }
+        else if (lstProfiles.SelectedIndex >= 0)
         {
             lstProfiles.ScrollIntoView(lstProfiles.SelectedItem, null);
         }
@@ -178,10 +188,68 @@ public partial class ProfilesView
 
     private void LstProfiles_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
     {
-        if (ViewModel != null)
+        if (_syncingSelection) return;
+        _syncingSelection = true;
+        try
         {
-            ViewModel.SelectedProfiles = lstProfiles.SelectedItems.Cast<ProfileItemModel>().ToList();
+            var selected = lstProfiles.SelectedItems.Cast<object>().ToList();
+            foreach (var item in lstProfileCards.SelectedItems.Cast<object>().Where(item => !selected.Contains(item)).ToList()) lstProfileCards.SelectedItems.Remove(item);
+            foreach (var item in selected.Where(item => !lstProfileCards.SelectedItems.Contains(item))) lstProfileCards.SelectedItems.Add(item);
+            if (ViewModel != null) ViewModel.SelectedProfiles = lstProfiles.SelectedItems.Cast<ProfileItemModel>().ToList();
         }
+        finally { _syncingSelection = false; }
+    }
+
+    private void ProfileCards_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (_syncingSelection) return;
+        _syncingSelection = true;
+        try
+        {
+            var selected = lstProfileCards.SelectedItems.Cast<object>().ToList();
+            foreach (var item in lstProfiles.SelectedItems.Cast<object>().Where(item => !selected.Contains(item)).ToList()) lstProfiles.SelectedItems.Remove(item);
+            foreach (var item in selected.Where(item => !lstProfiles.SelectedItems.Contains(item))) lstProfiles.SelectedItems.Add(item);
+            if (ViewModel != null) ViewModel.SelectedProfiles = lstProfileCards.SelectedItems.Cast<ProfileItemModel>().ToList();
+        }
+        finally { _syncingSelection = false; }
+    }
+
+    private void CardView_Click(object sender, RoutedEventArgs e) => SetCardView(true);
+    private void TableView_Click(object sender, RoutedEventArgs e) => SetCardView(false);
+    private void SetCardView(bool cards)
+    {
+        _showCards = cards;
+        lstProfileCards.Visibility = cards ? Visibility.Visible : Visibility.Collapsed;
+        lstProfiles.Visibility = cards ? Visibility.Collapsed : Visibility.Visible;
+        btnCardView.Style = (Style)FindResource(cards ? "WorkspacePrimaryButton" : "WorkspaceSecondaryButton");
+        btnTableView.Style = (Style)FindResource(cards ? "WorkspaceSecondaryButton" : "WorkspacePrimaryButton");
+    }
+
+    private void ProfileCards_Press(object sender, MouseButtonEventArgs e) => _cardPressPosition = e.GetPosition(lstProfileCards);
+
+    private async void ProfileCards_Click(object sender, MouseButtonEventArgs e)
+    {
+        var displacement = e.GetPosition(lstProfileCards) - _cardPressPosition;
+        if (Math.Abs(displacement.X) > SystemParameters.MinimumHorizontalDragDistance || Math.Abs(displacement.Y) > SystemParameters.MinimumVerticalDragDistance) return;
+        if ((Keyboard.Modifiers & (ModifierKeys.Control | ModifierKeys.Shift)) != 0 || ViewModel is null) return;
+        if (ItemsControl.ContainerFromElement(lstProfileCards, e.OriginalSource as DependencyObject) is ListBoxItem { DataContext: ProfileItemModel item })
+            await ViewModel.SetDefaultServer(item.IndexId);
+    }
+
+    private void ProfileCards_RightClick(object sender, MouseButtonEventArgs e)
+    {
+        if (ItemsControl.ContainerFromElement(lstProfileCards, e.OriginalSource as DependencyObject) is ListBoxItem { DataContext: ProfileItemModel item } && !lstProfileCards.SelectedItems.Contains(item))
+            lstProfileCards.SelectedItem = item;
+    }
+
+    private void ProfileCards_KeyDown(object sender, KeyEventArgs e) => LstProfiles_PreviewKeyDown(sender, e);
+
+    private void Card_MouseEnter(object sender, MouseEventArgs e) => AnimateCard(sender, 0.88, 1);
+    private void Card_MouseLeave(object sender, MouseEventArgs e) => AnimateCard(sender, 0.94, 1);
+    private static void AnimateCard(object sender, double from, double to)
+    {
+        if (SystemParameters.ClientAreaAnimation && sender is ListBoxItem card)
+            card.BeginAnimation(OpacityProperty, new DoubleAnimation(from, to, TimeSpan.FromMilliseconds(120)));
     }
 
     private void LstProfiles_LoadingRow(object? sender, DataGridRowEventArgs e)

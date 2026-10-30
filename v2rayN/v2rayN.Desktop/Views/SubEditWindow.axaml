@@ -1,36 +1,35 @@
-<Window
+<base:PageBase
     x:Class="v2rayN.Desktop.Views.SubEditWindow"
     xmlns="https://github.com/avaloniaui"
+    xmlns:base="clr-namespace:v2rayN.Desktop.Base"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dd="clr-namespace:v2rayN.Desktop.DesignData"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
     xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
+    x:DataType="vms:SubEditViewModel"
+    x:TypeArguments="vms:SubEditViewModel"
     Title="{x:Static resx:ResUI.menuSubSetting}"
-    Width="700"
-    Height="600"
     Design.DataContext="{x:Static dd:DesignData.SubEdit}"
-    ShowInTaskbar="False"
-    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <DockPanel Margin="{StaticResource Margin8}">
         <StackPanel
             Margin="{StaticResource Margin4}"
-            HorizontalAlignment="Center"
+            HorizontalAlignment="Right"
             DockPanel.Dock="Bottom"
             Orientation="Horizontal">
             <Button
                 x:Name="btnSave"
                 MinWidth="100"
                 Content="{x:Static resx:ResUI.TbConfirm}"
-                IsDefault="True" />
+                IsDefault="True"  Classes="workspacePrimary" />
             <Button
                 x:Name="btnCancel"
                 MinWidth="100"
                 Margin="{StaticResource MarginLr8}"
                 Content="{x:Static resx:ResUI.TbCancel}"
-                IsCancel="True" />
+                IsCancel="True"  Classes="workspaceSecondary" />
         </StackPanel>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
 
@@ -129,8 +128,7 @@
                         Width="100"
                         Margin="{StaticResource Margin4}"
                         VerticalAlignment="Center"
-                        DockPanel.Dock="Right"
-                        PlaceholderText="{x:Static resx:ResUI.SubUrlTips}" />
+                        DockPanel.Dock="Right" />
 
                     <TextBlock
                         Margin="{StaticResource Margin4}"
@@ -151,8 +149,7 @@
                     Grid.Row="5"
                     Grid.Column="1"
                     Margin="{StaticResource Margin4}"
-                    VerticalAlignment="Center"
-                    PlaceholderText="{x:Static resx:ResUI.SubUrlTips}" />
+                    VerticalAlignment="Center" />
 
                 <TextBlock
                     Grid.Row="6"
@@ -180,7 +177,6 @@
                     Grid.Column="1"
                     Margin="{StaticResource Margin4}"
                     VerticalAlignment="Center"
-                    PlaceholderText="{x:Static resx:ResUI.SubUrlTips}"
                     TextWrapping="Wrap" />
 
                 <TextBlock
@@ -238,7 +234,7 @@
                     Grid.Row="10"
                     Grid.Column="2"
                     Margin="{StaticResource Margin4}"
-                    Content="{x:Static resx:ResUI.TbSelectProfile}" />
+                    Content="{x:Static resx:ResUI.TbSelectProfile}"  Classes="workspaceSecondary" />
 
                 <TextBlock
                     Grid.Row="11"
@@ -259,7 +255,7 @@
                     Grid.Row="11"
                     Grid.Column="2"
                     Margin="{StaticResource Margin4}"
-                    Content="{x:Static resx:ResUI.TbSelectProfile}" />
+                    Content="{x:Static resx:ResUI.TbSelectProfile}"  Classes="workspaceSecondary" />
 
                 <TextBlock
                     Grid.Row="12"
@@ -307,4 +303,4 @@
             </Grid>
         </ScrollViewer>
     </DockPanel>
-</Window>
+</base:PageBase>

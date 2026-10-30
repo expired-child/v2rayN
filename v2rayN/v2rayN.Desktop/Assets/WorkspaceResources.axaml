@@ -1,0 +1,72 @@
+<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary
+            x:Key="Light">
+            <SolidColorBrush
+                x:Key="WorkspaceCanvas"
+                Color="#F5F6FA" />
+            <SolidColorBrush
+                x:Key="WorkspaceSidebar"
+                Color="#ECEEF4" />
+            <SolidColorBrush
+                x:Key="WorkspaceSurface"
+                Color="#FFFFFF" />
+            <SolidColorBrush
+                x:Key="WorkspaceSurfaceAlt"
+                Color="#F7F8FC" />
+            <SolidColorBrush
+                x:Key="WorkspaceStroke"
+                Color="#E5E8F0" />
+            <SolidColorBrush
+                x:Key="WorkspaceText"
+                Color="#222838" />
+            <SolidColorBrush
+                x:Key="WorkspaceMuted"
+                Color="#727C91" />
+            <SolidColorBrush
+                x:Key="WorkspaceAccent"
+                Color="#3268E8" />
+            <SolidColorBrush
+                x:Key="WorkspaceAccentSoft"
+                Color="#E7EEFF" />
+            <SolidColorBrush
+                x:Key="WorkspaceAccentForeground"
+                Color="#FFFFFF" />
+        </ResourceDictionary>
+        <ResourceDictionary
+            x:Key="Dark">
+            <SolidColorBrush
+                x:Key="WorkspaceCanvas"
+                Color="#12141B" />
+            <SolidColorBrush
+                x:Key="WorkspaceSidebar"
+                Color="#181B24" />
+            <SolidColorBrush
+                x:Key="WorkspaceSurface"
+                Color="#1E222D" />
+            <SolidColorBrush
+                x:Key="WorkspaceSurfaceAlt"
+                Color="#252A37" />
+            <SolidColorBrush
+                x:Key="WorkspaceStroke"
+                Color="#303646" />
+            <SolidColorBrush
+                x:Key="WorkspaceText"
+                Color="#EDF0F8" />
+            <SolidColorBrush
+                x:Key="WorkspaceMuted"
+                Color="#9AA5BC" />
+            <SolidColorBrush
+                x:Key="WorkspaceAccent"
+                Color="#78A5FF" />
+            <SolidColorBrush
+                x:Key="WorkspaceAccentSoft"
+                Color="#293A5B" />
+            <SolidColorBrush
+                x:Key="WorkspaceAccentForeground"
+                Color="#111827" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+</ResourceDictionary>

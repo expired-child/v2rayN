@@ -92,4 +92,12 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
     {
         ViewModel?.TestServerAvailability();
     }
+
+    private async void TestConnection_Click(object? sender, RoutedEventArgs e)
+    {
+        if (ViewModel != null)
+        {
+            await ViewModel.TestServerAvailability();
+        }
+    }
 }

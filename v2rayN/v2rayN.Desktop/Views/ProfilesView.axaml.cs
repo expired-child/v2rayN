@@ -8,6 +8,10 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
 {
     private static Config _config;
     private static readonly string _tag = "ProfilesView";
+    private bool _syncingSelection;
+    private bool _showCards = true;
+    private Point? _cardPressPosition;
+    private string? _pressedCardId;
 
     public ProfilesView()
     {
@@ -20,6 +24,8 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
         txtServerFilter.KeyDown += TxtServerFilter_KeyDown;
         lstProfiles.KeyDown += LstProfiles_KeyDown;
         lstProfiles.SelectionChanged += lstProfiles_SelectionChanged;
+        lstProfileCards.AddHandler(PointerPressedEvent, ProfileCards_PointerPressed, RoutingStrategies.Bubble, true);
+        lstProfileCards.AddHandler(PointerReleasedEvent, ProfileCards_PointerReleased, RoutingStrategies.Bubble, true);
         lstProfiles.DoubleTapped += LstProfiles_DoubleTapped;
         lstProfiles.LoadingRow += LstProfiles_LoadingRow;
         lstProfiles.Sorting += LstProfiles_Sorting;
@@ -37,6 +43,7 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
         this.WhenActivated(disposables =>
         {
             this.OneWayBind(ViewModel, vm => vm.ProfileItems, v => v.lstProfiles.ItemsSource).DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.ProfileItems, v => v.lstProfileCards.ItemsSource).DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.SelectedProfile, v => v.lstProfiles.SelectedItem).DisposeWith(disposables);
 
             // this.OneWayBind(ViewModel, vm => vm.SubItems, v => v.lstGroup.ItemsSource).DisposeWith(disposables);
@@ -119,7 +126,7 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
 
             ViewModel.ProfilesFocusInteraction.RegisterHandler(interaction =>
             {
-                lstProfiles.Focus();
+                if (_showCards) lstProfileCards.Focus(); else lstProfiles.Focus();
                 interaction.SetOutput(RxVoid.Default);
             }).DisposeWith(disposables);
 
@@ -184,18 +191,94 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
 
     public void RefreshServersBiz()
     {
-        if (lstProfiles.SelectedIndex >= 0)
+        if (_showCards && lstProfileCards.SelectedIndex >= 0)
+        {
+            lstProfileCards.ScrollIntoView(lstProfileCards.SelectedIndex);
+        }
+        else if (lstProfiles.SelectedIndex >= 0)
         {
             lstProfiles.ScrollIntoView(lstProfiles.SelectedItem, null);
         }
     }
 
-    private void lstProfiles_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    private void lstProfiles_SelectionChanged(object? sender, SelectionChangedEventArgs e) => SyncCardsFromTable();
+
+    private void SyncCardsFromTable()
     {
-        if (ViewModel != null)
+        if (_syncingSelection) return;
+        _syncingSelection = true;
+        try
         {
-            ViewModel.SelectedProfiles = lstProfiles.SelectedItems.Cast<ProfileItemModel>().ToList();
+            var selected = lstProfiles.SelectedItems.Cast<object>().ToList();
+            if (lstProfileCards.SelectedItems is { } cardSelection)
+            {
+                foreach (var item in cardSelection.Cast<object>().Where(item => !selected.Contains(item)).ToList()) cardSelection.Remove(item);
+                foreach (var item in selected.Where(item => !cardSelection.Contains(item))) cardSelection.Add(item);
+            }
+            if (ViewModel != null) ViewModel.SelectedProfiles = lstProfiles.SelectedItems.Cast<ProfileItemModel>().ToList();
         }
+        finally { _syncingSelection = false; }
+    }
+
+    private void ProfileCards_SelectionChanged(object? sender, SelectionChangedEventArgs e) => SyncTableFromCards();
+
+    private void SyncTableFromCards()
+    {
+        if (_syncingSelection || lstProfileCards.SelectedItems == null) return;
+        _syncingSelection = true;
+        try
+        {
+            var selected = lstProfileCards.SelectedItems.Cast<object>().ToList();
+            foreach (var item in lstProfiles.SelectedItems.Cast<object>().Where(item => !selected.Contains(item)).ToList()) lstProfiles.SelectedItems.Remove(item);
+            foreach (var item in selected.Where(item => !lstProfiles.SelectedItems.Contains(item))) lstProfiles.SelectedItems.Add(item);
+            if (ViewModel != null) ViewModel.SelectedProfiles = lstProfileCards.SelectedItems.Cast<ProfileItemModel>().ToList();
+        }
+        finally { _syncingSelection = false; }
+    }
+
+    private void CardView_Click(object? sender, RoutedEventArgs e) => SetCardView(true);
+    private void TableView_Click(object? sender, RoutedEventArgs e) => SetCardView(false);
+    private void SetCardView(bool cards)
+    {
+        _showCards = cards;
+        lstProfileCards.IsVisible = cards;
+        lstProfiles.IsVisible = !cards;
+        if (cards) SyncCardsFromTable();
+        else SyncTableFromCards();
+        btnCardView.Classes.Set("workspacePrimary", cards);
+        btnCardView.Classes.Set("workspaceSecondary", !cards);
+        btnTableView.Classes.Set("workspacePrimary", !cards);
+        btnTableView.Classes.Set("workspaceSecondary", cards);
+    }
+
+    private void ProfileCards_PointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if (e.Source is not Visual source || source.FindAncestorOfType<ListBoxItem>(true) is not { DataContext: ProfileItemModel item }) return;
+        var pointer = e.GetCurrentPoint(lstProfileCards);
+        if (pointer.Properties.IsRightButtonPressed)
+        {
+            if (lstProfileCards.SelectedItems?.Contains(item) != true) lstProfileCards.SelectedItem = item;
+            lstProfiles.ContextMenu?.Open(lstProfileCards);
+            e.Handled = true;
+        }
+        else if (pointer.Properties.IsLeftButtonPressed)
+        {
+            _cardPressPosition = pointer.Position;
+            _pressedCardId = item.IndexId;
+        }
+    }
+
+    private async void ProfileCards_PointerReleased(object? sender, PointerReleasedEventArgs e)
+    {
+        var start = _cardPressPosition;
+        var pressedId = _pressedCardId;
+        _cardPressPosition = null;
+        _pressedCardId = null;
+        if (start is null || e.InitialPressMouseButton != MouseButton.Left || (e.KeyModifiers & (KeyModifiers.Control | KeyModifiers.Meta | KeyModifiers.Shift)) != 0 || ViewModel is null) return;
+        var end = e.GetPosition(lstProfileCards);
+        if (Math.Abs(end.X - start.Value.X) > 5 || Math.Abs(end.Y - start.Value.Y) > 5) return;
+        if (e.Source is Visual source && source.FindAncestorOfType<ListBoxItem>(true) is { DataContext: ProfileItemModel item } && item.IndexId == pressedId)
+            await ViewModel.SetDefaultServer(item.IndexId);
     }
 
     private void LstProfiles_DoubleTapped(object? sender, Avalonia.Input.TappedEventArgs e)
