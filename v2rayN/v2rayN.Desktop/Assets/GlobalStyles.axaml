@@ -74,10 +74,10 @@
             Value="1" />
         <Setter
             Property="CornerRadius"
-            Value="20" />
+            Value="10" />
         <Setter
             Property="Padding"
-            Value="22" />
+            Value="16" />
     </Style>
     <Style
         Selector="Window.workspace Button">
@@ -121,20 +121,26 @@
     <Style
         Selector="RadioButton.workspaceNav">
         <Setter
+            Property="HorizontalAlignment"
+            Value="Stretch" />
+        <Setter
             Property="Foreground"
             Value="{DynamicResource WorkspaceMuted}" />
         <Setter
             Property="Background"
             Value="Transparent" />
         <Setter
+            Property="BorderBrush"
+            Value="Transparent" />
+        <Setter
             Property="FontSize"
             Value="14" />
         <Setter
             Property="Padding"
-            Value="14,13" />
+            Value="12,9" />
         <Setter
             Property="Margin"
-            Value="0,3" />
+            Value="0,1" />
         <Setter
             Property="Cursor"
             Value="Hand" />
@@ -146,7 +152,7 @@
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="1"
                     Padding="{TemplateBinding Padding}"
-                    CornerRadius="12">
+                    CornerRadius="8">
                     <ContentPresenter
                         Content="{TemplateBinding Content}"
                         VerticalAlignment="Center" />
@@ -164,10 +170,10 @@
         Selector="RadioButton.workspaceNav:checked">
         <Setter
             Property="Background"
-            Value="{DynamicResource WorkspaceAccentSoft}" />
+            Value="{DynamicResource DesignSelectedBackground}" />
         <Setter
             Property="Foreground"
-            Value="{DynamicResource WorkspaceAccent}" />
+            Value="{DynamicResource WorkspaceText}" />
         <Setter
             Property="FontWeight"
             Value="SemiBold" />
@@ -182,7 +188,7 @@
         Selector="Button.workspacePrimary, Button.workspaceSecondary, Button.workspaceNavAction">
         <Setter
             Property="Padding"
-            Value="16,10" />
+            Value="12,7" />
         <Setter
             Property="Cursor"
             Value="Hand" />
@@ -234,6 +240,9 @@
     <Style
         Selector="Button.workspaceNavAction">
         <Setter
+            Property="HorizontalAlignment"
+            Value="Stretch" />
+        <Setter
             Property="Background"
             Value="Transparent" />
         <Setter
@@ -244,10 +253,10 @@
             Value="Left" />
         <Setter
             Property="Padding"
-            Value="14,13" />
+            Value="12,9" />
         <Setter
             Property="Margin"
-            Value="0,3" />
+            Value="0,1" />
         <Setter
             Property="FontSize"
             Value="14" />
@@ -262,10 +271,10 @@
         Selector="Button.workspaceNavAction.active">
         <Setter
             Property="Background"
-            Value="{DynamicResource WorkspaceAccentSoft}" />
+            Value="{DynamicResource DesignSelectedBackground}" />
         <Setter
             Property="Foreground"
-            Value="{DynamicResource WorkspaceAccent}" />
+            Value="{DynamicResource WorkspaceText}" />
         <Setter
             Property="FontWeight"
             Value="SemiBold" />
@@ -318,8 +327,8 @@
     <Style Selector="Window.workspace ScrollBar /template/ Thumb:pointerover"><Setter Property="Opacity" Value="0.8" /></Style>
     <Style Selector="ListBox.workspaceNodes"><Setter Property="Background" Value="Transparent" /><Setter Property="BorderThickness" Value="0" /><Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" /></Style>
     <Style Selector="ListBox.workspaceNodes ListBoxItem"><Setter Property="AutomationProperties.Name" Value="{ReflectionBinding Remarks}" /><Setter Property="Padding" Value="0" /><Setter Property="Margin" Value="0,0,12,12" /><Setter Property="Background" Value="Transparent" /></Style>
-    <Style Selector="Border.nodeCard"><Setter Property="Width" Value="255" /><Setter Property="MinHeight" Value="122" /><Setter Property="Padding" Value="16" /><Setter Property="CornerRadius" Value="14" /><Setter Property="BorderThickness" Value="1" /><Setter Property="BorderBrush" Value="{DynamicResource WorkspaceStroke}" /><Setter Property="Background" Value="{DynamicResource WorkspaceSurfaceAlt}" /></Style>
-    <Style Selector="Border.nodeCard:pointerover, Border.nodeCard.active"><Setter Property="Background" Value="{DynamicResource WorkspaceAccentSoft}" /></Style>
+    <Style Selector="Border.nodeCard"><Setter Property="Width" Value="255" /><Setter Property="MinHeight" Value="104" /><Setter Property="Padding" Value="14" /><Setter Property="CornerRadius" Value="14" /><Setter Property="BorderThickness" Value="1" /><Setter Property="BorderBrush" Value="{DynamicResource WorkspaceStroke}" /><Setter Property="Background" Value="{DynamicResource WorkspaceSurface}" /></Style>
+    <Style Selector="Border.nodeCard:pointerover, Border.nodeCard.active"><Setter Property="Background" Value="{DynamicResource DesignSelectedBackground}" /></Style>
     <Style Selector="Border.nodeCard.active, ListBoxItem:selected Border.nodeCard"><Setter Property="BorderBrush" Value="{DynamicResource WorkspaceAccent}" /></Style>
     <Style Selector="Button.workspaceSidebarAction">
         <Setter Property="Background" Value="Transparent" /><Setter Property="Foreground" Value="{DynamicResource WorkspaceMuted}" /><Setter Property="HorizontalContentAlignment" Value="Left" /><Setter Property="Padding" Value="14,7" /><Setter Property="Margin" Value="0,1" /><Setter Property="FontSize" Value="12" /><Setter Property="CornerRadius" Value="10" />
@@ -350,7 +359,7 @@
         <Setter Property="Background" Value="{DynamicResource WorkspaceSurfaceAlt}" />
     </Style>
     <Style Selector="Expander.workspaceSidebarGroup /template/ ToggleButton#ExpanderHeader:pressed">
-        <Setter Property="Background" Value="{DynamicResource WorkspaceAccentSoft}" />
+        <Setter Property="Background" Value="{DynamicResource DesignSelectedBackground}" />
     </Style>
     <Style Selector="Expander.workspaceSidebarGroup /template/ ToggleButton#ExpanderHeader:focus-visible">
         <Setter Property="BorderBrush" Value="{DynamicResource WorkspaceAccent}" />

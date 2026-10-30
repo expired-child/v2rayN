@@ -5493,5 +5493,7 @@ namespace ServiceLib.Resx {
 
         public static string ClipboardImportInvalid => ResourceManager.GetString("ClipboardImportInvalid", resourceCulture);
 
+        public static string WorkspaceQuickActions => ResourceManager.GetString("WorkspaceQuickActions", resourceCulture);
+        public static string WorkspaceNoProfiles => ResourceManager.GetString("WorkspaceNoProfiles", resourceCulture);
     }
 }

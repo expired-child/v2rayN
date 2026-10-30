@@ -22,9 +22,9 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         _workspaceNavigation.Changed += RenderWorkspacePage;
         navOverview.IsChecked = true;
         btnNavSubscriptions.Click += SubscriptionsNavigation_Click;
-        btnManageSubscriptions.Click += SubscriptionsNavigation_Click;
+        btnDashboardSubscriptions.Click += SubscriptionsNavigation_Click;
+        btnDashboardProfiles.Click += (_, _) => navProfiles.IsChecked = true;
         btnNavRouting.Click += RoutingNavigation_Click;
-        btnManageRouting.Click += RoutingNavigation_Click;
         btnQuickSettings.Click += SettingsNavigation_Click;
 
 
@@ -64,7 +64,6 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
             this.BindCommand(ViewModel, vm => vm.AddCustomOutboundServerCmd, v => v.menuAddCustomOutboundServer).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.AddPolicyGroupServerCmd, v => v.menuAddPolicyGroupServer).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.AddProxyChainServerCmd, v => v.menuAddProxyChainServer).DisposeWith(disposables);
-            this.BindCommand(ViewModel, vm => vm.AddServerViaClipboardCmd, v => v.menuAddServerViaClipboard).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.AddServerViaScanCmd, v => v.menuAddServerViaScan).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.AddServerViaImageCmd, v => v.menuAddServerViaImage).DisposeWith(disposables);
 
@@ -238,7 +237,7 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         btnNavRouting.Classes.Set("active", routing);
         btnQuickSettings.Classes.Set("active", settings);
         pagePanel.IsVisible = page != null;
-        btnPageBack.IsVisible = page != null;
+        btnPageBack.IsVisible = page != null && !(ReferenceEquals(page, _workspaceNavigation.Root) && page is SubSettingWindow or RoutingSettingWindow or OptionSettingWindow);
         if (page != null)
         {
             dashboardPanel.IsVisible = false;
@@ -252,12 +251,6 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         workspacePanel.IsVisible = !overview;
         txtWorkspaceTitle.Text = overview ? ResUI.TbOverview : ResUI.menuServers;
         txtWorkspaceDescription.Text = overview ? ResUI.TbOverviewDescription : ResUI.TbWorkspaceDescription;
-    }
-
-    private void ProfilesNavigation_Click(object? sender, RoutedEventArgs e)
-    {
-        navProfiles.IsChecked = true;
-        WorkspaceNavigation_Changed(sender, e);
     }
 
     private void OnProgramStarted(object state, bool timeout)

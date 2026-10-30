@@ -1960,4 +1960,6 @@ The "Get Certificate" action may fail if a self-signed certificate is used or if
   <data name="WorkspaceAdvancedTools" xml:space="preserve"><value>Advanced &amp; maintenance</value></data>
   <data name="ClipboardImportEmpty" xml:space="preserve"><value>The clipboard has no configuration text. Copy a share link or configuration, then try again.</value></data>
   <data name="ClipboardImportInvalid" xml:space="preserve"><value>No supported configuration was found. Check the copied content and try again.</value></data>
+  <data name="WorkspaceQuickActions" xml:space="preserve"><value>Quick actions</value></data>
+  <data name="WorkspaceNoProfiles" xml:space="preserve"><value>No matching profiles. Adjust the filter or import a configuration.</value></data>
 </root>

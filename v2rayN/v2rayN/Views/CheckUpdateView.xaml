@@ -16,13 +16,32 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+        <Style x:Key="UpdateListItem" TargetType="ListViewItem" BasedOn="{StaticResource lvItemSelected}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border x:Name="Surface" Background="{DynamicResource WorkspaceSurfaceAlt}"
+                                BorderBrush="{DynamicResource WorkspaceStroke}" BorderThickness="1" CornerRadius="8">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Surface" Property="Background" Value="{DynamicResource WorkspaceAccentSoft}" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                <Setter TargetName="Surface" Property="BorderBrush" Value="{DynamicResource WorkspaceAccent}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <DockPanel Margin="{StaticResource Margin8}">
-        <StackPanel
+        <WrapPanel
             Margin="{StaticResource Margin8}"
             HorizontalAlignment="Right"
-            DockPanel.Dock="Bottom"
-            Orientation="Horizontal">
+            DockPanel.Dock="Bottom">
 
             <TextBlock
                 Margin="{StaticResource Margin8}"
@@ -31,6 +50,7 @@
                 Text="{x:Static resx:ResUI.TbSettingsEnableUpdateViaProxy}" />
             <ToggleButton
                 x:Name="togEnableUpdateViaProxy"
+                AutomationProperties.Name="{x:Static resx:ResUI.TbSettingsEnableUpdateViaProxy}"
                 Margin="{StaticResource Margin8}"
                 HorizontalAlignment="Left" />
 
@@ -48,13 +68,13 @@
                 Content="{x:Static resx:ResUI.menuCheckAndUpdate}"
                 IsDefault="True"
                 Style="{StaticResource DefButton}" />
-        </StackPanel>
+        </WrapPanel>
 
-        <StackPanel>
             <ListView
                 x:Name="lstCheckUpdates"
                 BorderThickness="1"
-                ItemContainerStyle="{StaticResource lvItemSelected}">
+                HorizontalContentAlignment="Stretch"
+                ItemContainerStyle="{StaticResource UpdateListItem}">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical" />
@@ -63,7 +83,6 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Border
-                            Width="660"
                             Margin="{StaticResource Margin8}"
                             Padding="0"
                             VerticalAlignment="Center">
@@ -72,13 +91,14 @@
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="Auto" MinWidth="88" />
                                     <ColumnDefinition Width="3*" />
                                 </Grid.ColumnDefinitions>
                                 <ToggleButton
                                     x:Name="togAutoRefresh"
+                                    AutomationProperties.Name="{Binding CoreTypeForStorage}"
                                     Grid.Column="0"
                                     Margin="{StaticResource Margin8}"
                                     HorizontalAlignment="Left"
@@ -90,6 +110,7 @@
                                     Margin="{StaticResource MarginLeftRight4}"
                                     Visibility="{Binding ShowCheckPreRelease, Converter={StaticResource BoolToVisConverter}}">
                                     <ToggleButton
+                                        AutomationProperties.Name="{x:Static resx:ResUI.TbSettingsEnableCheckPreReleaseUpdate}"
                                         Margin="{StaticResource Margin4}"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
@@ -104,6 +125,7 @@
 
                                 <TextBlock
                                     Grid.Column="2"
+                                    Margin="8,0"
                                     VerticalAlignment="Center"
                                     Style="{StaticResource ListItemTitle}"
                                     Text="{Binding CoreTypeForStorage}" />
@@ -118,6 +140,5 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </StackPanel>
     </DockPanel>
 </reactiveui:ReactiveUserControl>

@@ -74,6 +74,7 @@
                 BasedOn="{StaticResource MaterialDesignTextBlock}"
                 TargetType="{x:Type TextBlock}">
                 <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
+                <Setter Property="Foreground" Value="{DynamicResource WorkspaceText}" />
             </Style>
             <Style
                 x:Key="StatusbarItem"

@@ -42,6 +42,11 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
 
         this.WhenActivated(disposables =>
         {
+            this.WhenAnyValue(v => v.ViewModel.ProfileItems.Count)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
+                .Subscribe(count => txtEmptyProfiles.IsVisible = count == 0)
+                .DisposeWith(disposables);
+
             this.OneWayBind(ViewModel, vm => vm.ProfileItems, v => v.lstProfiles.ItemsSource).DisposeWith(disposables);
             this.OneWayBind(ViewModel, vm => vm.ProfileItems, v => v.lstProfileCards.ItemsSource).DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.SelectedProfile, v => v.lstProfiles.SelectedItem).DisposeWith(disposables);

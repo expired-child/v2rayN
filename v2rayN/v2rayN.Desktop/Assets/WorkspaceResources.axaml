@@ -6,67 +6,109 @@
             x:Key="Light">
             <SolidColorBrush
                 x:Key="WorkspaceCanvas"
-                Color="#F5F6FA" />
+                Color="#EEF2F7" />
             <SolidColorBrush
                 x:Key="WorkspaceSidebar"
-                Color="#ECEEF4" />
+                Color="#E5EBF3" />
             <SolidColorBrush
                 x:Key="WorkspaceSurface"
                 Color="#FFFFFF" />
             <SolidColorBrush
                 x:Key="WorkspaceSurfaceAlt"
-                Color="#F7F8FC" />
+                Color="#F4F7FB" />
             <SolidColorBrush
                 x:Key="WorkspaceStroke"
-                Color="#E5E8F0" />
+                Color="#DBE2EB" />
             <SolidColorBrush
                 x:Key="WorkspaceText"
-                Color="#222838" />
+                Color="#19293B" />
             <SolidColorBrush
                 x:Key="WorkspaceMuted"
-                Color="#727C91" />
+                Color="#52677D" />
             <SolidColorBrush
                 x:Key="WorkspaceAccent"
-                Color="#3268E8" />
+                Color="#246DE8" />
             <SolidColorBrush
                 x:Key="WorkspaceAccentSoft"
-                Color="#E7EEFF" />
+                Color="#E8F0FF" />
             <SolidColorBrush
                 x:Key="WorkspaceAccentForeground"
                 Color="#FFFFFF" />
+            <SolidColorBrush x:Key="DesignBackgroundPrimary" Color="#EEF2F7" />
+            <SolidColorBrush x:Key="DesignBackgroundSecondary" Color="#E5EBF3" />
+            <SolidColorBrush x:Key="DesignSurfacePrimary" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="DesignSurfaceSecondary" Color="#F4F7FB" />
+            <SolidColorBrush x:Key="DesignSurfaceElevated" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="DesignControlBackground" Color="#F4F7FB" />
+            <SolidColorBrush x:Key="DesignTextPrimary" Color="#19293B" />
+            <SolidColorBrush x:Key="DesignTextSecondary" Color="#52677D" />
+            <SolidColorBrush x:Key="DesignTextTertiary" Color="#5D7187" />
+            <SolidColorBrush x:Key="DesignAccentPrimary" Color="#246DE8" />
+            <SolidColorBrush x:Key="DesignAccentSubtle" Color="#E8F0FF" />
+            <SolidColorBrush x:Key="DesignBorderSubtle" Color="#DBE2EB" />
+            <SolidColorBrush x:Key="DesignSeparator" Color="#DBE2EB" />
+            <SolidColorBrush x:Key="DesignSuccess" Color="#087A62" />
+            <SolidColorBrush x:Key="DesignWarning" Color="#905200" />
+            <SolidColorBrush x:Key="DesignError" Color="#BA2525" />
+            <SolidColorBrush x:Key="DesignSelectedBackground" Color="#E8F0FF" />
+            <SolidColorBrush x:Key="DesignHoverBackground" Color="#E6EDF7" />
+            <SolidColorBrush x:Key="DesignPressedBackground" Color="#D7E4F6" />
+            <SolidColorBrush x:Key="DesignDisabledForeground" Color="#66798D" />
+            <SolidColorBrush x:Key="DesignDisabledBackground" Color="#E7EDF4" />
         </ResourceDictionary>
         <ResourceDictionary
             x:Key="Dark">
             <SolidColorBrush
                 x:Key="WorkspaceCanvas"
-                Color="#12141B" />
+                Color="#111D2B" />
             <SolidColorBrush
                 x:Key="WorkspaceSidebar"
-                Color="#181B24" />
+                Color="#182738" />
             <SolidColorBrush
                 x:Key="WorkspaceSurface"
-                Color="#1E222D" />
+                Color="#203144" />
             <SolidColorBrush
                 x:Key="WorkspaceSurfaceAlt"
-                Color="#252A37" />
+                Color="#293C50" />
             <SolidColorBrush
                 x:Key="WorkspaceStroke"
-                Color="#303646" />
+                Color="#3B5269" />
             <SolidColorBrush
                 x:Key="WorkspaceText"
-                Color="#EDF0F8" />
+                Color="#EDF4FB" />
             <SolidColorBrush
                 x:Key="WorkspaceMuted"
-                Color="#9AA5BC" />
+                Color="#B3C5D6" />
             <SolidColorBrush
                 x:Key="WorkspaceAccent"
-                Color="#78A5FF" />
+                Color="#80B3FF" />
             <SolidColorBrush
                 x:Key="WorkspaceAccentSoft"
-                Color="#293A5B" />
+                Color="#293F5A" />
             <SolidColorBrush
                 x:Key="WorkspaceAccentForeground"
-                Color="#111827" />
+                Color="#101D2C" />
+            <SolidColorBrush x:Key="DesignBackgroundPrimary" Color="#111D2B" />
+            <SolidColorBrush x:Key="DesignBackgroundSecondary" Color="#182738" />
+            <SolidColorBrush x:Key="DesignSurfacePrimary" Color="#203144" />
+            <SolidColorBrush x:Key="DesignSurfaceSecondary" Color="#293C50" />
+            <SolidColorBrush x:Key="DesignSurfaceElevated" Color="#293C50" />
+            <SolidColorBrush x:Key="DesignControlBackground" Color="#293C50" />
+            <SolidColorBrush x:Key="DesignTextPrimary" Color="#EDF4FB" />
+            <SolidColorBrush x:Key="DesignTextSecondary" Color="#B3C5D6" />
+            <SolidColorBrush x:Key="DesignTextTertiary" Color="#A9BDCF" />
+            <SolidColorBrush x:Key="DesignAccentPrimary" Color="#80B3FF" />
+            <SolidColorBrush x:Key="DesignAccentSubtle" Color="#293F5A" />
+            <SolidColorBrush x:Key="DesignBorderSubtle" Color="#3B5269" />
+            <SolidColorBrush x:Key="DesignSeparator" Color="#3B5269" />
+            <SolidColorBrush x:Key="DesignSuccess" Color="#81DFC0" />
+            <SolidColorBrush x:Key="DesignWarning" Color="#FFC16B" />
+            <SolidColorBrush x:Key="DesignError" Color="#FF8580" />
+            <SolidColorBrush x:Key="DesignSelectedBackground" Color="#293F5A" />
+            <SolidColorBrush x:Key="DesignHoverBackground" Color="#30485F" />
+            <SolidColorBrush x:Key="DesignPressedBackground" Color="#3A5570" />
+            <SolidColorBrush x:Key="DesignDisabledForeground" Color="#9BAFC2" />
+            <SolidColorBrush x:Key="DesignDisabledBackground" Color="#293C50" />
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>

@@ -4,34 +4,55 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <SolidColorBrush
         x:Key="WorkspaceCanvas"
-        Color="#F5F6FA" />
+        Color="#EEF2F7" />
     <SolidColorBrush
         x:Key="WorkspaceSidebar"
-        Color="#ECEEF4" />
+        Color="#E5EBF3" />
     <SolidColorBrush
         x:Key="WorkspaceSurface"
         Color="#FFFFFF" />
     <SolidColorBrush
         x:Key="WorkspaceSurfaceAlt"
-        Color="#F7F8FC" />
+        Color="#F4F7FB" />
     <SolidColorBrush
         x:Key="WorkspaceStroke"
-        Color="#E5E8F0" />
+        Color="#DBE2EB" />
     <SolidColorBrush
         x:Key="WorkspaceText"
-        Color="#222838" />
+        Color="#19293B" />
     <SolidColorBrush
         x:Key="WorkspaceMuted"
-        Color="#727C91" />
+        Color="#52677D" />
     <SolidColorBrush
         x:Key="WorkspaceAccent"
-        Color="#3268E8" />
+        Color="#246DE8" />
     <SolidColorBrush
         x:Key="WorkspaceAccentSoft"
-        Color="#E7EEFF" />
+        Color="#E8F0FF" />
     <SolidColorBrush
         x:Key="WorkspaceAccentForeground"
         Color="#FFFFFF" />
+    <SolidColorBrush x:Key="DesignBackgroundPrimary" Color="#EEF2F7" />
+    <SolidColorBrush x:Key="DesignBackgroundSecondary" Color="#E5EBF3" />
+    <SolidColorBrush x:Key="DesignSurfacePrimary" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="DesignSurfaceSecondary" Color="#F4F7FB" />
+    <SolidColorBrush x:Key="DesignSurfaceElevated" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="DesignControlBackground" Color="#F4F7FB" />
+    <SolidColorBrush x:Key="DesignTextPrimary" Color="#19293B" />
+    <SolidColorBrush x:Key="DesignTextSecondary" Color="#52677D" />
+    <SolidColorBrush x:Key="DesignTextTertiary" Color="#5D7187" />
+    <SolidColorBrush x:Key="DesignAccentPrimary" Color="#246DE8" />
+    <SolidColorBrush x:Key="DesignAccentSubtle" Color="#E8F0FF" />
+    <SolidColorBrush x:Key="DesignBorderSubtle" Color="#DBE2EB" />
+    <SolidColorBrush x:Key="DesignSeparator" Color="#DBE2EB" />
+    <SolidColorBrush x:Key="DesignSuccess" Color="#087A62" />
+    <SolidColorBrush x:Key="DesignWarning" Color="#905200" />
+    <SolidColorBrush x:Key="DesignError" Color="#BA2525" />
+    <SolidColorBrush x:Key="DesignSelectedBackground" Color="#E8F0FF" />
+    <SolidColorBrush x:Key="DesignHoverBackground" Color="#E6EDF7" />
+    <SolidColorBrush x:Key="DesignPressedBackground" Color="#D7E4F6" />
+    <SolidColorBrush x:Key="DesignDisabledForeground" Color="#66798D" />
+    <SolidColorBrush x:Key="DesignDisabledBackground" Color="#E7EDF4" />
     <Style
         x:Key="WorkspaceCard"
         TargetType="Border">
@@ -46,10 +67,10 @@
             Value="1" />
         <Setter
             Property="CornerRadius"
-            Value="20" />
+            Value="10" />
         <Setter
             Property="Padding"
-            Value="22" />
+            Value="16" />
     </Style>
     <Style
         x:Key="WorkspaceCaption"
@@ -78,7 +99,7 @@
             Value="1" />
         <Setter
             Property="Padding"
-            Value="16,10" />
+            Value="12,7" />
         <Setter
             Property="FontSize"
             Value="{DynamicResource StdFontSize}" />
@@ -192,10 +213,10 @@
             Value="14" />
         <Setter
             Property="Padding"
-            Value="14,13" />
+            Value="12,9" />
         <Setter
             Property="Margin"
-            Value="0,3" />
+            Value="0,1" />
         <Setter
             Property="Cursor"
             Value="Hand" />
@@ -210,7 +231,7 @@
                         BorderBrush="Transparent"
                         BorderThickness="1"
                         Padding="{TemplateBinding Padding}"
-                        CornerRadius="12">
+                        CornerRadius="8">
                         <ContentPresenter
                             VerticalAlignment="Center"
                             RecognizesAccessKey="True" />
@@ -230,10 +251,10 @@
                             <Setter
                                 TargetName="Surface"
                                 Property="Background"
-                                Value="{DynamicResource WorkspaceAccentSoft}" />
+                                Value="{DynamicResource DesignSelectedBackground}" />
                             <Setter
                                 Property="Foreground"
-                                Value="{DynamicResource WorkspaceAccent}" />
+                                Value="{DynamicResource WorkspaceText}" />
                             <Setter
                                 Property="FontWeight"
                                 Value="SemiBold" />
@@ -266,10 +287,10 @@
             Value="Left" />
         <Setter
             Property="Padding"
-            Value="14,13" />
+            Value="12,9" />
         <Setter
             Property="Margin"
-            Value="0,3" />
+            Value="0,1" />
         <Setter
             Property="Foreground"
             Value="{DynamicResource WorkspaceMuted}" />
@@ -282,10 +303,10 @@
                 Value="active">
                 <Setter
                     Property="Background"
-                    Value="{DynamicResource WorkspaceAccentSoft}" />
+                    Value="{DynamicResource DesignSelectedBackground}" />
                 <Setter
                     Property="Foreground"
-                    Value="{DynamicResource WorkspaceAccent}" />
+                    Value="{DynamicResource WorkspaceText}" />
                 <Setter
                     Property="FontWeight"
                     Value="SemiBold" />
@@ -406,14 +427,14 @@
         <Setter Property="Padding" Value="0" /><Setter Property="Margin" Value="0,0,12,12" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" /><Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ListBoxItem">
-            <Border x:Name="Card" Width="255" MinHeight="122" Padding="16" CornerRadius="14" Background="{DynamicResource WorkspaceSurfaceAlt}" BorderBrush="{DynamicResource WorkspaceStroke}" BorderThickness="1">
+            <Border x:Name="Card" Width="255" MinHeight="104" Padding="14" CornerRadius="14" Background="{DynamicResource WorkspaceSurface}" BorderBrush="{DynamicResource WorkspaceStroke}" BorderThickness="1">
                 <ContentPresenter />
             </Border>
             <ControlTemplate.Triggers>
-                <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Card" Property="Background" Value="{DynamicResource WorkspaceAccentSoft}" /></Trigger>
+                <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Card" Property="Background" Value="{DynamicResource DesignSelectedBackground}" /></Trigger>
                 <Trigger Property="IsSelected" Value="True"><Setter TargetName="Card" Property="BorderBrush" Value="{DynamicResource WorkspaceAccent}" /></Trigger>
                 <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Card" Property="BorderThickness" Value="2" /></Trigger>
-                <DataTrigger Binding="{Binding IsActive}" Value="True"><Setter TargetName="Card" Property="BorderBrush" Value="{DynamicResource WorkspaceAccent}" /><Setter TargetName="Card" Property="Background" Value="{DynamicResource WorkspaceAccentSoft}" /></DataTrigger>
+                <DataTrigger Binding="{Binding IsActive}" Value="True"><Setter TargetName="Card" Property="BorderBrush" Value="{DynamicResource WorkspaceAccent}" /><Setter TargetName="Card" Property="Background" Value="{DynamicResource DesignSelectedBackground}" /></DataTrigger>
             </ControlTemplate.Triggers>
         </ControlTemplate></Setter.Value></Setter>
     </Style>
@@ -436,7 +457,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Surface" Property="Background" Value="{DynamicResource WorkspaceSurfaceAlt}" /></Trigger>
-                        <Trigger Property="IsSelected" Value="True"><Setter TargetName="Surface" Property="Background" Value="{DynamicResource WorkspaceAccentSoft}" /><Setter TargetName="Surface" Property="TextElement.Foreground" Value="{DynamicResource WorkspaceAccent}" /><Setter TargetName="Surface" Property="TextElement.FontWeight" Value="SemiBold" /></Trigger>
+                        <Trigger Property="IsSelected" Value="True"><Setter TargetName="Surface" Property="Background" Value="{DynamicResource DesignSelectedBackground}" /><Setter TargetName="Surface" Property="TextElement.Foreground" Value="{DynamicResource WorkspaceText}" /><Setter TargetName="Surface" Property="TextElement.FontWeight" Value="SemiBold" /></Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Surface" Property="BorderBrush" Value="{DynamicResource WorkspaceAccent}" /></Trigger>
                         <Trigger Property="IsEnabled" Value="False"><Setter Property="Opacity" Value="0.4" /></Trigger>
                     </ControlTemplate.Triggers>
@@ -559,7 +580,7 @@
                             <Setter TargetName="Surface" Property="Background" Value="{DynamicResource WorkspaceSurfaceAlt}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="Surface" Property="Background" Value="{DynamicResource WorkspaceAccentSoft}" />
+                            <Setter TargetName="Surface" Property="Background" Value="{DynamicResource DesignSelectedBackground}" />
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="True">
                             <Setter TargetName="Surface" Property="BorderBrush" Value="{DynamicResource WorkspaceAccent}" />
@@ -648,7 +669,7 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsHighlighted" Value="True">
-                            <Setter TargetName="Surface" Property="Background" Value="{DynamicResource WorkspaceAccentSoft}" />
+                            <Setter TargetName="Surface" Property="Background" Value="{DynamicResource DesignSelectedBackground}" />
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="True">
                             <Setter TargetName="Surface" Property="BorderBrush" Value="{DynamicResource WorkspaceAccent}" />

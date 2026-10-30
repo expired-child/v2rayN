@@ -11,7 +11,7 @@
     xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
     x:TypeArguments="vms:OptionSettingViewModel"
     Style="{StaticResource ViewGlobal}"
-    Background="{DynamicResource WorkspaceSurface}"
+    Background="Transparent"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -23,7 +23,7 @@
     <DockPanel Margin="{StaticResource Margin8}">
         <StackPanel
             Margin="{StaticResource Margin4}"
-            HorizontalAlignment="Center"
+            HorizontalAlignment="Right"
             DockPanel.Dock="Bottom"
             Orientation="Horizontal">
             <Button
@@ -42,7 +42,7 @@
 
         <TabControl HorizontalContentAlignment="Left" ItemContainerStyle="{StaticResource WorkspaceTabItem}">
             <TabItem Header="{x:Static resx:ResUI.TbSettingsCore}">
-                <ScrollViewer VerticalScrollBarVisibility="Visible">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <Grid Margin="{StaticResource Margin8}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -732,7 +732,7 @@
             </TabItem>-->
 
             <TabItem Header="{x:Static resx:ResUI.TbSettingsN}">
-                <ScrollViewer VerticalScrollBarVisibility="Visible">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <Grid Grid.Row="2" Margin="{StaticResource Margin8}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -1257,7 +1257,7 @@
             </TabItem>
 
             <TabItem Header="{x:Static resx:ResUI.TbSettingsTunMode}">
-                <ScrollViewer VerticalScrollBarVisibility="Visible">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <Grid Margin="{StaticResource Margin8}" DockPanel.Dock="Top">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />

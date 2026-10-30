@@ -19,20 +19,21 @@
         DisableOpeningAnimation="True"
         Identifier="dialogHostSub">
         <DockPanel Margin="{StaticResource Margin8}">
-            <Menu Margin="{StaticResource Margin4}" DockPanel.Dock="Top">
-                <MenuItem x:Name="menuSubAdd" Header="{x:Static resx:ResUI.menuSubAdd}" />
-                <MenuItem x:Name="menuSubDelete" Header="{x:Static resx:ResUI.menuSubDelete}" />
-                <MenuItem x:Name="menuSubEdit" Header="{x:Static resx:ResUI.menuSubEdit}" />
-                <MenuItem x:Name="menuSubShare" Header="{x:Static resx:ResUI.menuSubShare}" />
-                <MenuItem x:Name="menuClose" Header="{x:Static resx:ResUI.menuClose}" />
-            </Menu>
+            <WrapPanel Margin="0,0,0,12" DockPanel.Dock="Top">
+                <Button x:Name="menuSubAdd" Classes="workspacePrimary" Margin="0,0,8,0" Content="{x:Static resx:ResUI.menuSubAdd}" />
+                <Button x:Name="menuSubEdit" Classes="workspaceSecondary" Margin="0,0,8,0" Content="{x:Static resx:ResUI.menuSubEdit}" />
+                <Button x:Name="menuSubDelete" Classes="workspaceSecondary" Margin="0,0,8,0" Content="{x:Static resx:ResUI.menuSubDelete}" />
+                <Button x:Name="menuSubShare" Classes="workspaceSecondary" Margin="0,0,8,0" Content="{x:Static resx:ResUI.menuSubShare}" />
+                <Button x:Name="menuClose" Classes="workspaceSecondary" Content="{x:Static resx:ResUI.menuClose}" />
+            </WrapPanel>
 
             <DataGrid
                 x:Name="lstSubscription"
+                Background="Transparent"
                 AutoGenerateColumns="False"
-                BorderThickness="1"
+                BorderThickness="0"
                 CanUserResizeColumns="True"
-                GridLinesVisibility="All"
+                GridLinesVisibility="Horizontal"
                 HeadersVisibility="Column"
                 IsReadOnly="True"
                 ItemsSource="{Binding SubItems}">

@@ -9,16 +9,37 @@ public static class WorkspaceTheme
     {
         var colors = new Dictionary<string, string>
         {
-            ["WorkspaceCanvas"] = dark ? "#12141B" : "#F5F6FA",
-            ["WorkspaceSidebar"] = dark ? "#181B24" : "#ECEEF4",
-            ["WorkspaceSurface"] = dark ? "#1E222D" : "#FFFFFF",
-            ["WorkspaceSurfaceAlt"] = dark ? "#252A37" : "#F7F8FC",
-            ["WorkspaceStroke"] = dark ? "#303646" : "#E5E8F0",
-            ["WorkspaceText"] = dark ? "#EDF0F8" : "#222838",
-            ["WorkspaceMuted"] = dark ? "#9AA5BC" : "#727C91",
-            ["WorkspaceAccent"] = dark ? "#78A5FF" : "#3268E8",
-            ["WorkspaceAccentSoft"] = dark ? "#293A5B" : "#E7EEFF",
-            ["WorkspaceAccentForeground"] = dark ? "#111827" : "#FFFFFF",
+            ["WorkspaceCanvas"] = dark ? "#111D2B" : "#EEF2F7",
+            ["WorkspaceSidebar"] = dark ? "#182738" : "#E5EBF3",
+            ["WorkspaceSurface"] = dark ? "#203144" : "#FFFFFF",
+            ["WorkspaceSurfaceAlt"] = dark ? "#293C50" : "#F4F7FB",
+            ["WorkspaceStroke"] = dark ? "#3B5269" : "#DBE2EB",
+            ["WorkspaceText"] = dark ? "#EDF4FB" : "#19293B",
+            ["WorkspaceMuted"] = dark ? "#B3C5D6" : "#52677D",
+            ["WorkspaceAccent"] = dark ? "#80B3FF" : "#246DE8",
+            ["WorkspaceAccentSoft"] = dark ? "#293F5A" : "#E8F0FF",
+            ["WorkspaceAccentForeground"] = dark ? "#101D2C" : "#FFFFFF",
+            ["DesignBackgroundPrimary"] = dark ? "#111D2B" : "#EEF2F7",
+            ["DesignBackgroundSecondary"] = dark ? "#182738" : "#E5EBF3",
+            ["DesignSurfacePrimary"] = dark ? "#203144" : "#FFFFFF",
+            ["DesignSurfaceSecondary"] = dark ? "#293C50" : "#F4F7FB",
+            ["DesignSurfaceElevated"] = dark ? "#293C50" : "#FFFFFF",
+            ["DesignControlBackground"] = dark ? "#293C50" : "#F4F7FB",
+            ["DesignTextPrimary"] = dark ? "#EDF4FB" : "#19293B",
+            ["DesignTextSecondary"] = dark ? "#B3C5D6" : "#52677D",
+            ["DesignTextTertiary"] = dark ? "#A9BDCF" : "#5D7187",
+            ["DesignAccentPrimary"] = dark ? "#80B3FF" : "#246DE8",
+            ["DesignAccentSubtle"] = dark ? "#293F5A" : "#E8F0FF",
+            ["DesignBorderSubtle"] = dark ? "#3B5269" : "#DBE2EB",
+            ["DesignSeparator"] = dark ? "#3B5269" : "#DBE2EB",
+            ["DesignSuccess"] = dark ? "#81DFC0" : "#087A62",
+            ["DesignWarning"] = dark ? "#FFC16B" : "#905200",
+            ["DesignError"] = dark ? "#FF8580" : "#BA2525",
+            ["DesignSelectedBackground"] = dark ? "#293F5A" : "#E8F0FF",
+            ["DesignHoverBackground"] = dark ? "#30485F" : "#E6EDF7",
+            ["DesignPressedBackground"] = dark ? "#3A5570" : "#D7E4F6",
+            ["DesignDisabledForeground"] = dark ? "#9BAFC2" : "#66798D",
+            ["DesignDisabledBackground"] = dark ? "#293C50" : "#E7EDF4",
         };
         foreach (var (key, value) in colors)
         {
@@ -36,12 +57,7 @@ public static class WorkspaceTheme
             var luminance = 0.2126 * Linear(color.R) + 0.7152 * Linear(color.G) + 0.0722 * Linear(color.B);
             Application.Current.Resources["WorkspaceAccent"] = new SolidColorBrush(color);
             Application.Current.Resources["WorkspaceAccentForeground"] = new SolidColorBrush(luminance > 0.179 ? Colors.Black : Colors.White);
-            var surface = ((SolidColorBrush)Application.Current.Resources["WorkspaceCanvas"]).Color;
-            var weight = dark ? 0.22 : 0.10;
-            Application.Current.Resources["WorkspaceAccentSoft"] = new SolidColorBrush(Color.FromRgb(
-                (byte)(surface.R * (1 - weight) + color.R * weight),
-                (byte)(surface.G * (1 - weight) + color.G * weight),
-                (byte)(surface.B * (1 - weight) + color.B * weight)));
+            Application.Current.Resources["DesignAccentPrimary"] = new SolidColorBrush(color);
         }
     }
 }

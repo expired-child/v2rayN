@@ -59,6 +59,27 @@
                     <materialDesign:PackIcon VerticalAlignment="Center" Kind="Plus" />
                 </Button>
 
+                <Menu Margin="4,0" VerticalAlignment="Center"
+                      DataContext="{Binding ViewModel, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                      Style="{StaticResource ToolbarMenu}">
+                    <MenuItem AutomationProperties.Name="{x:Static resx:ResUI.WorkspaceSubscriptionUpdates}">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Refresh" VerticalAlignment="Center" />
+                                <TextBlock Margin="6,0" Text="{x:Static resx:ResUI.WorkspaceSubscriptionUpdates}" />
+                                <materialDesign:PackIcon Kind="ChevronDown" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </MenuItem.Header>
+                        <MenuItem Header="{x:Static resx:ResUI.menuSubGroupUpdate}" Command="{Binding SubGroupUpdateCmd}" />
+                        <MenuItem Header="{x:Static resx:ResUI.menuSubGroupUpdateViaProxy}" Command="{Binding SubGroupUpdateViaProxyCmd}" />
+                        <Separator />
+                        <MenuItem Header="{x:Static resx:ResUI.menuSubUpdate}" Command="{Binding SubUpdateCmd}" />
+                        <MenuItem Header="{x:Static resx:ResUI.menuSubUpdateViaProxy}" Command="{Binding SubUpdateViaProxyCmd}" />
+                    </MenuItem>
+                </Menu>
+
+            </WrapPanel>
+            <WrapPanel Margin="0,0,0,12" DockPanel.Dock="Top">
                 <TextBox
                     x:Name="txtServerFilter"
                     Width="200"
@@ -86,6 +107,7 @@
 
                 <Button
                     x:Name="btnFastRealPing"
+                        AutomationProperties.Name="{x:Static resx:ResUI.menuFastRealPing}"
                     Width="36"
                     Height="36"
                     Margin="{StaticResource MarginLeftRight4}"
@@ -95,6 +117,7 @@
                 </Button>
                 <Button
                     x:Name="menuMixedTestServer"
+                        AutomationProperties.Name="{x:Static resx:ResUI.menuMixedTestServer}"
                     Width="36"
                     Height="36"
                     Margin="{StaticResource MarginLeftRight4}"
@@ -104,6 +127,7 @@
                 </Button>
             </WrapPanel>
             <Grid>
+            <TextBlock x:Name="txtEmptyProfiles" Panel.ZIndex="2" Visibility="Collapsed" IsHitTestVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" Margin="16" Foreground="{DynamicResource WorkspaceMuted}" Text="{x:Static resx:ResUI.WorkspaceNoProfiles}" />
             <ListBox x:Name="lstProfileCards" SelectionMode="Extended" Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" ContextMenu="{Binding ElementName=lstProfiles, Path=ContextMenu}" SelectionChanged="ProfileCards_SelectionChanged" PreviewMouseRightButtonDown="ProfileCards_RightClick" PreviewMouseLeftButtonDown="ProfileCards_Press" MouseLeftButtonUp="ProfileCards_Click" PreviewKeyDown="ProfileCards_KeyDown">
                 <ListBox.ItemContainerStyle><Style TargetType="ListBoxItem" BasedOn="{StaticResource WorkspaceNodeItem}"><EventSetter Event="MouseEnter" Handler="Card_MouseEnter" /><EventSetter Event="MouseLeave" Handler="Card_MouseLeave" /></Style></ListBox.ItemContainerStyle>
                 <ListBox.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ListBox.ItemsPanel>

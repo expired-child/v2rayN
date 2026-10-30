@@ -105,7 +105,7 @@
                         </Button>
                         <StackPanel
                             Orientation="Horizontal"
-                            Margin="16,12,0,0">
+                            Margin="0,4,0,0">
                             <ContentControl
                                 x:Name="conTheme"
                                 ToolTip.Tip="{x:Static resx:ResUI.TbAppearance}" />
@@ -208,7 +208,6 @@
                                     AutomationProperties.Name="{x:Static resx:ResUI.WorkspaceAddConfiguration}"
                                     IsExpanded="False">
                                     <StackPanel Margin="8,2,0,6">
-                                        <Button x:Name="menuAddServerViaClipboard" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddServerViaClipboard}" TextWrapping="Wrap" /></Button>
                                         <Button x:Name="menuAddServerViaScan" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddServerViaScan}" TextWrapping="Wrap" /></Button>
                                         <Button x:Name="menuAddServerViaImage" Classes="workspaceSidebarAction"><TextBlock Text="{x:Static resx:ResUI.menuAddServerViaImage}" TextWrapping="Wrap" /></Button>
                                         <Expander x:Name="navManualConfiguration" Classes="workspaceSidebarGroup" Margin="8,2,0,2"
@@ -290,10 +289,10 @@
             </Border>
             <DockPanel
                 Grid.Column="1"
-                Margin="28,26,28,20">
+                Margin="24,20,24,16">
                 <DockPanel
                     DockPanel.Dock="Top"
-                    Margin="0,0,0,26">
+                    Margin="0,0,0,18">
                     <StackPanel
                         DockPanel.Dock="Right"
                         Orientation="Horizontal"
@@ -310,7 +309,7 @@
                                     Width="20"
                                     Height="20"
                                     Stretch="Uniform"
-                                    Stroke="{DynamicResource WorkspaceText}"
+                                    Stroke="{DynamicResource WorkspaceAccentForeground}"
                                     StrokeThickness="1.6"
                                     Data="M12,4 L12,20 M4,12 L20,12" />
                                 <TextBlock
@@ -333,13 +332,13 @@
                         <TextBlock
                             x:Name="txtWorkspaceTitle"
                             Text="{x:Static resx:ResUI.TbOverview}"
-                            FontSize="28"
+                            FontSize="22"
                             FontWeight="SemiBold" />
                         <TextBlock
                             x:Name="txtWorkspaceDescription"
                             Text="{x:Static resx:ResUI.TbOverviewDescription}"
                             Classes="workspaceCaption"
-                            Margin="0,7,0,0" />
+                            Margin="0,4,0,0" />
                     </StackPanel>
                 </DockPanel>
                 <DockPanel
@@ -363,81 +362,17 @@
                         <StackPanel>
                             <ContentControl
                                 x:Name="contentStatusBarView" />
-                            <TextBlock
-                                Text="{x:Static resx:ResUI.TbQuickAccess}"
-                                FontSize="16"
-                                FontWeight="SemiBold"
-                                Margin="2,26,0,14" />
-                            <UniformGrid
-                                Columns="3">
-                                <Button
-                                    Classes="workspaceSecondary"
-                                    Click="ProfilesNavigation_Click"
-                                    Padding="18"
-                                    Margin="0,0,12,0">
-                                    <StackPanel
-                                        Orientation="Horizontal">
-                                        <Path
-                                            Width="20"
-                                            Height="20"
-                                            Stretch="Uniform"
-                                            Stroke="{DynamicResource WorkspaceText}"
-                                            StrokeThickness="1.6"
-                                            Data="M3,3 L21,3 L21,9 L3,9 Z M3,15 L21,15 L21,21 L3,21 Z M6,6 L8,6 M6,18 L8,18" />
-                                        <TextBlock
-                                            Text="{x:Static resx:ResUI.TbManageProfiles}"
-                                            Margin="12,0,0,0"
-                                            VerticalAlignment="Center" />
-                                    </StackPanel>
-                                </Button>
-                                <Button
-                                    x:Name="btnManageSubscriptions"
-                                    Classes="workspaceSecondary"
-                                    HorizontalContentAlignment="Stretch"
-                                    Margin="0,0,12,0"
-                                    Padding="18">
-                                    <StackPanel
-                                        Orientation="Horizontal">
-                                        <Path
-                                            Width="20"
-                                            Height="20"
-                                            Stretch="Uniform"
-                                            Stroke="{DynamicResource WorkspaceText}"
-                                            StrokeThickness="1.6"
-                                            Data="M5,3 L19,3 L19,21 L5,21 Z M9,3 L9,21" />
-                                        <TextBlock
-                                            Text="{x:Static resx:ResUI.TbManageSubscriptions}"
-                                            Margin="12,0,0,0"
-                                            VerticalAlignment="Center" />
-                                    </StackPanel>
-                                </Button>
-                                <Button
-                                    x:Name="btnManageRouting"
-                                    Classes="workspaceSecondary"
-                                    HorizontalContentAlignment="Stretch"
-                                    Margin="0,0,12,0"
-                                    Padding="18">
-                                    <StackPanel
-                                        Orientation="Horizontal">
-                                        <Path
-                                            Width="20"
-                                            Height="20"
-                                            Stretch="Uniform"
-                                            Stroke="{DynamicResource WorkspaceText}"
-                                            StrokeThickness="1.6"
-                                            Data="M4,5 L10,5 L10,19 L20,19 M4,19 L7,19 M14,5 L20,5 M17,2 L20,5 L17,8 M17,16 L20,19 L17,22" />
-                                        <TextBlock
-                                            Text="{x:Static resx:ResUI.menuRouting}"
-                                            Margin="12,0,0,0"
-                                            VerticalAlignment="Center" />
-                                    </StackPanel>
-                                </Button>
-                            </UniformGrid>
+                            <Border Classes="workspaceCard" Margin="0,18,0,0">
+                                <StackPanel>
+                                    <TextBlock Text="{x:Static resx:ResUI.WorkspaceQuickActions}" FontSize="16" FontWeight="SemiBold" />
+                                    <WrapPanel Margin="0,12,0,0">
+                                        <Button x:Name="btnDashboardProfiles" Classes="workspaceSecondary" Margin="0,0,10,8" Content="{x:Static resx:ResUI.menuServers}" />
+                                        <Button x:Name="btnDashboardSubscriptions" Classes="workspaceSecondary" Margin="0,0,10,8" Content="{x:Static resx:ResUI.menuSubscription}" />
                             <Button
                                 x:Name="btnQuickUpdate"
                                 Classes="workspaceSecondary"
                                 HorizontalAlignment="Left"
-                                Margin="0,18,0,0">
+                                Margin="0,0,0,8">
                                 <StackPanel
                                     Orientation="Horizontal">
                                     <Path
@@ -453,6 +388,9 @@
                                         VerticalAlignment="Center" />
                                 </StackPanel>
                             </Button>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </Border>
                             <Button
                                 x:Name="btnNewUpdate"
                                 Classes="workspacePrimary"
@@ -466,7 +404,9 @@
                         x:Name="workspacePanel"
                         IsVisible="False"
                         Classes="workspaceCard"
-                        Padding="18">
+                        Padding="0"
+                        Background="Transparent"
+                        BorderThickness="0">
                         <Grid>
                             <Grid
                                 x:Name="gridMain"
@@ -546,7 +486,9 @@
                         x:Name="pagePanel"
                         IsVisible="False"
                         Classes="workspaceCard"
-                        Padding="18">
+                        Padding="0"
+                        Background="Transparent"
+                        BorderThickness="0">
                         <ContentControl
                             x:Name="pageHost" />
                     </Border>

@@ -11,7 +11,7 @@
     xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
     x:TypeArguments="vms:SubSettingViewModel"
     Style="{StaticResource ViewGlobal}"
-    Background="{DynamicResource WorkspaceSurface}"
+    Background="Transparent"
     mc:Ignorable="d">
     <materialDesign:DialogHost
         materialDesign:TransitionAssist.DisableTransitions="True"
@@ -19,7 +19,7 @@
         Identifier="SubDialog"
         Style="{StaticResource MaterialDesignEmbeddedDialogHost}">
         <DockPanel>
-            <Border DockPanel.Dock="Top" Background="{DynamicResource WorkspaceSurfaceAlt}" CornerRadius="12" Padding="6" Margin="0,0,0,14">
+            <Border DockPanel.Dock="Top" Background="Transparent" Padding="0" Margin="0,0,0,12">
                 <Border.Resources>
                     <Style TargetType="Button" BasedOn="{StaticResource WorkspaceSecondaryButton}">
                         <Setter Property="Margin" Value="4" />
@@ -77,13 +77,14 @@
 
             <DataGrid
                 x:Name="lstSubscription"
+                Background="Transparent"
                 AutoGenerateColumns="False"
-                BorderThickness="1"
+                BorderThickness="0"
                 CanUserAddRows="False"
                 CanUserResizeRows="False"
                 CanUserSortColumns="False"
                 EnableRowVirtualization="True"
-                GridLinesVisibility="All"
+                GridLinesVisibility="Horizontal"
                 HeadersVisibility="Column"
                 IsReadOnly="True"
                 Style="{StaticResource DefDataGrid}">

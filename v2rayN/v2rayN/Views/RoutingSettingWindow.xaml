@@ -11,7 +11,7 @@
     xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
     x:TypeArguments="vms:RoutingSettingViewModel"
     Style="{StaticResource ViewGlobal}"
-    Background="{DynamicResource WorkspaceSurface}"
+    Background="Transparent"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -19,7 +19,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel>
-        <Border DockPanel.Dock="Top" Background="{DynamicResource WorkspaceSurfaceAlt}" CornerRadius="12" Padding="6" Margin="0,0,0,14">
+        <Border DockPanel.Dock="Top" Background="Transparent" Padding="0" Margin="0,0,0,12">
                 <Border.Resources>
                     <Style TargetType="Button" BasedOn="{StaticResource WorkspaceSecondaryButton}">
                         <Setter Property="Margin" Value="4" />
@@ -101,13 +101,14 @@
             <TabItem HorizontalAlignment="Left" Header="{x:Static resx:ResUI.TbRoutingTabRuleList}">
                 <DataGrid
                     x:Name="lstRoutings"
+                    Background="Transparent"
                     AutoGenerateColumns="False"
-                    BorderThickness="1"
+                    BorderThickness="0"
                     CanUserAddRows="False"
                     CanUserResizeRows="False"
                     CanUserSortColumns="False"
                     EnableRowVirtualization="True"
-                    GridLinesVisibility="All"
+                    GridLinesVisibility="Horizontal"
                     HeadersVisibility="Column"
                     IsReadOnly="True"
                     Style="{StaticResource DefDataGrid}">
@@ -143,9 +144,9 @@
                         <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsActive}" Value="True">
-                                    <Setter Property="Background" Value="{DynamicResource MaterialDesign.Brush.Primary.Light}" />
-                                    <Setter Property="Foreground" Value="Black" />
-                                    <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesign.Brush.Primary.Light}" />
+                                    <Setter Property="Background" Value="{DynamicResource DesignSelectedBackground}" />
+                                    <Setter Property="Foreground" Value="{DynamicResource WorkspaceText}" />
+                                    <Setter Property="BorderBrush" Value="{DynamicResource DesignSelectedBackground}" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>

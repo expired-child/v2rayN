@@ -126,7 +126,7 @@ public partial class ThemeSettingViewModel : MyReactiveObject
         var isDark = theme.GetBaseTheme() == BaseTheme.Dark;
         if (_config.UiItem.ColorPrimaryName.IsNullOrEmpty())
         {
-            var color = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(isDark ? "#78A5FF" : "#3268E8");
+            var color = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(isDark ? "#64B0FF" : "#0064D3");
             theme.PrimaryLight = new ColorPair(color.Lighten());
             theme.PrimaryMid = new ColorPair(color);
             theme.PrimaryDark = new ColorPair(color.Darken());

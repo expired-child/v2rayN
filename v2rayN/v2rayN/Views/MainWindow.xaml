@@ -207,7 +207,6 @@
                                     AutomationProperties.Name="{x:Static resx:ResUI.WorkspaceAddConfiguration}"
                                     IsExpanded="False">
                                     <StackPanel Margin="8,2,0,6">
-                                        <Button x:Name="menuAddServerViaClipboard" Style="{StaticResource WorkspaceSidebarAction}"><TextBlock Text="{x:Static resx:ResUI.menuAddServerViaClipboard}" TextWrapping="Wrap" /></Button>
                                         <Button x:Name="menuAddServerViaScan" Style="{StaticResource WorkspaceSidebarAction}"><TextBlock Text="{x:Static resx:ResUI.menuAddServerViaScan}" TextWrapping="Wrap" /></Button>
                                         <Button x:Name="menuAddServerViaImage" Style="{StaticResource WorkspaceSidebarAction}"><TextBlock Text="{x:Static resx:ResUI.menuAddServerViaImage}" TextWrapping="Wrap" /></Button>
                                         <Expander x:Name="navManualConfiguration" Style="{StaticResource WorkspaceSidebarGroup}" Margin="8,2,0,2"
@@ -289,10 +288,10 @@
             </Border>
             <DockPanel
                 Grid.Column="1"
-                Margin="28,26,28,20">
+                Margin="24,20,24,16">
                 <DockPanel
                     DockPanel.Dock="Top"
-                    Margin="0,0,0,26">
+                    Margin="0,0,0,18">
                     <StackPanel
                         DockPanel.Dock="Right"
                         Orientation="Horizontal"
@@ -330,13 +329,13 @@
                         <TextBlock
                             x:Name="txtWorkspaceTitle"
                             Text="{x:Static resx:ResUI.TbOverview}"
-                            FontSize="28"
+                            FontSize="22"
                             FontWeight="SemiBold" />
                         <TextBlock
                             x:Name="txtWorkspaceDescription"
                             Text="{x:Static resx:ResUI.TbOverviewDescription}"
                             Style="{StaticResource WorkspaceCaption}"
-                            Margin="0,7,0,0" />
+                            Margin="0,4,0,0" />
                     </StackPanel>
                 </DockPanel>
                 <DockPanel
@@ -360,75 +359,17 @@
                         <StackPanel>
                             <ContentControl
                                 x:Name="contentStatusBarView" />
-                            <TextBlock
-                                Text="{x:Static resx:ResUI.TbQuickAccess}"
-                                FontSize="16"
-                                FontWeight="SemiBold"
-                                Margin="2,26,0,14" />
-                            <UniformGrid
-                                Columns="3">
-                                <Button
-                                    Style="{StaticResource WorkspaceSecondaryButton}"
-                                    Click="ProfilesNavigation_Click"
-                                    Padding="18"
-                                    Margin="0,0,12,0">
-                                    <StackPanel
-                                        Orientation="Horizontal">
-                                        <materialDesign:PackIcon
-                                            Kind="ServerOutline"
-                                            Width="20"
-                                            Height="20"
-                                            VerticalAlignment="Center" />
-                                        <TextBlock
-                                            Text="{x:Static resx:ResUI.TbManageProfiles}"
-                                            Margin="12,0,0,0"
-                                            VerticalAlignment="Center" />
-                                    </StackPanel>
-                                </Button>
-                                <Button
-                                    x:Name="btnManageSubscriptions"
-                                    Style="{StaticResource WorkspaceSecondaryButton}"
-                                    HorizontalContentAlignment="Stretch"
-                                    Margin="0,0,12,0"
-                                    Padding="18">
-                                    <StackPanel
-                                        Orientation="Horizontal">
-                                        <materialDesign:PackIcon
-                                            Kind="BookOutline"
-                                            Width="20"
-                                            Height="20"
-                                            VerticalAlignment="Center" />
-                                        <TextBlock
-                                            Text="{x:Static resx:ResUI.TbManageSubscriptions}"
-                                            Margin="12,0,0,0"
-                                            VerticalAlignment="Center" />
-                                    </StackPanel>
-                                </Button>
-                                <Button
-                                    x:Name="btnManageRouting"
-                                    Style="{StaticResource WorkspaceSecondaryButton}"
-                                    HorizontalContentAlignment="Stretch"
-                                    Margin="0,0,12,0"
-                                    Padding="18">
-                                    <StackPanel
-                                        Orientation="Horizontal">
-                                        <materialDesign:PackIcon
-                                            Kind="Routes"
-                                            Width="20"
-                                            Height="20"
-                                            VerticalAlignment="Center" />
-                                        <TextBlock
-                                            Text="{x:Static resx:ResUI.menuRouting}"
-                                            Margin="12,0,0,0"
-                                            VerticalAlignment="Center" />
-                                    </StackPanel>
-                                </Button>
-                            </UniformGrid>
+                            <Border Style="{StaticResource WorkspaceCard}" Margin="0,18,0,0">
+                                <StackPanel>
+                                    <TextBlock Text="{x:Static resx:ResUI.WorkspaceQuickActions}" FontSize="16" FontWeight="SemiBold" />
+                                    <WrapPanel Margin="0,12,0,0">
+                                        <Button x:Name="btnDashboardProfiles" Style="{StaticResource WorkspaceSecondaryButton}" Margin="0,0,10,8" Content="{x:Static resx:ResUI.menuServers}" />
+                                        <Button x:Name="btnDashboardSubscriptions" Style="{StaticResource WorkspaceSecondaryButton}" Margin="0,0,10,8" Content="{x:Static resx:ResUI.menuSubscription}" />
                             <Button
                                 x:Name="btnQuickUpdate"
                                 Style="{StaticResource WorkspaceSecondaryButton}"
                                 HorizontalAlignment="Left"
-                                Margin="0,18,0,0">
+                                Margin="0,0,0,8">
                                 <StackPanel
                                     Orientation="Horizontal">
                                     <materialDesign:PackIcon
@@ -442,6 +383,9 @@
                                         VerticalAlignment="Center" />
                                 </StackPanel>
                             </Button>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </Border>
                             <Button
                                 x:Name="btnNewUpdate"
                                 Style="{StaticResource WorkspacePrimaryButton}"
@@ -455,7 +399,9 @@
                         x:Name="workspacePanel"
                         Visibility="Collapsed"
                         Style="{StaticResource WorkspaceCard}"
-                        Padding="18">
+                        Padding="0"
+                        Background="Transparent"
+                        BorderThickness="0">
                         <Grid>
                             <Grid
                                 x:Name="gridMain"
@@ -628,7 +574,9 @@
                         x:Name="pagePanel"
                         Visibility="Collapsed"
                         Style="{StaticResource WorkspaceCard}"
-                        Padding="18">
+                        Padding="0"
+                        Background="Transparent"
+                        BorderThickness="0">
                         <ContentControl
                             x:Name="pageHost" />
                     </Border>

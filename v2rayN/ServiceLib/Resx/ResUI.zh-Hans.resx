@@ -1952,4 +1952,6 @@
   <data name="WorkspaceAdvancedTools" xml:space="preserve"><value>高级与维护</value></data>
   <data name="ClipboardImportEmpty" xml:space="preserve"><value>剪贴板中没有配置文本，请先复制分享链接或配置内容，再重试。</value></data>
   <data name="ClipboardImportInvalid" xml:space="preserve"><value>未识别到支持的配置，请检查复制的内容后重试。</value></data>
+  <data name="WorkspaceQuickActions" xml:space="preserve"><value>常用操作</value></data>
+  <data name="WorkspaceNoProfiles" xml:space="preserve"><value>没有匹配的配置项。请调整筛选条件或导入配置。</value></data>
 </root>

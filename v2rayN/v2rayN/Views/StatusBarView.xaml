@@ -31,12 +31,12 @@
                     Grid.Column="0"
                     Style="{StaticResource WorkspaceCard}"
                     Background="{DynamicResource WorkspaceAccentSoft}"
-                    BorderBrush="{DynamicResource WorkspaceAccentSoft}"
-                    MinHeight="216">
+                    BorderBrush="{DynamicResource WorkspaceStroke}"
+                    MinHeight="148">
                     <DockPanel>
                         <StackPanel
                             DockPanel.Dock="Top"
-                            Margin="0,0,0,18">
+                            Margin="0,0,0,12">
                             <TextBlock
                                 Text="{x:Static resx:ResUI.TbCurrentConnection}"
                                 Foreground="{DynamicResource WorkspaceAccent}"
@@ -46,7 +46,7 @@
                             DockPanel.Dock="Bottom"
                             Style="{StaticResource WorkspaceSecondaryButton}"
                             HorizontalAlignment="Left"
-                            Margin="0,20,0,0"
+                            Margin="0,12,0,0"
                             Click="TestConnection_Click"
                             Content="{x:Static resx:ResUI.TbTestConnection}" />
                         <StackPanel>
@@ -73,7 +73,7 @@
                 <Border
                     Grid.Column="2"
                     Style="{StaticResource WorkspaceCard}"
-                    MinHeight="216">
+                    MinHeight="148">
                     <StackPanel>
                         <TextBlock
                             Text="{x:Static resx:ResUI.TbNetworkTraffic}"
@@ -83,7 +83,7 @@
                             FontSize="17"
                             Foreground="{DynamicResource WorkspaceText}"
                             TextTrimming="CharacterEllipsis"
-                            Margin="0,18,0,0"
+                            Margin="0,12,0,0"
                             FontWeight="SemiBold"
                             ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" />
                         <TextBlock
@@ -125,7 +125,7 @@
                         <Border
                             Height="1"
                             Background="{DynamicResource WorkspaceStroke}"
-                            Margin="0,20,0,14" />
+                            Margin="0,12,0,10" />
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition
@@ -161,7 +161,8 @@
                 FontSize="16"
                 FontWeight="SemiBold"
                 Foreground="{DynamicResource WorkspaceText}"
-                Margin="2,26,0,14" />
+                Margin="2,18,0,10" />
+            <Border Style="{StaticResource WorkspaceCard}" Padding="14">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition
@@ -177,8 +178,7 @@
                 </Grid.ColumnDefinitions>
                 <Border
                     Grid.Column="0"
-                    Style="{StaticResource WorkspaceCard}"
-                    MinHeight="130">
+                    Padding="4,4,8,4">
                     <StackPanel>
                         <TextBlock
                             Text="{x:Static resx:ResUI.menuSystemproxy}"
@@ -186,7 +186,7 @@
                         <ComboBox
                             x:Name="cmbSystemProxy"
                             Style="{StaticResource WorkspaceComboBox}"
-                            Margin="0,16,0,0"
+                            Margin="0,10,0,0"
                             HorizontalAlignment="Stretch"
                             ToolTip="{x:Static resx:ResUI.menuSystemproxy}"
                             AutomationProperties.Name="{x:Static resx:ResUI.menuSystemproxy}">
@@ -203,8 +203,7 @@
                 </Border>
                 <Border
                     Grid.Column="2"
-                    Style="{StaticResource WorkspaceCard}"
-                    MinHeight="130">
+                    Padding="4,4,8,4">
                     <StackPanel
                         x:Name="spEnableTun">
                         <TextBlock
@@ -214,14 +213,13 @@
                             x:Name="togEnableTun"
                             Style="{StaticResource WorkspaceToggle}"
                             HorizontalAlignment="Left"
-                            Margin="0,16,0,0"
+                            Margin="0,10,0,0"
                             AutomationProperties.Name="{x:Static resx:ResUI.TbEnableTunAs}" />
                     </StackPanel>
                 </Border>
                 <Border
                     Grid.Column="4"
-                    Style="{StaticResource WorkspaceCard}"
-                    MinHeight="130">
+                    Padding="4,4,8,4">
                     <StackPanel>
                         <TextBlock
                             Text="{x:Static resx:ResUI.menuRouting}"
@@ -230,13 +228,14 @@
                             x:Name="cmbRoutings2"
                             Style="{StaticResource WorkspaceComboBox}"
                             DisplayMemberPath="Remarks"
-                            Margin="0,16,0,0"
+                            Margin="0,10,0,0"
                             HorizontalAlignment="Stretch"
                             ToolTip="{x:Static resx:ResUI.menuRouting}"
                             AutomationProperties.Name="{x:Static resx:ResUI.menuRouting}" />
                     </StackPanel>
                 </Border>
             </Grid>
+            </Border>
         </StackPanel>
         <tb:TaskbarIcon
             x:Name="tbNotify"
